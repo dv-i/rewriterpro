@@ -7,9 +7,9 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
 		"@types/jest": "^27.5.2",
-		"@types/node": "^16.18.34",
 		"@types/react": "^18.2.8",
 		"@types/react-dom": "^18.2.4",
+		"axios": "^1.4.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-scripts": "5.0.1",
@@ -17,7 +17,8 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start-proxy": "node proxy.ts",
+		"start": "set HTPPS=true && react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
@@ -43,8 +44,10 @@
 		]
 	},
 	"devDependencies": {
+		"@types/node": "^20.2.5",
 		"@typescript-eslint/eslint-plugin": "^5.59.8",
 		"@typescript-eslint/parser": "^5.59.8",
+		"cors-anywhere": "^0.4.4",
 		"eslint": "^8.42.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-airbnb-typescript": "^17.0.0",
