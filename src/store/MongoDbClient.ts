@@ -19,7 +19,7 @@ class MongoDbClient {
 		filter: {
 			[key: string]: string;
 		}
-	): Promise<AxiosResponse<User> | null> {
+	): Promise<User | null> {
 		try {
 			const body = {
 				dataSource: DATABASE.DATA_SOURCE,
@@ -43,7 +43,7 @@ class MongoDbClient {
 		filter?: {
 			[key: string]: string;
 		}
-	): Promise<AxiosResponse<User[]> | []> {
+	): Promise<User[] | []> {
 		try {
 			const body = {
 				dataSource: DATABASE.DATA_SOURCE,
