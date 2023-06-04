@@ -4,7 +4,8 @@ import Alert from "./Alert";
 import Settings from "./Settings";
 import AIInteractor from "./AIInteractor";
 import { FEATURE_FLAGS } from "./constants";
-
+import "react-toastify/dist/ReactToastify.css";
+import "./assets/index.css";
 function App() {
 	return (
 		<div className="h-screen flex flex-col flex-grow">

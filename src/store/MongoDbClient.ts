@@ -80,7 +80,6 @@ class MongoDbClient {
 				throw new Error("User already exists");
 			}
 			const response = await this.client.post("/action/insertOne", body);
-			console.log(response.data);
 			return response.data;
 		} catch (error) {
 			console.error(error);
