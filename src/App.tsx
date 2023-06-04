@@ -1,26 +1,36 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import NavBar from "./NavBar";
+import Alert from "./Alert";
+import Settings from "./Settings";
+import AIInteractor from "./AIInteractor";
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header>
+		<div className="h-screen flex flex-col flex-grow">
+			<NavBar />
+			<AIInteractorCard
+				CardHeader={<Settings />}
+				CardBody={<AIInteractor />}
+			/>
 		</div>
 	);
 }
 
 export default App;
+
+interface AIInteractorCardProps {
+	CardHeader: JSX.Element;
+	CardBody: JSX.Element;
+}
+function AIInteractorCard({ CardHeader, CardBody }: AIInteractorCardProps) {
+	return (
+		<main className="-mt-48 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+			<Alert />
+
+			<div className="h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
+				<div className="px-4 h-20 py-5 sm:px-6">{CardHeader}</div>
+				<div className="px-4 py-5 h-full sm:p-6">{CardBody}</div>
+			</div>
+		</main>
+	);
+}
