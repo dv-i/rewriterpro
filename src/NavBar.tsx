@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import {
 	Disclosure,
@@ -8,7 +8,10 @@ import {
 	Dialog,
 } from "@headlessui/react";
 import SideBar from "./SideBar";
-
+import logo from "./assets/logo.png";
+import { FEATURE_FLAGS } from "./constants";
+import { clearAuthenticatedUser, getAuthenticatedUser } from "./store/browser";
+import { User } from "./store/dataInterfaces";
 const user = {
 	name: "Tom Cook",
 	email: "tom@example.com",
@@ -16,16 +19,13 @@ const user = {
 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-	{ name: "Summarizer", href: "#", current: true },
+	{ name: "Rewriter", href: "#", current: true },
 	// { name: "Team", href: "#", current: false },
 	// { name: "Projects", href: "#", current: false },
 	// { name: "Calendar", href: "#", current: false },
 	// { name: "Reports", href: "#", current: false },
 ];
-const userNavigation = [
-	{ name: "Your Profile", href: "#" },
-	{ name: "Sign out", href: "#" },
-];
+
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
@@ -36,6 +36,29 @@ export default function NavBar() {
 		"login" | "signup" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
+	const [storedAutheduser, setStoredAuthedUser] = useState<User | null>();
+	const userNavigation = [
+		{
+			name: "Your Profile", onClick: () => {
+				return;
+			}
+		},
+		{
+			name: "Sign out", onClick: () => {
+				clearAuthenticatedUser();
+				setStoredAuthedUser(null);
+			}
+		},
+	];
+
+	useEffect(() => {
+		if (!sideBarMode) {
+			const authedUser = getAuthenticatedUser();
+			if (authedUser) {
+				setStoredAuthedUser(authedUser);
+			}
+		}
+	}, [sideBarMode]);
 	return (
 		<>
 			<div className="bg-indigo-600 pb-40">
@@ -50,9 +73,9 @@ export default function NavBar() {
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
 											<img
-												className="block h-8 w-8"
-												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-												alt="Your Company"
+												className="block h-10 w-10"
+												src={logo}
+												alt="Rewriter pro"
 											/>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
@@ -83,7 +106,7 @@ export default function NavBar() {
 									<div className="hidden lg:ml-4 lg:block">
 										<div className="flex items-center">
 											{/* Log In Button */}
-											<button
+											{!storedAutheduser && <button
 												type="button"
 												className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
 												onClick={() => {
@@ -94,10 +117,11 @@ export default function NavBar() {
 												<span aria-hidden="true">
 													&rarr;
 												</span>
-											</button>
+											</button>}
+
 
 											{/* Profile dropdown */}
-											<Menu
+											{storedAutheduser && <Menu
 												as="div"
 												className="relative ml-3 flex-shrink-0"
 											>
@@ -133,10 +157,8 @@ export default function NavBar() {
 																	{({
 																		active,
 																	}) => (
-																		<a
-																			href={
-																				item.href
-																			}
+																		<div
+																			onClick={item.onClick}
 																			className={classNames(
 																				active
 																					? "bg-gray-100"
@@ -147,14 +169,15 @@ export default function NavBar() {
 																			{
 																				item.name
 																			}
-																		</a>
+																		</div>
 																	)}
 																</Menu.Item>
 															)
 														)}
 													</Menu.Items>
 												</Transition>
-											</Menu>
+											</Menu>}
+
 
 											{/* Buy Premium Butotn */}
 											<button
@@ -170,7 +193,8 @@ export default function NavBar() {
 											</button>
 
 											<div className="ml-4 pt-1.5">
-												<PremiumToggle />
+												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && <PremiumToggle />}
+
 											</div>
 										</div>
 									</div>

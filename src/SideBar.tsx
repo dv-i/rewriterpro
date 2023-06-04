@@ -1,6 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import logo from "./assets/logo.png";
+import { login, signUp } from "./api";
+import { setAuthenticateduser } from "./store/browser";
+import { ToastContainer, toast } from "react-toastify";
+import { CustomToast } from "./components/common/CustomToast";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
@@ -101,21 +106,45 @@ export interface LogInAndSignUpProps {
 }
 
 function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (email && password) {
+			const authedUser = await login(email, password);
+			if (authedUser) {
+				setAuthenticateduser(authedUser);
+				setSideBarMode(undefined);
+			} else {
+				toast(<CustomToast message="Unauthorized!" />, {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+		}
+	};
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+			<ToastContainer />
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<img
-					className="mx-auto h-10 w-auto"
-					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-					alt="Your Company"
+					className="mx-auto h-20 w-auto"
+					src={logo}
+					alt="Rewriter Pro"
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-					Sign in to your account
+					Log in to your account
 				</h2>
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<form className="space-y-6" action="#" method="POST">
+				<form className="space-y-6" onSubmit={(e) => handleFormSubmit(e)}>
 					<div>
 						<label
 							htmlFor="email"
@@ -129,6 +158,7 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 								name="email"
 								type="email"
 								autoComplete="email"
+								onChange={(e) => setEmail(e.target.value)}
 								required
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
@@ -150,6 +180,7 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 								name="password"
 								type="password"
 								autoComplete="current-password"
+								onChange={(e) => setPassword(e.target.value)}
 								required
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
@@ -161,7 +192,7 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 							type="submit"
 							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>
-							Sign in
+							Log in
 						</button>
 					</div>
 				</form>
@@ -181,8 +212,35 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 }
 
 function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
+
+	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+	const [firstName, setFirstName] = useState<string>("");
+	const [lastName, setLastName] = useState<string>("");
+
+	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (email && password && firstName && lastName) {
+			const createdUser = await signUp({ email, password, firstName, lastName });
+			if (createdUser) {
+				setAuthenticateduser(createdUser);
+				setSideBarMode(undefined);
+			} else {
+				toast(<CustomToast message="Error!" />, {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
+			}
+		}
+	};
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+			<ToastContainer />
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<img
 					className="mx-auto h-10 w-auto"
@@ -195,7 +253,45 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<form className="space-y-6" action="#" method="POST">
+				<form className="space-y-6" onSubmit={(e) => handleFormSubmit(e)}>
+					<div>
+						<label
+							htmlFor="firstName"
+							className="block text-sm font-medium leading-6 text-gray-900"
+						>
+							First name
+						</label>
+						<div className="mt-2">
+							<input
+								id="firstName"
+								name="firstName"
+								type="text"
+								autoComplete="firstName"
+								onChange={(e) => setFirstName(e.target.value)}
+								required
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							/>
+						</div>
+					</div>
+					<div>
+						<label
+							htmlFor="lastName"
+							className="block text-sm font-medium leading-6 text-gray-900"
+						>
+							Last name
+						</label>
+						<div className="mt-2">
+							<input
+								id="lastName"
+								name="lastName"
+								type="text"
+								autoComplete="lastName"
+								onChange={(e) => setLastName(e.target.value)}
+								required
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							/>
+						</div>
+					</div>
 					<div>
 						<label
 							htmlFor="email"
@@ -209,6 +305,7 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 								name="email"
 								type="email"
 								autoComplete="email"
+								onChange={(e) => setEmail(e.target.value)}
 								required
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
@@ -230,6 +327,7 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 								name="password"
 								type="password"
 								autoComplete="current-password"
+								onChange={(e) => setPassword(e.target.value)}
 								required
 								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
