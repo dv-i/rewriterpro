@@ -1,7 +1,7 @@
 {
 	"name": "rewriterpro",
 	"version": "0.1.0",
-	"homepage": "https://dvibuilders.github.io/react-gh-pages",
+	"homepage": "https://dv-i.github.io/rewriterpro",
 	"dependencies": {
 		"@headlessui/react": "^1.7.15",
 		"@heroicons/react": "^2.0.18",
