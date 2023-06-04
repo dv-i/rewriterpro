@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import {
 	ChatBubbleBottomCenterTextIcon,
 	ArrowDownTrayIcon,
 	DocumentDuplicateIcon,
+	TrashIcon,
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
 
@@ -47,6 +48,22 @@ function OriginalSection({
 		}
 	};
 
+	const readTextFromSelectedFile = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const file = event.target.files && event.target.files[0];
+		if (file) {
+			event.preventDefault();
+			const reader = new FileReader();
+			reader.onload = async (e) => {
+				const text = e.target?.result?.toString();
+				text && setAiPrompt(text);
+			};
+			reader.readAsText(file);
+		}
+	};
+
+	const inputFile = useRef<HTMLInputElement | null>(null);
 	return (
 		<div className="flex flex-col h-full w-1/2 pr-3">
 			<h2 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
@@ -71,9 +88,20 @@ function OriginalSection({
 						<div className="inset-x-0 bottom-0 flex justify-between py-2 pl-3">
 							<div className="flex items-center space-x-5 w-full">
 								<div className="flex gap-4 items-center w-full">
+									<input
+										type="file"
+										accept=".txt"
+										id="file"
+										ref={inputFile}
+										style={{ display: "none" }}
+										onChange={readTextFromSelectedFile}
+									/>
 									<button
 										type="button"
 										className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+										onClick={() =>
+											inputFile.current?.click()
+										}
 									>
 										<PaperClipIcon
 											className="h-5 w-5"
@@ -94,7 +122,17 @@ function OriginalSection({
 									</div>
 								</div>
 							</div>
-							<div className="flex-shrink-0">
+							<div className="flex-shrink-0 gap-2 flex flex-row">
+								<button
+									type="submit"
+									className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+									onClick={() => {
+										setAiPrompt("");
+										setAiResult("");
+									}}
+								>
+									<TrashIcon className="h-5 w-5 stroke-indigo-600" />
+								</button>
 								<button
 									type="submit"
 									className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -140,6 +178,22 @@ function AIResultsSection({ aiResult }: AIResultsSectionProps) {
 										<button
 											type="button"
 											className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+											onClick={() => {
+												const blob = new Blob(
+													[aiResult],
+													{
+														type: "text/plain",
+													}
+												);
+												const link =
+													document.createElement("a");
+												link.href =
+													window.URL.createObjectURL(
+														blob
+													);
+												link.download = "result.txt";
+												link.click();
+											}}
 										>
 											<ArrowDownTrayIcon
 												className="h-5 w-5"
@@ -162,6 +216,11 @@ function AIResultsSection({ aiResult }: AIResultsSectionProps) {
 									<button
 										type="button"
 										className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+										onClick={() =>
+											navigator.clipboard.writeText(
+												aiResult
+											)
+										}
 									>
 										<DocumentDuplicateIcon
 											className="h-5 w-5"
