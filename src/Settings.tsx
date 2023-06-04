@@ -5,19 +5,22 @@ import {
 	ChevronDownIcon,
 	ChevronUpDownIcon,
 } from "@heroicons/react/20/solid";
-
-const freeOrPremiumOption = [
-	{
-		title: "Standard",
-		description: "You can customize fluency",
-		current: true,
-	},
+import { FEATURE_FLAGS } from "./constants";
+const premiumDropdownOption = [
 	{
 		title: "Premium",
 		description:
 			"You can customize fluency, tones, audience, emotion, length",
 		current: false,
 	},
+];
+const freeOrPremiumOption = [
+	{
+		title: "Standard",
+		description: "You can customize fluency",
+		current: true,
+	},
+	...(FEATURE_FLAGS.PREMIUM_MODE ? premiumDropdownOption : []),
 ];
 
 function classNames(...classes: string[]) {

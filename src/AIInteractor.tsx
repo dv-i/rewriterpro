@@ -7,6 +7,8 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
+import { toast, ToastContainer } from "react-toastify";
+import { CustomToast } from "./components/common/CustomToast";
 
 export default function AIInteractor() {
 	const [aiPrompt, setAiPrompt] = useState<string>("");
@@ -40,11 +42,23 @@ function OriginalSection({
 	setAiResult,
 }: OriginalSectionProps) {
 	const handleParaphraseClick = async () => {
-		if (aiPrompt) {
-			const response = await getResponseToAPrompt(aiPrompt);
-			if (response) {
-				setAiResult(response);
+		try {
+			if (aiPrompt) {
+				const response = await getResponseToAPrompt(aiPrompt);
+				if (response) {
+					setAiResult(response);
+				}
 			}
+		} catch (error) {
+			toast(<CustomToast message="Could not paraphrase!" />, {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+			});
 		}
 	};
 
