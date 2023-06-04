@@ -29,7 +29,6 @@ export const getResponseToAPrompt = async (
 	} else {
 		const api = new ChatGPTAPI({
 			apiKey: process.env.REACT_APP_OPEN_AI_API_KEY || "",
-			debug: true,
 			completionParams,
 		});
 
