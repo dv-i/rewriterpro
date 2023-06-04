@@ -10,7 +10,7 @@ import {
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
 import { FEATURE_FLAGS } from "./constants";
-import { clearAuthenticatedUser, getAuthenticatedUser } from "./store/browser";
+import { clear, getAuthenticatedUser } from "./store/browser";
 import { User } from "./store/dataInterfaces";
 const user = {
 	name: "Tom Cook",
@@ -26,7 +26,6 @@ const navigation = [
 	// { name: "Reports", href: "#", current: false },
 ];
 
-
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
@@ -39,15 +38,17 @@ export default function NavBar() {
 	const [storedAutheduser, setStoredAuthedUser] = useState<User | null>();
 	const userNavigation = [
 		{
-			name: "Your Profile", onClick: () => {
+			name: "Your Profile",
+			onClick: () => {
 				return;
-			}
+			},
 		},
 		{
-			name: "Sign out", onClick: () => {
-				clearAuthenticatedUser();
+			name: "Sign out",
+			onClick: () => {
+				clear();
 				setStoredAuthedUser(null);
-			}
+			},
 		},
 	];
 
@@ -106,78 +107,84 @@ export default function NavBar() {
 									<div className="hidden lg:ml-4 lg:block">
 										<div className="flex items-center">
 											{/* Log In Button */}
-											{!storedAutheduser && <button
-												type="button"
-												className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
-												onClick={() => {
-													setSideBarMode("login");
-												}}
-											>
-												Log in{" "}
-												<span aria-hidden="true">
-													&rarr;
-												</span>
-											</button>}
-
+											{!storedAutheduser && (
+												<button
+													type="button"
+													className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
+													onClick={() => {
+														setSideBarMode("login");
+													}}
+												>
+													Log in{" "}
+													<span aria-hidden="true">
+														&rarr;
+													</span>
+												</button>
+											)}
 
 											{/* Profile dropdown */}
-											{storedAutheduser && <Menu
-												as="div"
-												className="relative ml-3 flex-shrink-0"
-											>
-												<div>
-													<Menu.Button className="flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
-														<span className="sr-only">
-															Open user menu
-														</span>
-														<img
-															className="h-8 w-8 rounded-full"
-															src={user.imageUrl}
-															alt=""
-														/>
-													</Menu.Button>
-												</div>
-												<Transition
-													as={Fragment}
-													enter="transition ease-out duration-100"
-													enterFrom="transform opacity-0 scale-95"
-													enterTo="transform opacity-100 scale-100"
-													leave="transition ease-in duration-75"
-													leaveFrom="transform opacity-100 scale-100"
-													leaveTo="transform opacity-0 scale-95"
+											{storedAutheduser && (
+												<Menu
+													as="div"
+													className="relative ml-3 flex-shrink-0"
 												>
-													<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-														{userNavigation.map(
-															(item) => (
-																<Menu.Item
-																	key={
-																		item.name
-																	}
-																>
-																	{({
-																		active,
-																	}) => (
-																		<div
-																			onClick={item.onClick}
-																			className={classNames(
-																				active
-																					? "bg-gray-100"
-																					: "",
-																				"block px-4 py-2 text-sm text-gray-700"
-																			)}
-																		>
-																			{
-																				item.name
-																			}
-																		</div>
-																	)}
-																</Menu.Item>
-															)
-														)}
-													</Menu.Items>
-												</Transition>
-											</Menu>}
-
+													<div>
+														<Menu.Button className="flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
+															<span className="sr-only">
+																Open user menu
+															</span>
+															<img
+																className="h-8 w-8 rounded-full"
+																src={
+																	user.imageUrl
+																}
+																alt=""
+															/>
+														</Menu.Button>
+													</div>
+													<Transition
+														as={Fragment}
+														enter="transition ease-out duration-100"
+														enterFrom="transform opacity-0 scale-95"
+														enterTo="transform opacity-100 scale-100"
+														leave="transition ease-in duration-75"
+														leaveFrom="transform opacity-100 scale-100"
+														leaveTo="transform opacity-0 scale-95"
+													>
+														<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+															{userNavigation.map(
+																(item) => (
+																	<Menu.Item
+																		key={
+																			item.name
+																		}
+																	>
+																		{({
+																			active,
+																		}) => (
+																			<div
+																				onClick={
+																					item.onClick
+																				}
+																				className={classNames(
+																					active
+																						? "bg-gray-100"
+																						: "",
+																					"block px-4 py-2 text-sm text-gray-700"
+																				)}
+																			>
+																				{
+																					item.name
+																				}
+																			</div>
+																		)}
+																	</Menu.Item>
+																)
+															)}
+														</Menu.Items>
+													</Transition>
+												</Menu>
+											)}
 
 											{/* Buy Premium Butotn */}
 											<button
@@ -193,8 +200,9 @@ export default function NavBar() {
 											</button>
 
 											<div className="ml-4 pt-1.5">
-												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && <PremiumToggle />}
-
+												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && (
+													<PremiumToggle />
+												)}
 											</div>
 										</div>
 									</div>

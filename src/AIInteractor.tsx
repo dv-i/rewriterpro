@@ -7,7 +7,7 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { CustomToast } from "./components/common/CustomToast";
 
 export default function AIInteractor() {

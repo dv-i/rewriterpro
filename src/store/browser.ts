@@ -11,6 +11,14 @@ export const getAuthenticatedUser = (): User | null => {
 	return null;
 };
 
-export const clearAuthenticatedUser = (): void => {
-	localStorage.removeItem("user");
+export const clear = (): void => {
+	localStorage.clear();
+};
+
+export const setMongoAccessToken = (token: string): void => {
+	localStorage.setItem("mongoAccessToken", token);
+};
+
+export const getMongoAccessToken = (): string | null => {
+	return localStorage.getItem("mongoAccessToken");
 };

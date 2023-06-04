@@ -1,17 +1,38 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { DATABASE } from "../constants";
 import { User } from "./dataInterfaces";
+import { getMongoAccessToken, setMongoAccessToken } from "./browser";
+
+const getAxiosClient = async (): Promise<AxiosInstance> => {
+	if (!getMongoAccessToken()) {
+		await refreshMongoAccessToken();
+	}
+	return axios.create({
+		baseURL: DATABASE.URL,
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${getMongoAccessToken()}`,
+		},
+	});
+};
+
+export const refreshMongoAccessToken = async () => {
+	if (!getMongoAccessToken()) {
+		const mongoAuthDetails = await axios.post(DATABASE.AUTH_URL, {
+			key: process.env.REACT_APP_ATLAS_DATA_API_KEY,
+		});
+		if (mongoAuthDetails.data.access_token) {
+			setMongoAccessToken(mongoAuthDetails.data.access_token);
+		}
+	}
+};
 
 class MongoDbClient {
-	private client: AxiosInstance;
-	constructor() {
-		this.client = axios.create({
-			baseURL: DATABASE.URL,
-			headers: {
-				"Content-Type": "application/json",
-				"api-key": `${process.env.REACT_APP_ATLAS_DATA_API_KEY}`,
-			},
-		});
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	async handleMongoAccessTokenRefresh(error: any): Promise<void> {
+		if (error.code === "ERR_NETWORK") {
+			await refreshMongoAccessToken();
+		}
 	}
 
 	async findOne(
@@ -27,13 +48,17 @@ class MongoDbClient {
 				collection: collection,
 				filter: filter,
 			};
-			const response = await this.client.post("/action/findOne", body);
+			const axiosClient = await getAxiosClient();
+			const response = await axiosClient.post("/action/findOne", body);
 			return response.data.document;
-		} catch (error) {
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
 			console.error(
 				`Failed to findOne from ${DATABASE.NAME} - ${collection}`,
 				error
 			);
+			await this.handleMongoAccessTokenRefresh(error);
+
 			throw error;
 		}
 	}
@@ -51,13 +76,16 @@ class MongoDbClient {
 				collection: collection,
 				filter: filter ? filter : null,
 			};
-			const response = await this.client.post("/action/find", body);
+			const axiosClient = await getAxiosClient();
+
+			const response = await axiosClient.post("/action/find", body);
 			return response.data.documents;
 		} catch (error) {
 			console.error(
 				`Failed to findOne from ${DATABASE.NAME} - ${collection}`,
 				error
 			);
+			await this.handleMongoAccessTokenRefresh(error);
 			throw error;
 		}
 	}
@@ -79,10 +107,12 @@ class MongoDbClient {
 			if (userAlreadyExists) {
 				throw new Error("User already exists");
 			}
-			const response = await this.client.post("/action/insertOne", body);
+			const axiosClient = await getAxiosClient();
+			const response = await axiosClient.post("/action/insertOne", body);
 			return response.data;
 		} catch (error) {
 			console.error(error);
+			await this.handleMongoAccessTokenRefresh(error);
 		}
 		return null;
 	}
