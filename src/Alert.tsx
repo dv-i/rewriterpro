@@ -1,6 +1,5 @@
 import React from "react";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
-import { FEATURE_FLAGS } from "./constants";
 
 export default function Alert() {
 	return (

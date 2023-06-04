@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "./assets/logo.png";
@@ -144,7 +144,10 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<form className="space-y-6" onSubmit={(e) => handleFormSubmit(e)}>
+				<form
+					className="space-y-6"
+					onSubmit={(e) => handleFormSubmit(e)}
+				>
 					<div>
 						<label
 							htmlFor="email"
@@ -212,7 +215,6 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 }
 
 function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
-
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [firstName, setFirstName] = useState<string>("");
@@ -221,7 +223,12 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (email && password && firstName && lastName) {
-			const createdUser = await signUp({ email, password, firstName, lastName });
+			const createdUser = await signUp({
+				email,
+				password,
+				firstName,
+				lastName,
+			});
 			if (createdUser) {
 				setAuthenticateduser(createdUser);
 				setSideBarMode(undefined);
@@ -253,7 +260,10 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 			</div>
 
 			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<form className="space-y-6" onSubmit={(e) => handleFormSubmit(e)}>
+				<form
+					className="space-y-6"
+					onSubmit={(e) => handleFormSubmit(e)}
+				>
 					<div>
 						<label
 							htmlFor="firstName"

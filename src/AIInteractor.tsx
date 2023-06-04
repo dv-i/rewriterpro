@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PaperClipIcon } from "@heroicons/react/20/solid";
 import {
 	ChatBubbleBottomCenterTextIcon,
@@ -13,7 +13,11 @@ export default function AIInteractor() {
 
 	return (
 		<div className="flex flex-wrap flex-row h-full">
-			<OriginalSection aiPrompt={aiPrompt} setAiPrompt={setAiPrompt} setAiResult={setAiResult} />
+			<OriginalSection
+				aiPrompt={aiPrompt}
+				setAiPrompt={setAiPrompt}
+				setAiResult={setAiResult}
+			/>
 			<AIResultsSection aiResult={aiResult} />
 		</div>
 	);
@@ -29,8 +33,11 @@ interface AIResultsSectionProps {
 	aiResult: string;
 }
 
-function OriginalSection({ aiPrompt, setAiPrompt, setAiResult }: OriginalSectionProps) {
-
+function OriginalSection({
+	aiPrompt,
+	setAiPrompt,
+	setAiResult,
+}: OriginalSectionProps) {
 	const handleParaphraseClick = async () => {
 		if (aiPrompt) {
 			const response = await getResponseToAPrompt(aiPrompt);
