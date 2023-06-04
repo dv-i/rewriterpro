@@ -21,7 +21,7 @@ export const getResponseToAPrompt = async (
 		});
 
 		try {
-			const res = await api.sendMessage(prompt);
+			const res = await api.sendMessage(promptFormatter(prompt));
 			return res.text;
 		} catch (error) {
 			console.error(error);
@@ -34,10 +34,16 @@ export const getResponseToAPrompt = async (
 		});
 
 		try {
-			const res = await api.sendMessage(prompt);
+			const res = await api.sendMessage(promptFormatter(prompt));
 			return res.text;
 		} catch (error) {
 			console.error(error);
 		}
 	}
+};
+
+const promptFormatter = (prompt: string): string => {
+	//TODO - proper prompt to be created in this function
+	//e.g tones, audience, length etc.
+	return `Rewrite this text for me - ${prompt}`;
 };

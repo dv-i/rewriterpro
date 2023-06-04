@@ -8,7 +8,8 @@ import {
 	Dialog,
 } from "@headlessui/react";
 import SideBar from "./SideBar";
-
+import logo from "./assets/logo.png";
+import { FEATURE_FLAGS } from "./constants";
 const user = {
 	name: "Tom Cook",
 	email: "tom@example.com",
@@ -16,7 +17,7 @@ const user = {
 		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-	{ name: "Summarizer", href: "#", current: true },
+	{ name: "Rewriter", href: "#", current: true },
 	// { name: "Team", href: "#", current: false },
 	// { name: "Projects", href: "#", current: false },
 	// { name: "Calendar", href: "#", current: false },
@@ -50,9 +51,9 @@ export default function NavBar() {
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
 											<img
-												className="block h-8 w-8"
-												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-												alt="Your Company"
+												className="block h-10 w-10"
+												src={logo}
+												alt="Rewriter pro"
 											/>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
@@ -170,7 +171,8 @@ export default function NavBar() {
 											</button>
 
 											<div className="ml-4 pt-1.5">
-												<PremiumToggle />
+												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && <PremiumToggle />}
+
 											</div>
 										</div>
 									</div>
