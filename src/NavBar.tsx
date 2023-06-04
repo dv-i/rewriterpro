@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import {
 	Disclosure,
@@ -10,6 +10,8 @@ import {
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
 import { FEATURE_FLAGS } from "./constants";
+import { clearAuthenticatedUser, getAuthenticatedUser } from "./store/browser";
+import { User } from "./store/dataInterfaces";
 const user = {
 	name: "Tom Cook",
 	email: "tom@example.com",
@@ -23,10 +25,7 @@ const navigation = [
 	// { name: "Calendar", href: "#", current: false },
 	// { name: "Reports", href: "#", current: false },
 ];
-const userNavigation = [
-	{ name: "Your Profile", href: "#" },
-	{ name: "Sign out", href: "#" },
-];
+
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
@@ -37,6 +36,29 @@ export default function NavBar() {
 		"login" | "signup" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
+	const [storedAutheduser, setStoredAuthedUser] = useState<User | null>();
+	const userNavigation = [
+		{
+			name: "Your Profile", onClick: () => {
+				return;
+			}
+		},
+		{
+			name: "Sign out", onClick: () => {
+				clearAuthenticatedUser();
+				setStoredAuthedUser(null);
+			}
+		},
+	];
+
+	useEffect(() => {
+		if (!sideBarMode) {
+			const authedUser = getAuthenticatedUser();
+			if (authedUser) {
+				setStoredAuthedUser(authedUser);
+			}
+		}
+	}, [sideBarMode]);
 	return (
 		<>
 			<div className="bg-indigo-600 pb-40">
@@ -84,7 +106,7 @@ export default function NavBar() {
 									<div className="hidden lg:ml-4 lg:block">
 										<div className="flex items-center">
 											{/* Log In Button */}
-											<button
+											{!storedAutheduser && <button
 												type="button"
 												className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
 												onClick={() => {
@@ -95,10 +117,11 @@ export default function NavBar() {
 												<span aria-hidden="true">
 													&rarr;
 												</span>
-											</button>
+											</button>}
+
 
 											{/* Profile dropdown */}
-											<Menu
+											{storedAutheduser && <Menu
 												as="div"
 												className="relative ml-3 flex-shrink-0"
 											>
@@ -134,10 +157,8 @@ export default function NavBar() {
 																	{({
 																		active,
 																	}) => (
-																		<a
-																			href={
-																				item.href
-																			}
+																		<div
+																			onClick={item.onClick}
 																			className={classNames(
 																				active
 																					? "bg-gray-100"
@@ -148,14 +169,15 @@ export default function NavBar() {
 																			{
 																				item.name
 																			}
-																		</a>
+																		</div>
 																	)}
 																</Menu.Item>
 															)
 														)}
 													</Menu.Items>
 												</Transition>
-											</Menu>
+											</Menu>}
+
 
 											{/* Buy Premium Butotn */}
 											<button
