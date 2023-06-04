@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import logo from "./assets/logo.png";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
@@ -105,12 +106,12 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<img
-					className="mx-auto h-10 w-auto"
-					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-					alt="Your Company"
+					className="mx-auto h-20 w-auto"
+					src={logo}
+					alt="Rewriter Pro"
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-					Sign in to your account
+					Log in to your account
 				</h2>
 			</div>
 
@@ -161,7 +162,7 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 							type="submit"
 							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>
-							Sign in
+							Log in
 						</button>
 					</div>
 				</form>
