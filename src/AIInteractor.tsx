@@ -9,8 +9,12 @@ import {
 import { getResponseToAPrompt } from "./utils/chatGpt";
 import { toast } from "react-toastify";
 import { CustomToast } from "./components/common/CustomToast";
+import { ToastProps } from "./ToastNotification";
 
-export default function AIInteractor() {
+export interface AIInteractorProps {
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+}
+export default function AIInteractor({ setToast }: AIInteractorProps) {
 	const [aiPrompt, setAiPrompt] = useState<string>("");
 	const [aiResult, setAiResult] = useState<string>("");
 
@@ -21,7 +25,7 @@ export default function AIInteractor() {
 				setAiPrompt={setAiPrompt}
 				setAiResult={setAiResult}
 			/>
-			<AIResultsSection aiResult={aiResult} />
+			<AIResultsSection aiResult={aiResult} setToast={setToast} />
 		</div>
 	);
 }
@@ -34,6 +38,7 @@ interface OriginalSectionProps {
 
 interface AIResultsSectionProps {
 	aiResult: string;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 }
 
 function OriginalSection({
@@ -165,7 +170,7 @@ function OriginalSection({
 	);
 }
 
-function AIResultsSection({ aiResult }: AIResultsSectionProps) {
+function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 	return (
 		<div className="flex flex-col h-full w-1/2 pl-3">
 			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
@@ -230,11 +235,27 @@ function AIResultsSection({ aiResult }: AIResultsSectionProps) {
 									<button
 										type="button"
 										className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-										onClick={() =>
-											navigator.clipboard.writeText(
-												aiResult
-											)
-										}
+										onClick={() => {
+											if (aiResult) {
+												navigator.clipboard.writeText(
+													aiResult
+												);
+												setToast({
+													visible: true,
+													title: "Succesfully Copied",
+													content:
+														"Comeback for more paraphrasing...",
+												});
+											} else {
+												setToast({
+													visible: true,
+													title: "Nothing to copy",
+													content:
+														"Get started with paraphrasing...",
+													type: "warning",
+												});
+											}
+										}}
 									>
 										<DocumentDuplicateIcon
 											className="h-5 w-5"
