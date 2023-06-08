@@ -1,9 +1,10 @@
-.Toastify__toast-body, .Toastify__toast{
-    padding: 0px;
+.Toastify__toast-body,
+.Toastify__toast {
+	padding: 0px;
 }
 
-.Toastify__close-button.Toastify__close-button--light{
-    position: absolute;
-    right: 5px;
-    top: 5px;
+.Toastify__close-button.Toastify__close-button--light {
+	position: absolute;
+	right: 5px;
+	top: 5px;
 }
