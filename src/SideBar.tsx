@@ -4,7 +4,6 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "./assets/logo.png";
 import { login, signUp } from "./api";
 import { setAuthenticateduser } from "./store/browser";
-import { ToastContainer } from "react-toastify";
 import { ToastProps } from "./ToastNotification";
 
 export interface SideBarProps {
