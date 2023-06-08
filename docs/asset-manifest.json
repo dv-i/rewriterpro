@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/rewriterpro/static/css/main.ca52afd6.css",
-    "main.js": "/rewriterpro/static/js/main.c87dfa3b.js",
+    "main.js": "/rewriterpro/static/js/main.b69a8f25.js",
     "static/js/787.01b467ef.chunk.js": "/rewriterpro/static/js/787.01b467ef.chunk.js",
     "static/media/logo.png": "/rewriterpro/static/media/logo.922dce12cbad470f888d.png",
     "index.html": "/rewriterpro/index.html",
     "main.ca52afd6.css.map": "/rewriterpro/static/css/main.ca52afd6.css.map",
-    "main.c87dfa3b.js.map": "/rewriterpro/static/js/main.c87dfa3b.js.map",
+    "main.b69a8f25.js.map": "/rewriterpro/static/js/main.b69a8f25.js.map",
     "787.01b467ef.chunk.js.map": "/rewriterpro/static/js/787.01b467ef.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ca52afd6.css",
-    "static/js/main.c87dfa3b.js"
+    "static/js/main.b69a8f25.js"
   ]
 }

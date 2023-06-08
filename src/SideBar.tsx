@@ -4,17 +4,22 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "./assets/logo.png";
 import { login, signUp } from "./api";
 import { setAuthenticateduser } from "./store/browser";
-import { ToastContainer, toast } from "react-toastify";
-import { CustomToast } from "./components/common/CustomToast";
+import { ToastContainer } from "react-toastify";
+import { ToastProps } from "./ToastNotification";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
 	setSideBarMode: React.Dispatch<
 		React.SetStateAction<"login" | "signup" | undefined>
 	>;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 }
 
-export default function SideBar({ sideBarMode, setSideBarMode }: SideBarProps) {
+export default function SideBar({
+	sideBarMode,
+	setSideBarMode,
+	setToast,
+}: SideBarProps) {
 	return (
 		<Transition.Root show={Boolean(sideBarMode)} as={Fragment}>
 			<Dialog
@@ -78,6 +83,7 @@ export default function SideBar({ sideBarMode, setSideBarMode }: SideBarProps) {
 													setSideBarMode={
 														setSideBarMode
 													}
+													setToast={setToast}
 												/>
 											)}
 											{sideBarMode === "signup" && (
@@ -85,6 +91,7 @@ export default function SideBar({ sideBarMode, setSideBarMode }: SideBarProps) {
 													setSideBarMode={
 														setSideBarMode
 													}
+													setToast={setToast}
 												/>
 											)}
 										</div>
@@ -103,9 +110,10 @@ export interface LogInAndSignUpProps {
 	setSideBarMode: React.Dispatch<
 		React.SetStateAction<"login" | "signup" | undefined>
 	>;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 }
 
-function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
+function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 
@@ -117,14 +125,11 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 				setAuthenticateduser(authedUser);
 				setSideBarMode(undefined);
 			} else {
-				toast(<CustomToast message="Unauthorized!" />, {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: true,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
+				setToast({
+					visible: true,
+					title: "Unauthorized",
+					content: "Email ID or Password doesn't match",
+					type: "error",
 				});
 			}
 		}
@@ -214,7 +219,7 @@ function LogIn({ setSideBarMode }: LogInAndSignUpProps) {
 	);
 }
 
-function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
+function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
 	const [firstName, setFirstName] = useState<string>("");
@@ -233,14 +238,11 @@ function SignUp({ setSideBarMode }: LogInAndSignUpProps) {
 				setAuthenticateduser(createdUser);
 				setSideBarMode(undefined);
 			} else {
-				toast(<CustomToast message="Error!" />, {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: true,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
+				setToast({
+					visible: true,
+					title: "Error",
+					content: "Please try again after some time",
+					type: "error",
 				});
 			}
 		}
