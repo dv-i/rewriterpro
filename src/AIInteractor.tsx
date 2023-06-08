@@ -7,7 +7,6 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
-import { CustomToast } from "./components/common/CustomToast";
 import { ToastProps } from "./ToastNotification";
 
 export interface AIInteractorProps {
@@ -23,6 +22,7 @@ export default function AIInteractor({ setToast }: AIInteractorProps) {
 				aiPrompt={aiPrompt}
 				setAiPrompt={setAiPrompt}
 				setAiResult={setAiResult}
+				setToast={setToast}
 			/>
 			<AIResultsSection aiResult={aiResult} setToast={setToast} />
 		</div>
@@ -33,6 +33,7 @@ interface OriginalSectionProps {
 	aiPrompt: string;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 }
 
 interface AIResultsSectionProps {
@@ -44,6 +45,7 @@ function OriginalSection({
 	aiPrompt,
 	setAiPrompt,
 	setAiResult,
+	setToast,
 }: OriginalSectionProps) {
 	const handleParaphraseClick = async () => {
 		try {
@@ -54,14 +56,11 @@ function OriginalSection({
 				}
 			}
 		} catch (error) {
-			toast(<CustomToast message="Could not paraphrase!" />, {
-				position: "top-right",
-				autoClose: 5000,
-				hideProgressBar: true,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
+			setToast({
+				visible: true,
+				title: "Attempt Unsucessful",
+				content: "Could not paraphrase, please try again...",
+				type: "warning",
 			});
 		}
 	};
