@@ -12,12 +12,8 @@ import logo from "./assets/logo.png";
 import { FEATURE_FLAGS } from "./constants";
 import { clear, getAuthenticatedUser } from "./store/browser";
 import { User } from "./store/dataInterfaces";
-const user = {
-	name: "Tom Cook",
-	email: "tom@example.com",
-	imageUrl:
-		"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
+import { UserCircleIcon } from "@heroicons/react/20/solid";
+import { ToastProps } from "./ToastNotification";
 const navigation = [
 	{ name: "Rewriter", href: "#", current: true },
 	// { name: "Team", href: "#", current: false },
@@ -30,7 +26,10 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-export default function NavBar() {
+interface NavBarProps {
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+}
+export default function NavBar({ setToast }: NavBarProps) {
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | undefined
 	>();
@@ -133,13 +132,7 @@ export default function NavBar() {
 															<span className="sr-only">
 																Open user menu
 															</span>
-															<img
-																className="h-8 w-8 rounded-full"
-																src={
-																	user.imageUrl
-																}
-																alt=""
-															/>
+															<UserCircleIcon className="h-8 w-8" />
 														</Menu.Button>
 													</div>
 													<Transition
@@ -215,6 +208,7 @@ export default function NavBar() {
 			<SideBar
 				sideBarMode={sideBarMode}
 				setSideBarMode={setSideBarMode}
+				setToast={setToast}
 			/>
 			<PremiumPricingInfoModal
 				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}

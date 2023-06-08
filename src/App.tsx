@@ -13,7 +13,7 @@ function App() {
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
 			<div className="h-screen flex flex-col flex-grow">
-				<NavBar />
+				<NavBar setToast={setToast} />
 				<AIInteractorCard
 					CardHeader={<Settings />}
 					CardBody={<AIInteractor setToast={setToast} />}

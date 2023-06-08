@@ -1,9 +1,6 @@
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
 import { User } from "./store/dataInterfaces";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const bcrypt = require("bcryptjs");
-
 export const login = async (
 	email: string,
 	password: string
@@ -17,7 +14,7 @@ export const login = async (
 		return;
 	}
 	const passwordHash = user.passwordHash;
-	const authorized = await bcrypt.compare(password, passwordHash);
+	const authorized = (await toHash(password)) === passwordHash;
 	if (!authorized) {
 		console.error("Unauthorized!");
 		return;
@@ -41,7 +38,7 @@ export const signUp = async (userToAdd: {
 		return;
 	}
 
-	const passwordHash = bcrypt.hashSync(userToAdd.password, 12);
+	const passwordHash = await toHash(userToAdd.password);
 	userToAdd.passwordHash = passwordHash;
 
 	try {
@@ -52,3 +49,13 @@ export const signUp = async (userToAdd: {
 		return;
 	}
 };
+
+async function toHash(payload: string): Promise<string> {
+	const utf8 = new TextEncoder().encode(payload);
+	const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
+	const hashArray = Array.from(new Uint8Array(hashBuffer));
+	const hashHex = hashArray
+		.map((bytes) => bytes.toString(16).padStart(2, "0"))
+		.join("");
+	return hashHex;
+}
