@@ -29,13 +29,12 @@
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {
-		"start-proxy": "node proxy.ts",
-		"start": "set HTPPS=true && react-app-rewired start",
+		"start": "set HTPPS=true && react-scripts start",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
-		"build": "react-app-rewired build",
-		"test": "react-app-rewired test",
-		"eject": "react-app-rewired eject",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
 		"lint": "tsc --noEmit && eslint src/**/*.ts{,x} --cache --max-warnings=0",
 		"lint:fix": "eslint src/**/*.ts{,x} --fix"
 	},
