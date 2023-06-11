@@ -31,7 +31,7 @@ interface AIInteractorCardProps {
 function AIInteractorCard({ CardHeader, CardBody }: AIInteractorCardProps) {
 	return (
 		<main className="-mt-48 h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-			{FEATURE_FLAGS.PARAPHRASE_LIMIT_BANNER && <Alert />}
+			<Alert />
 
 			<div className="h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
 				<div className="px-4 h-20 py-5 sm:px-6">{CardHeader}</div>
