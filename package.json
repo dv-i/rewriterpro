@@ -1,6 +1,6 @@
 {
 	"name": "rewriterpro",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"homepage": "",
 	"dependencies": {
 		"@headlessui/react": "^1.7.15",

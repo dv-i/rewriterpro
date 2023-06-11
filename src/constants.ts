@@ -7,7 +7,5 @@ export const DATABASE = {
 };
 
 export const FEATURE_FLAGS = {
-	PARAPHRASE_LIMIT_BANNER: false,
 	DEV_TOGGLE_SWITCH: false,
-	PREMIUM_MODE: false,
 };
