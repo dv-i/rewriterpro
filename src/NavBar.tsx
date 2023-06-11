@@ -28,13 +28,14 @@ function classNames(...classes: string[]) {
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+	user: User | undefined;
 }
-export default function NavBar({ setToast }: NavBarProps) {
+export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
-	const [storedAutheduser, setStoredAuthedUser] = useState<User | null>();
 	const userNavigation = [
 		{
 			name: "Your Profile",
@@ -46,7 +47,7 @@ export default function NavBar({ setToast }: NavBarProps) {
 			name: "Sign out",
 			onClick: () => {
 				clear();
-				setStoredAuthedUser(null);
+				setUser(undefined);
 			},
 		},
 	];
@@ -55,7 +56,7 @@ export default function NavBar({ setToast }: NavBarProps) {
 		if (!sideBarMode) {
 			const authedUser = getAuthenticatedUser();
 			if (authedUser) {
-				setStoredAuthedUser(authedUser);
+				setUser(authedUser);
 			}
 		}
 	}, [sideBarMode]);
@@ -106,7 +107,7 @@ export default function NavBar({ setToast }: NavBarProps) {
 									<div className="hidden lg:ml-4 lg:block">
 										<div className="flex items-center">
 											{/* Log In Button */}
-											{!storedAutheduser && (
+											{!user && (
 												<button
 													type="button"
 													className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
@@ -122,7 +123,7 @@ export default function NavBar({ setToast }: NavBarProps) {
 											)}
 
 											{/* Profile dropdown */}
-											{storedAutheduser && (
+											{user && (
 												<Menu
 													as="div"
 													className="relative ml-3 flex-shrink-0"
@@ -132,7 +133,13 @@ export default function NavBar({ setToast }: NavBarProps) {
 															<span className="sr-only">
 																Open user menu
 															</span>
-															<UserCircleIcon className="h-8 w-8" />
+															<UserCircleIcon
+																className={`h-8 w-8 ${
+																	user.pro
+																		? "border-4 rounded-3xl border-yellow-300"
+																		: ""
+																}`}
+															/>
 														</Menu.Button>
 													</div>
 													<Transition
@@ -180,17 +187,19 @@ export default function NavBar({ setToast }: NavBarProps) {
 											)}
 
 											{/* Buy Premium Butotn */}
-											<button
-												type="button"
-												className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-700 text-white shadow-sm hover:bg-indigo-500"
-												onClick={() =>
-													setIsGetPremiumModalOpen(
-														true
-													)
-												}
-											>
-												Buy Premium
-											</button>
+											{user?.pro !== true && (
+												<button
+													type="button"
+													className="rounded-md py-2 px-3 text-sm font-medium ml-4 bg-indigo-700 text-white shadow-sm hover:bg-indigo-500"
+													onClick={() =>
+														setIsGetPremiumModalOpen(
+															true
+														)
+													}
+												>
+													Buy Premium
+												</button>
+											)}
 
 											<div className="ml-4 pt-1.5">
 												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && (

@@ -8,11 +8,23 @@ import {
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
 import { ToastProps } from "./ToastNotification";
+import { PromptOptions, User } from "./store/dataInterfaces";
+import { MAX_TRIES } from "./store/constants";
 
 export interface AIInteractorProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	setCounter: React.Dispatch<React.SetStateAction<number>>;
+	promptOptions: PromptOptions;
+	counter: number;
+	user: User | undefined;
 }
-export default function AIInteractor({ setToast }: AIInteractorProps) {
+export default function AIInteractor({
+	setToast,
+	promptOptions,
+	setCounter,
+	counter,
+	user,
+}: AIInteractorProps) {
 	const [aiPrompt, setAiPrompt] = useState<string>("");
 	const [aiResult, setAiResult] = useState<string>("");
 
@@ -23,6 +35,10 @@ export default function AIInteractor({ setToast }: AIInteractorProps) {
 				setAiPrompt={setAiPrompt}
 				setAiResult={setAiResult}
 				setToast={setToast}
+				promptOptions={promptOptions}
+				counter={counter}
+				setCounter={setCounter}
+				user={user}
 			/>
 			<AIResultsSection aiResult={aiResult} setToast={setToast} />
 		</div>
@@ -34,6 +50,10 @@ interface OriginalSectionProps {
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	promptOptions: PromptOptions;
+	setCounter: React.Dispatch<React.SetStateAction<number>>;
+	counter: number;
+	user: User | undefined;
 }
 
 interface AIResultsSectionProps {
@@ -46,14 +66,22 @@ function OriginalSection({
 	setAiPrompt,
 	setAiResult,
 	setToast,
+	promptOptions,
+	counter,
+	setCounter,
+	user,
 }: OriginalSectionProps) {
 	const handleParaphraseClick = async () => {
 		setShowLoader(true);
 		try {
 			if (aiPrompt) {
-				const response = await getResponseToAPrompt(aiPrompt);
+				const response = await getResponseToAPrompt({
+					prompt: aiPrompt,
+					promptOptions: promptOptions,
+				});
 				if (response) {
 					setAiResult(response);
+					setCounter((prev) => prev + 1);
 				}
 			}
 		} catch (error) {
@@ -155,10 +183,17 @@ function OriginalSection({
 								</button>
 								<button
 									type="submit"
-									className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+									className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+										MAX_TRIES <= counter && !user?.pro
+											? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
+											: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+									}`}
 									onClick={() => {
 										handleParaphraseClick();
 									}}
+									disabled={
+										MAX_TRIES <= counter && !user?.pro
+									}
 								>
 									<Loader visible={showLoader} />
 									Paraphrase

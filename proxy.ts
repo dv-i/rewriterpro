@@ -8,7 +8,7 @@ cors_proxy
 		originWhitelist: [], // Allow all origins
 	})
 	.listen(port, host, () => {
-		console.log(
+		console.error(
 			`CORS Anywhere proxy server running on http://${host}:${port}`
 		);
 	});

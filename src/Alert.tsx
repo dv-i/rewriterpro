@@ -1,9 +1,19 @@
 import React from "react";
 import { InformationCircleIcon } from "@heroicons/react/20/solid";
+import { User } from "./store/dataInterfaces";
+import { MAX_TRIES } from "./store/constants";
 
-export default function Alert() {
+interface AlertProps {
+	counter: number;
+	user: User | undefined;
+}
+export default function Alert({ counter, user }: AlertProps) {
 	return (
-		<div className="invisible rounded-md bg-blue-50 p-4">
+		<div
+			className={`${
+				user?.pro ? "invisible" : ""
+			} rounded-md bg-blue-50 p-4`}
+		>
 			<div className="flex">
 				<div className="flex-shrink-0">
 					<InformationCircleIcon
@@ -13,7 +23,11 @@ export default function Alert() {
 				</div>
 				<div className="ml-3 flex-1 md:flex md:justify-between">
 					<p className="text-sm text-blue-700">
-						You have <span className="font-semibold"> 20 </span>{" "}
+						You have{" "}
+						<span className="font-semibold">
+							{" "}
+							{MAX_TRIES - counter}{" "}
+						</span>{" "}
 						paraphrases left.{" "}
 						<button className="font-medium text-blue-700 underline hover:text-blue-600">
 							Upgrade your account to get unlimited paraphrasing
