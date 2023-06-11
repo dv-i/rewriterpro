@@ -22,3 +22,31 @@ export const setMongoAccessToken = (token: string): void => {
 export const getMongoAccessToken = (): string | null => {
 	return localStorage.getItem("mongoAccessToken");
 };
+
+export const setLocalCounter = (value: number): void => {
+	localStorage.setItem("counter", value.toString());
+	localStorage.setItem("counterDate", new Date().toDateString());
+};
+
+export const getLocalCounter = (): number | undefined => {
+	const prevCounterDateString = localStorage.getItem("counterDate");
+	if (localStorage.getItem("counter") !== null) {
+		if (prevCounterDateString) {
+			const prevCounterDate = new Date(prevCounterDateString);
+			const today = new Date();
+			const prevCounter = isMoreThanOneDay(today, prevCounterDate)
+				? 0
+				: Number(localStorage.getItem("counter"));
+			return prevCounter;
+		}
+		return 0;
+	}
+	return undefined;
+};
+
+function isMoreThanOneDay(date1: Date, date2: Date): boolean {
+	const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+	const diff = Math.abs(date1.getTime() - date2.getTime()); // Difference in milliseconds
+
+	return diff > oneDay;
+}

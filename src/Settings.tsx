@@ -1,11 +1,11 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import {
 	CheckIcon,
 	ChevronDownIcon,
 	ChevronUpDownIcon,
 } from "@heroicons/react/20/solid";
-import { FEATURE_FLAGS } from "./constants";
+import { PromptOptions, User } from "./store/dataInterfaces";
 const premiumDropdownOption = [
 	{
 		title: "Premium",
@@ -14,27 +14,34 @@ const premiumDropdownOption = [
 		current: false,
 	},
 ];
-const freeOrPremiumOption = [
-	{
-		title: "Standard",
-		description: "You can customize fluency",
-		current: true,
-	},
-	...(FEATURE_FLAGS.PREMIUM_MODE ? premiumDropdownOption : []),
-];
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+interface SettingProps {
+	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+	user: User | undefined;
+	setPromptOptions: React.Dispatch<React.SetStateAction<PromptOptions>>;
+	promptOptions: PromptOptions;
+}
+
+export default function Settings({ user, setPromptOptions }: SettingProps) {
+	const freeOrPremiumOption = [
+		{
+			title: "Standard",
+			description: "You can customize fluency",
+			current: true,
+		},
+		...(user?.pro ? premiumDropdownOption : []),
+	];
 	const [selected, setSelected] = useState(freeOrPremiumOption[0]);
 
 	const proModeEnabled = selected.title === "Premium";
 
 	const extraProModeOptionsForFluency = [
 		{ id: 3, name: "Intermediate" },
-		{ id: 4, name: "Proficient" },
+		{ id: 4, name: "Advanced" },
 	];
 
 	return (
@@ -42,6 +49,8 @@ export default function Example() {
 			<div className="flex flex-row gap-3 -mt-1.5">
 				<DropDown
 					label={"Fluency"}
+					promptKey="fluency"
+					setPromptOptions={setPromptOptions}
 					options={[
 						{ id: 1, name: "Default" },
 						{ id: 2, name: "Basic" },
@@ -54,25 +63,29 @@ export default function Example() {
 				{proModeEnabled && (
 					<DropDown
 						label={"Tone"}
+						promptKey="tone"
+						setPromptOptions={setPromptOptions}
 						options={[
 							{ id: 1, name: "Default" },
 							{ id: 2, name: "Formal" },
 							{ id: 3, name: "Academic" },
 							{ id: 3, name: "Clear" },
-							{ id: 3, name: "Elaborate" },
+							{ id: 3, name: "Elaborative" },
 							{ id: 3, name: "Creative" },
 							{ id: 3, name: "Optimistic" },
-							{ id: 3, name: "Tell a Story" },
+							{ id: 3, name: "Story like" },
 						]}
 					/>
 				)}
 				{proModeEnabled && (
 					<DropDown
 						label={"Audience"}
+						promptKey="audience"
+						setPromptOptions={setPromptOptions}
 						options={[
 							{ id: 1, name: "General" },
 							{ id: 2, name: "Business" },
-							{ id: 3, name: "Knowledge" },
+							{ id: 3, name: "Knowledgable" },
 							{ id: 3, name: "Expert" },
 						]}
 					/>
@@ -80,6 +93,8 @@ export default function Example() {
 				{proModeEnabled && (
 					<DropDown
 						label={"Emotion"}
+						promptKey="emotion"
+						setPromptOptions={setPromptOptions}
 						options={[
 							{ id: 1, name: "Mild" },
 							{ id: 2, name: "Strong" },
@@ -89,10 +104,25 @@ export default function Example() {
 				{proModeEnabled && (
 					<DropDown
 						label={"Length"}
+						promptKey="length"
+						setPromptOptions={setPromptOptions}
 						options={[
 							{ id: 1, name: "Default" },
 							{ id: 2, name: "Shortern" },
 							{ id: 3, name: "Extend" },
+						]}
+					/>
+				)}
+
+				{proModeEnabled && (
+					<DropDown
+						label={"Paraphrased Language"}
+						promptKey="language"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "English" },
+							{ id: 2, name: "Spanish" },
+							{ id: 3, name: "French" },
 						]}
 					/>
 				)}
@@ -201,11 +231,31 @@ export default function Example() {
 
 interface DropDownProps {
 	label: string;
+	promptKey: keyof PromptOptions;
 	options: { id: number; name: string; disabled?: boolean }[];
+	setPromptOptions: React.Dispatch<React.SetStateAction<PromptOptions>>;
 }
 
-function DropDown({ label, options }: DropDownProps) {
+function DropDown({
+	label,
+	options,
+	setPromptOptions,
+	promptKey,
+}: DropDownProps) {
 	const [selected, setSelected] = useState(options[0]);
+
+	useEffect(() => {
+		setPromptOptions((prev) => {
+			return {
+				...prev,
+				[promptKey]: ["Default", "Mild", "General"].includes(
+					selected.name
+				)
+					? undefined
+					: selected.name,
+			};
+		});
+	}, [selected, setPromptOptions, promptKey]);
 
 	return (
 		<Listbox value={selected} onChange={setSelected}>
