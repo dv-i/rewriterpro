@@ -3,7 +3,7 @@ import { InformationCircleIcon } from "@heroicons/react/20/solid";
 
 export default function Alert() {
 	return (
-		<div className="rounded-md bg-blue-50 p-4">
+		<div className="invisible rounded-md bg-blue-50 p-4">
 			<div className="flex">
 				<div className="flex-shrink-0">
 					<InformationCircleIcon
