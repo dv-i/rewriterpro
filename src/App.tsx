@@ -21,7 +21,6 @@ function App() {
 	const [counter, setCounter] = useState<number>(getLocalCounter() || 0);
 
 	useEffect(() => {
-		console.log(counter);
 		setLocalCounter(counter);
 	}, [counter]);
 

@@ -82,7 +82,7 @@ const promptFormatter = ({
 		: "";
 	formattedPrompt += length ? ` and ${length.toLowerCase()} in length,` : "";
 	formattedPrompt += language
-		? ` and also transalte to ${language.toLowerCase()},`
+		? ` and also transalte to ${language.toLowerCase()} and only return the translated text,`
 		: "";
 
 	formattedPrompt += ` - "${prompt}"`;
