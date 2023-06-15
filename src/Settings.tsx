@@ -45,6 +45,10 @@ export default function Settings({
 
 	const proModeEnabled = selected.title === "Premium";
 
+	useEffect(() => {
+		user?.pro && setSelected(freeOrPremiumOption[1]);
+	}, [user?.pro]);
+
 	return (
 		<div className="flex justify-between">
 			<div className="flex flex-row gap-3 -mt-1.5">
@@ -366,6 +370,7 @@ function DropDown({
 										value={opt}
 										disabled={opt.disabled}
 										onMouseEnter={() =>
+											opt.disabled &&
 											setToast({
 												visible: true,
 												title: "Upgrade to Pro",
