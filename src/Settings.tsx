@@ -353,64 +353,124 @@ function DropDown({
 							leaveTo="opacity-0"
 						>
 							<Listbox.Options className="absolute z-10 mt-1 max-h-200 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-								{options.map((opt) => (
-									<Listbox.Option
-										key={`${label}-${opt.name}`}
-										className={({ active }) =>
-											classNames(
-												active
-													? "bg-indigo-600 text-white"
-													: "text-gray-900",
-												"relative cursor-default select-none py-2 pl-3 pr-9 ",
-												opt.disabled
-													? "bg-slate-100 text-slate-400 border-slate-300 shadow-none"
-													: ""
-											)
-										}
-										value={opt}
-										disabled={opt.disabled}
-										onMouseEnter={() =>
-											opt.disabled &&
-											setToast({
-												visible: true,
-												title: "Upgrade to Pro",
-												content:
-													"To enhance your paraphrasing experience by using this mode and many others, upgrade to pro.",
-											})
-										}
-									>
-										{({ selected, active }) => (
-											<>
-												<span
-													className={classNames(
-														selected
-															? "font-semibold"
-															: "font-normal",
-														"block truncate"
-													)}
-												>
-													{opt.name}
-												</span>
+								{options.map((opt) =>
+									opt.disabled ? (
+										<div
+											key={`${label}-${opt.name}`}
+											onClick={() =>
+												setToast({
+													visible: true,
+													title: "Upgrade to Pro",
+													content:
+														"To enhance your paraphrasing experience by using this mode and many others, upgrade to pro.",
+												})
+											}
+										>
+											<Listbox.Option
+												className={({ active }) =>
+													classNames(
+														active
+															? "bg-indigo-600 text-white"
+															: "text-gray-900",
+														"relative cursor-default select-none py-2 pl-3 pr-9 ",
+														opt.disabled
+															? "bg-slate-100 text-slate-400 border-slate-300 shadow-none"
+															: ""
+													)
+												}
+												value={opt}
+												disabled={opt.disabled}
+											>
+												{({ selected, active }) => (
+													<>
+														<span
+															className={classNames(
+																selected
+																	? "font-semibold"
+																	: "font-normal",
+																"block truncate"
+															)}
+														>
+															{opt.name}
+														</span>
 
-												{selected ? (
+														{selected ? (
+															<span
+																className={classNames(
+																	active
+																		? "text-white"
+																		: "text-indigo-600",
+																	"absolute inset-y-0 right-0 flex items-center pr-4"
+																)}
+															>
+																<CheckIcon
+																	className="h-5 w-5"
+																	aria-hidden="true"
+																/>
+															</span>
+														) : null}
+													</>
+												)}
+											</Listbox.Option>
+										</div>
+									) : (
+										<Listbox.Option
+											key={`${label}-${opt.name}`}
+											className={({ active }) =>
+												classNames(
+													active
+														? "bg-indigo-600 text-white"
+														: "text-gray-900",
+													"relative cursor-default select-none py-2 pl-3 pr-9 ",
+													opt.disabled
+														? "bg-slate-100 text-slate-400 border-slate-300 shadow-none"
+														: ""
+												)
+											}
+											value={opt}
+											disabled={opt.disabled}
+											onClick={() =>
+												setToast({
+													visible: true,
+													title: "Upgrade to Pro",
+													content:
+														"To enhance your paraphrasing experience by using this mode and many others, upgrade to pro.",
+												})
+											}
+										>
+											{({ selected, active }) => (
+												<>
 													<span
 														className={classNames(
-															active
-																? "text-white"
-																: "text-indigo-600",
-															"absolute inset-y-0 right-0 flex items-center pr-4"
+															selected
+																? "font-semibold"
+																: "font-normal",
+															"block truncate"
 														)}
 													>
-														<CheckIcon
-															className="h-5 w-5"
-															aria-hidden="true"
-														/>
+														{opt.name}
 													</span>
-												) : null}
-											</>
-										)}
-									</Listbox.Option>
-								))}
+
+													{selected ? (
+														<span
+															className={classNames(
+																active
+																	? "text-white"
+																	: "text-indigo-600",
+																"absolute inset-y-0 right-0 flex items-center pr-4"
+															)}
+														>
+															<CheckIcon
+																className="h-5 w-5"
+																aria-hidden="true"
+															/>
+														</span>
+													) : null}
+												</>
+											)}
+										</Listbox.Option>
+									)
+								)}
 							</Listbox.Options>
 						</Transition>
 					</div>
