@@ -24,9 +24,8 @@ export const login = async (
 
 export const signUp = async (userToAdd: {
 	email: string;
-	password: string;
-	firstName: string;
-	lastName: string;
+	fullName: string;
+	password?: string;
 	passwordHash?: string;
 }): Promise<User | undefined> => {
 	const mongo = new MongoDbClient();
@@ -38,8 +37,9 @@ export const signUp = async (userToAdd: {
 		return;
 	}
 
-	const passwordHash = await toHash(userToAdd.password);
+	const passwordHash = await toHash(userToAdd.password || "");
 	userToAdd.passwordHash = passwordHash;
+	delete userToAdd.password;
 
 	try {
 		await mongo.insertOne(USERS_COLLECTION, userToAdd);

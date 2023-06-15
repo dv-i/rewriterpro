@@ -10,10 +10,17 @@ import {
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
 import { FEATURE_FLAGS } from "./constants";
-import { clear, getAuthenticatedUser } from "./store/browser";
+import {
+	clear,
+	getAuthenticatedUser,
+	setAuthenticatedUser,
+} from "./store/browser";
 import { User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { ToastProps } from "./ToastNotification";
+import { PencilSquareIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import MongoDbClient from "./store/MongoDbClient";
+import { USERS_COLLECTION } from "./store/constants";
 const navigation = [
 	{ name: "Rewriter", href: "#", current: true },
 	// { name: "Team", href: "#", current: false },
@@ -195,6 +202,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 															setIsUserProfileModalOpen
 														}
 														user={user}
+														setToast={setToast}
 													/>
 												</div>
 											)}
@@ -357,19 +365,125 @@ function PremiumPricingInfoModal({
 interface UserProfileModalProps {
 	isUserProfileModalOpen: boolean;
 	setIsUserProfileModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	user: User;
 }
 function UserProfileModal({
 	isUserProfileModalOpen,
 	setIsUserProfileModalOpen,
 	user,
+	setToast,
 }: UserProfileModalProps) {
 	const tabs = [
 		{ name: "Profile", href: "#", current: true },
 		{ name: "Billing", href: "#", current: false },
-		{ name: "Plans", href: "#", current: false },
+		// { name: "Plans", href: "#", current: false },
 	];
+
 	const [currentTab, setCurrentTab] = useState("Profile");
+	const [isEditingFullName, setIsEditingFullName] = useState(false);
+	const [isEditingEmail, setIsEditingEmail] = useState(false);
+	const [fullName, setFullName] = useState(user.fullName);
+	const [email, setEmail] = useState(user.email);
+
+	const handleEmailUpdate = async () => {
+		const mongo = new MongoDbClient();
+		try {
+			const updatedUser = await mongo.updateOne(
+				USERS_COLLECTION,
+				{
+					email: user.email,
+				},
+				{
+					$set: {
+						email: email,
+					},
+				}
+			);
+			if (updatedUser) {
+				const newUser = await mongo.findOne(USERS_COLLECTION, {
+					email: email,
+				});
+				if (newUser) {
+					setAuthenticatedUser(newUser);
+					setToast({
+						visible: true,
+						title: "Updated email",
+						type: "success",
+					});
+					setIsEditingEmail(false);
+				} else {
+					setToast({
+						visible: true,
+						title: "Could not update email",
+						type: "error",
+					});
+				}
+			} else {
+				setToast({
+					visible: true,
+					title: "Could not update email",
+					type: "error",
+				});
+			}
+		} catch (e) {
+			setToast({
+				visible: true,
+				title: "Could not update email",
+				type: "error",
+			});
+		}
+	};
+
+	const handleNameUpdate = async () => {
+		const mongo = new MongoDbClient();
+		try {
+			const updatedUser = await mongo.updateOne(
+				USERS_COLLECTION,
+				{
+					email: user.email,
+				},
+				{
+					$set: {
+						fullName: fullName,
+					},
+				}
+			);
+			if (updatedUser) {
+				const newUser = await mongo.findOne(USERS_COLLECTION, {
+					email: email,
+				});
+				if (newUser) {
+					setAuthenticatedUser(newUser);
+					setToast({
+						visible: true,
+						title: "Updated name",
+						type: "success",
+					});
+					setIsEditingFullName(false);
+				} else {
+					setToast({
+						visible: true,
+						title: "Could not update name",
+						type: "error",
+					});
+				}
+			} else {
+				setToast({
+					visible: true,
+					title: "Could not update name",
+					type: "error",
+				});
+			}
+		} catch (e) {
+			setToast({
+				visible: true,
+				title: "Could not update name",
+				type: "error",
+			});
+		}
+	};
+
 	return (
 		<Transition.Root show={isUserProfileModalOpen} as={Fragment}>
 			<Dialog
@@ -436,8 +550,41 @@ function UserProfileModal({
 											>
 												Email address
 											</label>
-											<div className="text-sm">
-												{user.email}
+											<div className="text-sm flex">
+												<div className="flex items-center justify-center">
+													<PencilSquareIcon
+														onClick={() =>
+															setIsEditingEmail(
+																true
+															)
+														}
+														className="h-5 w-5 text-gray-400 cursor-pointer"
+														aria-hidden="true"
+													/>
+												</div>
+												<input
+													id="email"
+													name="email"
+													type="email"
+													required
+													disabled={!isEditingEmail}
+													value={email}
+													onChange={(e) =>
+														setEmail(e.target.value)
+													}
+													className="ml-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+												/>
+												{isEditingEmail && (
+													<div className="flex items-center justify-center ml-2">
+														<CheckCircleIcon
+															className="h-5 w-5 text-green-400 cursor-pointer"
+															aria-hidden="true"
+															onClick={async () => {
+																await handleEmailUpdate();
+															}}
+														/>
+													</div>
+												)}
 											</div>
 										</div>
 
@@ -450,8 +597,46 @@ function UserProfileModal({
 													Name
 												</label>
 											</div>
-											<div className="text-sm">
-												{user.firstName} {user.lastName}
+											<div className="text-sm flex">
+												<div className="flex items-center justify-center">
+													<PencilSquareIcon
+														onClick={() =>
+															setIsEditingFullName(
+																true
+															)
+														}
+														className="h-5 w-5 text-gray-400 cursor-pointer"
+														aria-hidden="true"
+													/>
+												</div>
+
+												<input
+													id="name"
+													name="name"
+													type="text"
+													required
+													disabled={
+														!isEditingFullName
+													}
+													onChange={(e) =>
+														setFullName(
+															e.target.value
+														)
+													}
+													value={fullName}
+													className="ml-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+												/>
+												{isEditingFullName && (
+													<div className="flex items-center justify-center ml-2">
+														<CheckCircleIcon
+															className="h-5 w-5 text-green-400 cursor-pointer"
+															aria-hidden="true"
+															onClick={async () => {
+																await handleNameUpdate();
+															}}
+														/>
+													</div>
+												)}
 											</div>
 										</div>
 
