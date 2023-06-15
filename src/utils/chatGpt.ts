@@ -71,7 +71,7 @@ const promptFormatter = ({
 	//e.g tones, audience, length etc.
 	const { fluency, audience, tone, emotion, length, language } =
 		promptOptions;
-	let formattedPrompt = "Rewrite this text for me";
+	let formattedPrompt = "Rewrite the following text for me";
 	formattedPrompt += fluency ? ` with ${fluency.toLowerCase()} fluency,` : "";
 	formattedPrompt += tone ? ` in a ${tone.toLowerCase()} tone,` : "";
 	formattedPrompt += audience
@@ -82,10 +82,10 @@ const promptFormatter = ({
 		: "";
 	formattedPrompt += length ? ` and ${length.toLowerCase()} in length,` : "";
 	formattedPrompt += language
-		? ` and also transalte to ${language.toLowerCase()} and only return the translated text,`
+		? ` and also transalte to ${language.toLowerCase()} and only return the translated text without quote \n`
 		: "";
 
-	formattedPrompt += ` - "${prompt}"`;
+	formattedPrompt += ` - ${prompt}`;
 
 	return formattedPrompt;
 };

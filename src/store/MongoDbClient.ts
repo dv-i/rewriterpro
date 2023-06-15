@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { DATABASE } from "../constants";
 import { User } from "./dataInterfaces";
 import { getMongoAccessToken, setMongoAccessToken } from "./browser";
+import { USERS_COLLECTION } from "./constants";
 
 const getAxiosClient = async (): Promise<AxiosInstance> => {
 	if (!getMongoAccessToken()) {
@@ -30,7 +31,7 @@ export const refreshMongoAccessToken = async () => {
 class MongoDbClient {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async handleMongoAccessTokenRefresh(error: any): Promise<void> {
-		if (error.code === "ERR_NETWORK") {
+		if (error.code === "ERR_NETWORK" || error.code === "ERR_BAD_REQUEST") {
 			await refreshMongoAccessToken();
 		}
 	}
@@ -112,6 +113,32 @@ class MongoDbClient {
 			return response.data;
 		} catch (error) {
 			console.error(error);
+			await this.handleMongoAccessTokenRefresh(error);
+		}
+		return null;
+	}
+	async updateOne(
+		collection: string,
+		filter: { [key: string]: string },
+		update: { [key: string]: any }
+	): Promise<AxiosResponse | null> {
+		try {
+			const body = {
+				dataSource: DATABASE.DATA_SOURCE,
+				database: DATABASE.NAME,
+				collection: collection,
+				filter: filter,
+				update: update,
+			};
+
+			const axiosClient = await getAxiosClient();
+			const response = await axiosClient.post("/action/updateOne", body);
+			return response.data;
+		} catch (error) {
+			console.error(
+				`Failed to updateOne in ${DATABASE.NAME} - ${collection}`,
+				error
+			);
 			await this.handleMongoAccessTokenRefresh(error);
 		}
 		return null;

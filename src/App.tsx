@@ -36,6 +36,7 @@ function App() {
 							user={user}
 							promptOptions={promptOptions}
 							setPromptOptions={setPromptOptions}
+							setToast={setToast}
 						/>
 					}
 					CardBody={

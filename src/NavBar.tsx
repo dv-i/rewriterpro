@@ -10,10 +10,17 @@ import {
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
 import { FEATURE_FLAGS } from "./constants";
-import { clear, getAuthenticatedUser } from "./store/browser";
+import {
+	clear,
+	getAuthenticatedUser,
+	setAuthenticatedUser,
+} from "./store/browser";
 import { User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { ToastProps } from "./ToastNotification";
+import { PencilSquareIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
+import MongoDbClient from "./store/MongoDbClient";
+import { USERS_COLLECTION } from "./store/constants";
 const navigation = [
 	{ name: "Rewriter", href: "#", current: true },
 	// { name: "Team", href: "#", current: false },
@@ -36,11 +43,12 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 		"login" | "signup" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
+	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
 	const userNavigation = [
 		{
 			name: "Your Profile",
 			onClick: () => {
-				return;
+				setIsUserProfileModalOpen(true);
 			},
 		},
 		{
@@ -124,66 +132,79 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 
 											{/* Profile dropdown */}
 											{user && (
-												<Menu
-													as="div"
-													className="relative ml-3 flex-shrink-0"
-												>
-													<div>
-														<Menu.Button className="flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
-															<span className="sr-only">
-																Open user menu
-															</span>
-															<UserCircleIcon
-																className={`h-8 w-8 ${
-																	user.pro
-																		? "border-4 rounded-3xl border-yellow-300"
-																		: ""
-																}`}
-															/>
-														</Menu.Button>
-													</div>
-													<Transition
-														as={Fragment}
-														enter="transition ease-out duration-100"
-														enterFrom="transform opacity-0 scale-95"
-														enterTo="transform opacity-100 scale-100"
-														leave="transition ease-in duration-75"
-														leaveFrom="transform opacity-100 scale-100"
-														leaveTo="transform opacity-0 scale-95"
+												<div>
+													<Menu
+														as="div"
+														className="relative ml-3 flex-shrink-0"
 													>
-														<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-															{userNavigation.map(
-																(item) => (
-																	<Menu.Item
-																		key={
-																			item.name
-																		}
-																	>
-																		{({
-																			active,
-																		}) => (
-																			<div
-																				onClick={
-																					item.onClick
-																				}
-																				className={classNames(
-																					active
-																						? "bg-gray-100"
-																						: "",
-																					"block px-4 py-2 text-sm text-gray-700"
-																				)}
-																			>
-																				{
-																					item.name
-																				}
-																			</div>
-																		)}
-																	</Menu.Item>
-																)
-															)}
-														</Menu.Items>
-													</Transition>
-												</Menu>
+														<div>
+															<Menu.Button className="flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
+																<span className="sr-only">
+																	Open user
+																	menu
+																</span>
+																<UserCircleIcon
+																	className={`h-8 w-8 ${
+																		user.pro
+																			? "border-4 rounded-3xl border-yellow-300"
+																			: ""
+																	}`}
+																/>
+															</Menu.Button>
+														</div>
+														<Transition
+															as={Fragment}
+															enter="transition ease-out duration-100"
+															enterFrom="transform opacity-0 scale-95"
+															enterTo="transform opacity-100 scale-100"
+															leave="transition ease-in duration-75"
+															leaveFrom="transform opacity-100 scale-100"
+															leaveTo="transform opacity-0 scale-95"
+														>
+															<Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+																{userNavigation.map(
+																	(item) => (
+																		<Menu.Item
+																			key={
+																				item.name
+																			}
+																		>
+																			{({
+																				active,
+																			}) => (
+																				<div
+																					onClick={
+																						item.onClick
+																					}
+																					className={classNames(
+																						active
+																							? "bg-gray-100"
+																							: "",
+																						"block px-4 py-2 text-sm text-gray-700"
+																					)}
+																				>
+																					{
+																						item.name
+																					}
+																				</div>
+																			)}
+																		</Menu.Item>
+																	)
+																)}
+															</Menu.Items>
+														</Transition>
+													</Menu>
+													<UserProfileModal
+														isUserProfileModalOpen={
+															isUserProfileModalOpen
+														}
+														setIsUserProfileModalOpen={
+															setIsUserProfileModalOpen
+														}
+														user={user}
+														setToast={setToast}
+													/>
+												</div>
 											)}
 
 											{/* Buy Premium Butotn */}
@@ -332,6 +353,316 @@ function PremiumPricingInfoModal({
 							<Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
 								{/* TODO: Add Pricing Info */}
 								Premium Pricing Info
+							</Dialog.Panel>
+						</Transition.Child>
+					</div>
+				</div>
+			</Dialog>
+		</Transition.Root>
+	);
+}
+
+interface UserProfileModalProps {
+	isUserProfileModalOpen: boolean;
+	setIsUserProfileModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	user: User;
+}
+function UserProfileModal({
+	isUserProfileModalOpen,
+	setIsUserProfileModalOpen,
+	user,
+	setToast,
+}: UserProfileModalProps) {
+	const tabs = [
+		{ name: "Profile", href: "#", current: true },
+		{ name: "Billing", href: "#", current: false },
+		// { name: "Plans", href: "#", current: false },
+	];
+
+	const [currentTab, setCurrentTab] = useState("Profile");
+	const [isEditingFullName, setIsEditingFullName] = useState(false);
+	const [isEditingEmail, setIsEditingEmail] = useState(false);
+	const [fullName, setFullName] = useState(user.fullName);
+	const [email, setEmail] = useState(user.email);
+
+	const handleEmailUpdate = async () => {
+		const mongo = new MongoDbClient();
+		try {
+			const updatedUser = await mongo.updateOne(
+				USERS_COLLECTION,
+				{
+					email: user.email,
+				},
+				{
+					$set: {
+						email: email,
+					},
+				}
+			);
+			if (updatedUser) {
+				const newUser = await mongo.findOne(USERS_COLLECTION, {
+					email: email,
+				});
+				if (newUser) {
+					setAuthenticatedUser(newUser);
+					setToast({
+						visible: true,
+						title: "Updated email",
+						type: "success",
+					});
+					setIsEditingEmail(false);
+				} else {
+					setToast({
+						visible: true,
+						title: "Could not update email",
+						type: "error",
+					});
+				}
+			} else {
+				setToast({
+					visible: true,
+					title: "Could not update email",
+					type: "error",
+				});
+			}
+		} catch (e) {
+			setToast({
+				visible: true,
+				title: "Could not update email",
+				type: "error",
+			});
+		}
+	};
+
+	const handleNameUpdate = async () => {
+		const mongo = new MongoDbClient();
+		try {
+			const updatedUser = await mongo.updateOne(
+				USERS_COLLECTION,
+				{
+					email: user.email,
+				},
+				{
+					$set: {
+						fullName: fullName,
+					},
+				}
+			);
+			if (updatedUser) {
+				const newUser = await mongo.findOne(USERS_COLLECTION, {
+					email: email,
+				});
+				if (newUser) {
+					setAuthenticatedUser(newUser);
+					setToast({
+						visible: true,
+						title: "Updated name",
+						type: "success",
+					});
+					setIsEditingFullName(false);
+				} else {
+					setToast({
+						visible: true,
+						title: "Could not update name",
+						type: "error",
+					});
+				}
+			} else {
+				setToast({
+					visible: true,
+					title: "Could not update name",
+					type: "error",
+				});
+			}
+		} catch (e) {
+			setToast({
+				visible: true,
+				title: "Could not update name",
+				type: "error",
+			});
+		}
+	};
+
+	return (
+		<Transition.Root show={isUserProfileModalOpen} as={Fragment}>
+			<Dialog
+				as="div"
+				className="relative z-10"
+				onClose={setIsUserProfileModalOpen}
+			>
+				<Transition.Child
+					as={Fragment}
+					enter="ease-out duration-300"
+					enterFrom="opacity-0"
+					enterTo="opacity-100"
+					leave="ease-in duration-200"
+					leaveFrom="opacity-100"
+					leaveTo="opacity-0"
+				>
+					<div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+				</Transition.Child>
+
+				<div className="fixed inset-0 z-10 overflow-y-auto">
+					<div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+						<Transition.Child
+							as={Fragment}
+							enter="ease-out duration-300"
+							enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+							enterTo="opacity-100 translate-y-0 sm:scale-100"
+							leave="ease-in duration-200"
+							leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+							leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+						>
+							<Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+								<nav
+									className="flex space-x-4"
+									aria-label="Tabs"
+								>
+									{tabs.map((tab) => (
+										<div
+											key={tab.name}
+											className={classNames(
+												tab.name === currentTab
+													? "bg-indigo-100 text-indigo-700"
+													: "text-gray-500 hover:text-gray-700",
+												"rounded-md px-3 py-2 text-sm font-medium cursor-pointer"
+											)}
+											aria-current={
+												tab.name === currentTab
+													? "page"
+													: undefined
+											}
+											onClick={() =>
+												setCurrentTab(tab.name)
+											}
+										>
+											{tab.name}
+										</div>
+									))}
+								</nav>
+								<div className="pt-5">
+									<div>
+										<div>
+											<label
+												htmlFor="email"
+												className="block text-sm font-medium leading-6 text-gray-900"
+											>
+												Email address
+											</label>
+											<div className="text-sm flex">
+												<div className="flex items-center justify-center">
+													<PencilSquareIcon
+														onClick={() =>
+															setIsEditingEmail(
+																true
+															)
+														}
+														className="h-5 w-5 text-gray-400 cursor-pointer"
+														aria-hidden="true"
+													/>
+												</div>
+												<input
+													id="email"
+													name="email"
+													type="email"
+													required
+													disabled={!isEditingEmail}
+													value={email}
+													onChange={(e) =>
+														setEmail(e.target.value)
+													}
+													className="ml-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+												/>
+												{isEditingEmail && (
+													<div className="flex items-center justify-center ml-2">
+														<CheckCircleIcon
+															className="h-5 w-5 text-green-400 cursor-pointer"
+															aria-hidden="true"
+															onClick={async () => {
+																await handleEmailUpdate();
+															}}
+														/>
+													</div>
+												)}
+											</div>
+										</div>
+
+										<div>
+											<div className="flex items-center justify-between mt-5">
+												<label
+													htmlFor=""
+													className="block text-sm font-medium leading-6 text-gray-900"
+												>
+													Name
+												</label>
+											</div>
+											<div className="text-sm flex">
+												<div className="flex items-center justify-center">
+													<PencilSquareIcon
+														onClick={() =>
+															setIsEditingFullName(
+																true
+															)
+														}
+														className="h-5 w-5 text-gray-400 cursor-pointer"
+														aria-hidden="true"
+													/>
+												</div>
+
+												<input
+													id="name"
+													name="name"
+													type="text"
+													required
+													disabled={
+														!isEditingFullName
+													}
+													onChange={(e) =>
+														setFullName(
+															e.target.value
+														)
+													}
+													value={fullName}
+													className="ml-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+												/>
+												{isEditingFullName && (
+													<div className="flex items-center justify-center ml-2">
+														<CheckCircleIcon
+															className="h-5 w-5 text-green-400 cursor-pointer"
+															aria-hidden="true"
+															onClick={async () => {
+																await handleNameUpdate();
+															}}
+														/>
+													</div>
+												)}
+											</div>
+										</div>
+
+										<div>
+											<div className="flex items-center justify-between mt-5">
+												<label
+													htmlFor=""
+													className="block text-sm font-medium leading-6 text-gray-900"
+												>
+													User
+												</label>
+											</div>
+											<div className="text-sm">
+												{user.pro ? (
+													<span className="inline-flex items-center rounded-md bg-yellow-100 px-1.5 py-0.5 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+														Premium User
+													</span>
+												) : (
+													<span className="inline-flex items-center rounded-md bg-gray-200 px-1.5 py-0.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+														Free User
+													</span>
+												)}
+											</div>
+										</div>
+									</div>
+								</div>
 							</Dialog.Panel>
 						</Transition.Child>
 					</div>

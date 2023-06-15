@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import logo from "./assets/logo.png";
 import { login, signUp } from "./api";
-import { setAuthenticateduser } from "./store/browser";
+import { setAuthenticatedUser } from "./store/browser";
 import { ToastProps } from "./ToastNotification";
 
 export interface SideBarProps {
@@ -121,7 +121,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 		if (email && password) {
 			const authedUser = await login(email, password);
 			if (authedUser) {
-				setAuthenticateduser(authedUser);
+				setAuthenticatedUser(authedUser);
 				setSideBarMode(undefined);
 			} else {
 				setToast({
@@ -220,20 +220,19 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-	const [firstName, setFirstName] = useState<string>("");
-	const [lastName, setLastName] = useState<string>("");
+	const [fullName, setFullName] = useState<string>("");
+	// const [lastName, setLastName] = useState<string>("");
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (email && password && firstName && lastName) {
+		if (email && password && fullName) {
 			const createdUser = await signUp({
 				email,
 				password,
-				firstName,
-				lastName,
+				fullName,
 			});
 			if (createdUser) {
-				setAuthenticateduser(createdUser);
+				setAuthenticatedUser(createdUser);
 				setSideBarMode(undefined);
 			} else {
 				setToast({
@@ -265,24 +264,24 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 				>
 					<div>
 						<label
-							htmlFor="firstName"
+							htmlFor="fullName"
 							className="block text-sm font-medium leading-6 text-gray-900"
 						>
-							First name
+							Full name
 						</label>
 						<div className="mt-2">
 							<input
-								id="firstName"
-								name="firstName"
+								id="fullName"
+								name="fullName"
 								type="text"
-								autoComplete="firstName"
-								onChange={(e) => setFirstName(e.target.value)}
+								autoComplete="fullName"
+								onChange={(e) => setFullName(e.target.value)}
 								required
 								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
 						</div>
 					</div>
-					<div>
+					{/* <div>
 						<label
 							htmlFor="lastName"
 							className="block text-sm font-medium leading-6 text-gray-900"
@@ -300,7 +299,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 							/>
 						</div>
-					</div>
+					</div> */}
 					<div>
 						<label
 							htmlFor="email"

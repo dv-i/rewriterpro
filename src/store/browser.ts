@@ -1,6 +1,6 @@
 import { User } from "./dataInterfaces";
 
-export const setAuthenticateduser = (user: User): void => {
+export const setAuthenticatedUser = (user: User): void => {
 	localStorage.setItem("user", JSON.stringify(user));
 };
 
