@@ -5,11 +5,14 @@ import {
 	ArrowDownTrayIcon,
 	DocumentDuplicateIcon,
 	TrashIcon,
+	ClipboardDocumentIcon,
+	ArrowPathIcon,
 } from "@heroicons/react/24/outline";
 import { getResponseToAPrompt } from "./utils/chatGpt";
 import { ToastProps } from "./ToastNotification";
 import { PromptOptions, User } from "./store/dataInterfaces";
 import { MAX_TRIES } from "./store/constants";
+import { sentence } from "txtgen";
 
 export interface AIInteractorProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -159,6 +162,28 @@ function OriginalSection({
 											Attach a file
 										</span>
 									</button>
+									<div
+										className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+										onClick={async () => {
+											setAiPrompt(
+												await navigator.clipboard.readText()
+											);
+										}}
+									>
+										<ClipboardDocumentIcon
+											className=" h-5 w-5"
+											aria-hidden="true"
+										/>
+									</div>
+									<div
+										className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+										onClick={() => setAiPrompt(sentence())}
+									>
+										<ArrowPathIcon
+											className=" h-5 w-5"
+											aria-hidden="true"
+										/>
+									</div>
 									<div className="flex flex-row gap-2 items-start text-gray-400 ">
 										<ChatBubbleBottomCenterTextIcon
 											className=" h-5 w-5"
