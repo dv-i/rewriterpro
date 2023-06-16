@@ -12,7 +12,7 @@ const premiumDropdownOption = [
 		title: "Premium",
 		description:
 			"You can customize fluency, tones, audience, emotion, length",
-		current: false,
+		current: true,
 	},
 ];
 
@@ -46,8 +46,9 @@ export default function Settings({
 	const proModeEnabled = selected.title === "Premium";
 
 	useEffect(() => {
-		user?.pro && setSelected(freeOrPremiumOption[1]);
+		user?.pro ? setSelected(freeOrPremiumOption[1]) : setSelected(freeOrPremiumOption[0]);
 	}, [user?.pro]);
+
 
 	return (
 		<div className="flex justify-between">
@@ -186,6 +187,9 @@ export default function Settings({
 					options={[
 						{ id: 1, name: "English (US)" },
 						{ id: 2, name: "English (UK)" },
+						{ id: 3, name: "Spanish", disabled: !proModeEnabled, },
+						{ id: 4, name: "French", disabled: !proModeEnabled, },
+						{ id: 5, name: "German", disabled: !proModeEnabled, },
 					]}
 					setToast={setToast}
 				/>
@@ -238,6 +242,7 @@ export default function Settings({
 														"cursor-default select-none p-4 text-sm"
 													)
 												}
+												disabled={user?.pro && option.title === "Standard"}
 												value={option}
 											>
 												{({ selected, active }) => (
@@ -308,6 +313,7 @@ function DropDown({
 	setToast,
 }: DropDownProps) {
 	const [selected, setSelected] = useState(options[0]);
+
 
 	useEffect(() => {
 		setPromptOptions((prev) => {
@@ -429,14 +435,6 @@ function DropDown({
 											}
 											value={opt}
 											disabled={opt.disabled}
-											onClick={() =>
-												setToast({
-													visible: true,
-													title: "Upgrade to Pro",
-													content:
-														"To enhance your paraphrasing experience by using this mode and many others, upgrade to pro.",
-												})
-											}
 										>
 											{({ selected, active }) => (
 												<>

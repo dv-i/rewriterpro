@@ -221,7 +221,7 @@ function OriginalSection({
 									}
 								>
 									<Loader visible={showLoader} />
-									Paraphrase
+									Rewrite
 								</button>
 							</div>
 						</div>

@@ -207,7 +207,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 												</div>
 											)}
 
-											{/* Buy Premium Butotn */}
+											{/* Buy Premium Button */}
 											{user?.pro !== true && (
 												<button
 													type="button"
@@ -218,7 +218,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 														)
 													}
 												>
-													Buy Premium
+													Buy Pro
 												</button>
 											)}
 
