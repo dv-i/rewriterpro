@@ -70,13 +70,20 @@ function AIInteractorCard({
 	counter,
 	user,
 }: AIInteractorCardProps) {
+	const mainClassName = `-mt-48 ${
+		user?.pro ? "-mt-[22rem]" : ""
+	} h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8`;
 	return (
-		<main className="-mt-48 h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+		<main className={mainClassName}>
 			<Alert user={user} counter={counter} />
 
-			<div className="h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
-				<div className="px-4 h-20 py-5 sm:px-6">{CardHeader}</div>
-				<div className="px-4 py-5 h-full sm:p-6">{CardBody}</div>
+			<div className="md:h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
+				<div className="pl-4 pr-4 sm:h-20 py-5 sm:px-6">
+					{CardHeader}
+				</div>
+				<div className="pl-4 sm:pr-4 py-5 h-full sm:p-6">
+					{CardBody}
+				</div>
 			</div>
 		</main>
 	);

@@ -32,7 +32,7 @@ export default function AIInteractor({
 	const [aiResult, setAiResult] = useState<string>("");
 
 	return (
-		<div className="flex flex-wrap flex-row h-full">
+		<div className="flex flex-wrap flex-col md:flex-row md:h-full">
 			<OriginalSection
 				aiPrompt={aiPrompt}
 				setAiPrompt={setAiPrompt}
@@ -115,8 +115,183 @@ function OriginalSection({
 
 	const inputFile = useRef<HTMLInputElement | null>(null);
 	const [showLoader, setShowLoader] = useState(false);
+	const Options = () => {
+		return (
+			<>
+				{/* Mobile */}
+				<div className="sm:hidden inset-x-0 bottom-0 flex flex-col justify-between py-2 sm:pl-3">
+					<div className="flex items-center space-x-5 w-full">
+						<div className="flex gap-4 items-center w-full">
+							<input
+								type="file"
+								accept=".txt"
+								id="file"
+								ref={inputFile}
+								style={{ display: "none" }}
+								onChange={readTextFromSelectedFile}
+							/>
+							<button
+								type="button"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+								onClick={() => inputFile.current?.click()}
+							>
+								<PaperClipIcon
+									className="h-5 w-5"
+									aria-hidden="true"
+								/>
+								<span className="sr-only">Attach a file</span>
+							</button>
+							<div
+								className="hidden sm:flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								onClick={async () => {
+									setAiPrompt(
+										await navigator.clipboard.readText()
+									);
+								}}
+							>
+								<ClipboardDocumentIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+							</div>
+							<div
+								className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								onClick={() => setAiPrompt(sentence())}
+							>
+								<ArrowPathIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+							</div>
+							<div className="flex flex-row gap-2 items-start text-gray-400 ">
+								<ChatBubbleBottomCenterTextIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+								<div className="-mb-2 font-light text-sm">
+									{aiPrompt.length} / 3000 characters
+								</div>
+							</div>
+						</div>
+						<button
+							type="submit"
+							className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							onClick={() => {
+								setAiPrompt("");
+								setAiResult("");
+							}}
+						>
+							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
+						</button>
+					</div>
+					<div className="flex-shrink-0 gap-2 flex w-full flex-row mt-3">
+						<button
+							type="submit"
+							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+								MAX_TRIES <= counter && !user?.pro
+									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
+									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+							}`}
+							onClick={() => {
+								handleParaphraseClick();
+							}}
+							disabled={MAX_TRIES <= counter && !user?.pro}
+						>
+							<Loader visible={showLoader} />
+							Rewrite
+						</button>
+					</div>
+				</div>
+
+				{/* Desktop */}
+				<div className="hidden inset-x-0 bottom-0 sm:flex justify-between py-2 pl-3">
+					<div className="flex items-center space-x-5 w-full">
+						<div className="flex gap-4 items-center w-full">
+							<input
+								type="file"
+								accept=".txt"
+								id="file"
+								ref={inputFile}
+								style={{ display: "none" }}
+								onChange={readTextFromSelectedFile}
+							/>
+							<button
+								type="button"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+								onClick={() => inputFile.current?.click()}
+							>
+								<PaperClipIcon
+									className="h-5 w-5"
+									aria-hidden="true"
+								/>
+								<span className="sr-only">Attach a file</span>
+							</button>
+							<div
+								className="hidden sm:flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								onClick={async () => {
+									setAiPrompt(
+										await navigator.clipboard.readText()
+									);
+								}}
+							>
+								<ClipboardDocumentIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+							</div>
+							<div
+								className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								onClick={() => setAiPrompt(sentence())}
+							>
+								<ArrowPathIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+							</div>
+							<div className="flex flex-row gap-2 items-start text-gray-400 ">
+								<ChatBubbleBottomCenterTextIcon
+									className=" h-5 w-5"
+									aria-hidden="true"
+								/>
+								<div className="-mb-2 font-light text-sm">
+									{aiPrompt.length} / 3000 characters
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="flex-shrink-0 gap-2 flex flex-row">
+						<button
+							type="submit"
+							className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							onClick={() => {
+								setAiPrompt("");
+								setAiResult("");
+							}}
+						>
+							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
+						</button>
+						<button
+							type="submit"
+							className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+								MAX_TRIES <= counter && !user?.pro
+									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
+									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+							}`}
+							onClick={() => {
+								handleParaphraseClick();
+							}}
+							disabled={MAX_TRIES <= counter && !user?.pro}
+						>
+							<Loader visible={showLoader} />
+							Rewrite
+						</button>
+					</div>
+				</div>
+			</>
+		);
+	};
 	return (
-		<div className="flex flex-col h-full w-1/2 pr-3">
+		<div className="flex flex-col h-full w-full md:w-1/2 pr-3">
 			<h2 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Original:
 			</h2>
@@ -125,106 +300,27 @@ function OriginalSection({
 					<div className="flex flex-col h-full">
 						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
 							<textarea
-								rows={3}
+								rows={10}
 								name="comment"
 								id="comment"
-								className="block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								placeholder="Start typing or paste text here..."
+								value={aiPrompt}
+								maxLength={3000}
+								onChange={(e) => setAiPrompt(e.target.value)}
+							/>
+							<textarea
+								rows={10}
+								name="comment"
+								id="comment"
+								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
 								onChange={(e) => setAiPrompt(e.target.value)}
 							/>
 						</div>
-
-						<div className="inset-x-0 bottom-0 flex justify-between py-2 pl-3">
-							<div className="flex items-center space-x-5 w-full">
-								<div className="flex gap-4 items-center w-full">
-									<input
-										type="file"
-										accept=".txt"
-										id="file"
-										ref={inputFile}
-										style={{ display: "none" }}
-										onChange={readTextFromSelectedFile}
-									/>
-									<button
-										type="button"
-										className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-										onClick={() =>
-											inputFile.current?.click()
-										}
-									>
-										<PaperClipIcon
-											className="h-5 w-5"
-											aria-hidden="true"
-										/>
-										<span className="sr-only">
-											Attach a file
-										</span>
-									</button>
-									<div
-										className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
-										onClick={async () => {
-											setAiPrompt(
-												await navigator.clipboard.readText()
-											);
-										}}
-									>
-										<ClipboardDocumentIcon
-											className=" h-5 w-5"
-											aria-hidden="true"
-										/>
-									</div>
-									<div
-										className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
-										onClick={() => setAiPrompt(sentence())}
-									>
-										<ArrowPathIcon
-											className=" h-5 w-5"
-											aria-hidden="true"
-										/>
-									</div>
-									<div className="flex flex-row gap-2 items-start text-gray-400 ">
-										<ChatBubbleBottomCenterTextIcon
-											className=" h-5 w-5"
-											aria-hidden="true"
-										/>
-										<div className="-mb-2 font-light text-sm">
-											{aiPrompt.length} / 3000 characters
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="flex-shrink-0 gap-2 flex flex-row">
-								<button
-									type="submit"
-									className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-									onClick={() => {
-										setAiPrompt("");
-										setAiResult("");
-									}}
-								>
-									<TrashIcon className="h-5 w-5 stroke-indigo-600" />
-								</button>
-								<button
-									type="submit"
-									className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
-										MAX_TRIES <= counter && !user?.pro
-											? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-											: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
-									}`}
-									onClick={() => {
-										handleParaphraseClick();
-									}}
-									disabled={
-										MAX_TRIES <= counter && !user?.pro
-									}
-								>
-									<Loader visible={showLoader} />
-									Rewrite
-								</button>
-							</div>
-						</div>
+						{Options()}
 					</div>
 				</div>
 			</div>
@@ -233,8 +329,74 @@ function OriginalSection({
 }
 
 function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
+	const Options = () => {
+		return (
+			<div className="inset-x-0 bottom-0 flex justify-between py-2 sm:pl-3">
+				<div className="flex items-center space-x-5 w-full">
+					<div className="flex gap-4 items-center w-full">
+						<button
+							type="button"
+							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+							onClick={() => {
+								const blob = new Blob([aiResult], {
+									type: "text/plain",
+								});
+								const link = document.createElement("a");
+								link.href = window.URL.createObjectURL(blob);
+								link.download = "result.txt";
+								link.click();
+							}}
+						>
+							<ArrowDownTrayIcon
+								className="h-5 w-5"
+								aria-hidden="true"
+							/>
+						</button>
+						<div className="flex flex-row gap-2 items-start text-gray-400 ">
+							<ChatBubbleBottomCenterTextIcon
+								className=" h-5 w-5"
+								aria-hidden="true"
+							/>
+							<div className="-mb-2 font-light text-sm">
+								{aiResult.length} / 3000 characters
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="flex-shrink-0 py-2">
+					<button
+						type="button"
+						className="hidden sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+						onClick={() => {
+							if (aiResult) {
+								navigator.clipboard.writeText(aiResult);
+								setToast({
+									visible: true,
+									title: "Succesfully Copied",
+									content:
+										"Comeback for more paraphrasing...",
+								});
+							} else {
+								setToast({
+									visible: true,
+									title: "Nothing to copy",
+									content: "Get started with paraphrasing...",
+									type: "warning",
+								});
+							}
+						}}
+					>
+						<DocumentDuplicateIcon
+							className="h-5 w-5"
+							aria-hidden="true"
+						/>
+					</button>
+				</div>
+			</div>
+		);
+	};
 	return (
-		<div className="flex flex-col h-full w-1/2 pl-3">
+		<div className="flex flex-col h-full w-full md:w-1/2 mt-5 sm:mt-0 sm:pl-3 pr-3">
 			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Paraphrased:
 			</h3>
@@ -247,85 +409,21 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={3}
 									name="comment"
 									id="comment"
-									className="block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+									value={aiResult}
+									disabled
+								/>
+								<textarea
+									rows={10}
+									name="comment"
+									id="comment"
+									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
 							</div>
 
-							<div className="inset-x-0 bottom-0 flex justify-between py-2 pl-3">
-								<div className="flex items-center space-x-5 w-full">
-									<div className="flex gap-4 items-center w-full">
-										<button
-											type="button"
-											className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-											onClick={() => {
-												const blob = new Blob(
-													[aiResult],
-													{
-														type: "text/plain",
-													}
-												);
-												const link =
-													document.createElement("a");
-												link.href =
-													window.URL.createObjectURL(
-														blob
-													);
-												link.download = "result.txt";
-												link.click();
-											}}
-										>
-											<ArrowDownTrayIcon
-												className="h-5 w-5"
-												aria-hidden="true"
-											/>
-										</button>
-										<div className="flex flex-row gap-2 items-start text-gray-400 ">
-											<ChatBubbleBottomCenterTextIcon
-												className=" h-5 w-5"
-												aria-hidden="true"
-											/>
-											<div className="-mb-2 font-light text-sm">
-												{aiResult.length} / 3000
-												characters
-											</div>
-										</div>
-									</div>
-								</div>
-								<div className="flex-shrink-0 py-2">
-									<button
-										type="button"
-										className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-										onClick={() => {
-											if (aiResult) {
-												navigator.clipboard.writeText(
-													aiResult
-												);
-												setToast({
-													visible: true,
-													title: "Succesfully Copied",
-													content:
-														"Comeback for more paraphrasing...",
-												});
-											} else {
-												setToast({
-													visible: true,
-													title: "Nothing to copy",
-													content:
-														"Get started with paraphrasing...",
-													type: "warning",
-												});
-											}
-										}}
-									>
-										<DocumentDuplicateIcon
-											className="h-5 w-5"
-											aria-hidden="true"
-										/>
-									</button>
-								</div>
-							</div>
+							{Options()}
 						</div>
 					</form>
 				</div>
