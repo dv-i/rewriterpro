@@ -46,254 +46,567 @@ export default function Settings({
 	const proModeEnabled = selected.title === "Premium";
 
 	useEffect(() => {
-		user?.pro ? setSelected(freeOrPremiumOption[1]) : setSelected(freeOrPremiumOption[0]);
+		user?.pro
+			? setSelected(freeOrPremiumOption[1])
+			: setSelected(freeOrPremiumOption[0]);
 	}, [user?.pro]);
 
-
 	return (
-		<div className="flex justify-between">
-			<div className="flex flex-row gap-3 -mt-1.5">
-				<DropDown
-					label={"Fluency"}
-					promptKey="fluency"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{ id: 1, name: "Default" },
-						{ id: 2, name: "Basic" },
-						{
-							id: 3,
-							name: "Intermediate",
-							disabled: !proModeEnabled,
-						},
-						{ id: 4, name: "Advanced", disabled: !proModeEnabled },
-					]}
-					setToast={setToast}
-				/>
+		<>
+			{/* Desktop */}
+			<div className="hidden sm:flex justify-between">
+				<div className="flex-row flex gap-3 -mt-1.5">
+					<DropDown
+						label={"Fluency"}
+						promptKey="fluency"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "Default" },
+							{ id: 2, name: "Basic" },
+							{
+								id: 3,
+								name: "Intermediate",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 4,
+								name: "Advanced",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
 
-				<DropDown
-					label={"Tone"}
-					promptKey="tone"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{
-							id: 1,
-							name: "Default",
-						},
-						{
-							id: 2,
-							name: "Formal",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Academic",
-							disabled: !proModeEnabled,
-						},
-						{ id: 3, name: "Clear", disabled: !proModeEnabled },
-						{
-							id: 3,
-							name: "Elaborative",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Creative",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Optimistic",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Story like",
-							disabled: !proModeEnabled,
-						},
-					]}
-					setToast={setToast}
-				/>
+					<DropDown
+						label={"Tone"}
+						promptKey="tone"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "Default",
+							},
+							{
+								id: 2,
+								name: "Formal",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Academic",
+								disabled: !proModeEnabled,
+							},
+							{ id: 3, name: "Clear", disabled: !proModeEnabled },
+							{
+								id: 3,
+								name: "Elaborative",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Creative",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Optimistic",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Story like",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
 
-				<DropDown
-					label={"Audience"}
-					promptKey="audience"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{
-							id: 1,
-							name: "General",
-						},
-						{
-							id: 2,
-							name: "Business",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Knowledgable",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Expert",
-							disabled: !proModeEnabled,
-						},
-					]}
-					setToast={setToast}
-				/>
+					<DropDown
+						label={"Audience"}
+						promptKey="audience"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "General",
+							},
+							{
+								id: 2,
+								name: "Business",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Knowledgable",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Expert",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
 
-				<DropDown
-					label={"Emotion"}
-					promptKey="emotion"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{ id: 1, name: "Mild", disabled: !proModeEnabled },
-						{
-							id: 2,
-							name: "Strong",
-							disabled: !proModeEnabled,
-						},
-					]}
-					setToast={setToast}
-				/>
+					<DropDown
+						label={"Emotion"}
+						promptKey="emotion"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "Mild", disabled: !proModeEnabled },
+							{
+								id: 2,
+								name: "Strong",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
 
-				<DropDown
-					label={"Length"}
-					promptKey="length"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{
-							id: 1,
-							name: "Default",
-						},
-						{
-							id: 2,
-							name: "Shortern",
-							disabled: !proModeEnabled,
-						},
-						{
-							id: 3,
-							name: "Extend",
-							disabled: !proModeEnabled,
-						},
-					]}
-					setToast={setToast}
-				/>
+					<DropDown
+						label={"Length"}
+						promptKey="length"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "Default",
+							},
+							{
+								id: 2,
+								name: "Shortern",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Extend",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
 
-				<DropDown
-					label={"Paraphrased Language"}
-					promptKey="language"
-					setPromptOptions={setPromptOptions}
-					options={[
-						{ id: 1, name: "English (US)" },
-						{ id: 2, name: "English (UK)" },
-						{ id: 3, name: "Spanish", disabled: !proModeEnabled, },
-						{ id: 4, name: "French", disabled: !proModeEnabled, },
-						{ id: 5, name: "German", disabled: !proModeEnabled, },
-					]}
-					setToast={setToast}
-				/>
-			</div>
-			<div className="w-1/6">
-				<Listbox value={selected} onChange={setSelected}>
-					{({ open }) => (
-						<>
-							<Listbox.Label className="sr-only">
-								Change published status
-							</Listbox.Label>
-							<div className="relative w-full">
-								<div className="inline-flex divide-x divide-indigo-700 rounded-md shadow-sm w-full">
-									<div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-indigo-600 px-3 py-2 text-white shadow-sm w-full">
-										<CheckIcon
-											className="-ml-0.5 h-5 w-5"
-											aria-hidden="true"
-										/>
-										<p className="text-sm font-semibold">
-											{selected.title}
-										</p>
+					<DropDown
+						label={"Paraphrased Language"}
+						promptKey="language"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "English (US)" },
+							{ id: 2, name: "English (UK)" },
+							{
+								id: 3,
+								name: "Spanish",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 4,
+								name: "French",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 5,
+								name: "German",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+				</div>
+
+				<div className="block w-1/6">
+					<Listbox value={selected} onChange={setSelected}>
+						{({ open }) => (
+							<>
+								<Listbox.Label className="sr-only">
+									Change published status
+								</Listbox.Label>
+								<div className="relative w-full">
+									<div className="inline-flex divide-x divide-indigo-700 rounded-md shadow-sm w-full">
+										<div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-indigo-600 px-3 py-2 text-white shadow-sm w-full">
+											<CheckIcon
+												className="-ml-0.5 h-5 w-5"
+												aria-hidden="true"
+											/>
+											<p className="text-sm font-semibold">
+												{selected.title}
+											</p>
+										</div>
+										<Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-indigo-600 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
+											<span className="sr-only">
+												Change published status
+											</span>
+											<ChevronDownIcon
+												className="h-5 w-5 text-white"
+												aria-hidden="true"
+											/>
+										</Listbox.Button>
 									</div>
-									<Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-indigo-600 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
-										<span className="sr-only">
-											Change published status
-										</span>
-										<ChevronDownIcon
-											className="h-5 w-5 text-white"
-											aria-hidden="true"
-										/>
-									</Listbox.Button>
-								</div>
 
-								<Transition
-									show={open}
-									as={Fragment}
-									leave="transition ease-in duration-100"
-									leaveFrom="opacity-100"
-									leaveTo="opacity-0"
-								>
-									<Listbox.Options className="absolute right-0 z-10 mt-2 w-72 origin-top-right divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-										{freeOrPremiumOption.map((option) => (
-											<Listbox.Option
-												key={`${option.title}-${option.description}`}
-												className={({ active }) =>
-													classNames(
-														active
-															? "bg-indigo-600 text-white"
-															: "text-gray-900",
-														"cursor-default select-none p-4 text-sm"
-													)
-												}
-												disabled={user?.pro && option.title === "Standard"}
-												value={option}
-											>
-												{({ selected, active }) => (
-													<div className="flex flex-col">
-														<div className="flex justify-between">
-															<p
-																className={
-																	selected
-																		? "font-semibold"
-																		: "font-normal"
-																}
-															>
-																{option.title}
-															</p>
-															{selected ? (
-																<span
-																	className={
-																		active
-																			? "text-white"
-																			: "text-indigo-600"
-																	}
-																>
-																	<CheckIcon
-																		className="h-5 w-5"
-																		aria-hidden="true"
-																	/>
-																</span>
-															) : null}
-														</div>
-														<p
-															className={classNames(
+									<Transition
+										show={open}
+										as={Fragment}
+										leave="transition ease-in duration-100"
+										leaveFrom="opacity-100"
+										leaveTo="opacity-0"
+									>
+										<Listbox.Options className="absolute right-0 z-10 mt-2 w-72 origin-top-right divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+											{freeOrPremiumOption.map(
+												(option) => (
+													<Listbox.Option
+														key={`${option.title}-${option.description}`}
+														className={({
+															active,
+														}) =>
+															classNames(
 																active
-																	? "text-indigo-200"
-																	: "text-gray-500",
-																"mt-2"
-															)}
-														>
-															{option.description}
-														</p>
-													</div>
-												)}
-											</Listbox.Option>
-										))}
-									</Listbox.Options>
-								</Transition>
-							</div>
-						</>
-					)}
-				</Listbox>
+																	? "bg-indigo-600 text-white"
+																	: "text-gray-900",
+																"cursor-default select-none p-4 text-sm"
+															)
+														}
+														disabled={
+															user?.pro &&
+															option.title ===
+																"Standard"
+														}
+														value={option}
+													>
+														{({
+															selected,
+															active,
+														}) => (
+															<div className="flex flex-col">
+																<div className="flex justify-between">
+																	<p
+																		className={
+																			selected
+																				? "font-semibold"
+																				: "font-normal"
+																		}
+																	>
+																		{
+																			option.title
+																		}
+																	</p>
+																	{selected ? (
+																		<span
+																			className={
+																				active
+																					? "text-white"
+																					: "text-indigo-600"
+																			}
+																		>
+																			<CheckIcon
+																				className="h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		</span>
+																	) : null}
+																</div>
+																<p
+																	className={classNames(
+																		active
+																			? "text-indigo-200"
+																			: "text-gray-500",
+																		"mt-2"
+																	)}
+																>
+																	{
+																		option.description
+																	}
+																</p>
+															</div>
+														)}
+													</Listbox.Option>
+												)
+											)}
+										</Listbox.Options>
+									</Transition>
+								</div>
+							</>
+						)}
+					</Listbox>
+				</div>
 			</div>
-		</div>
+
+			<div className="sm:hidden block h-full">
+				{/* Mobile */}
+				<div className="block w-full">
+					<Listbox value={selected} onChange={setSelected}>
+						{({ open }) => (
+							<>
+								<Listbox.Label className="sr-only">
+									Change published status
+								</Listbox.Label>
+								<div className="relative w-full">
+									<div className="inline-flex divide-x divide-indigo-700 rounded-md shadow-sm w-full">
+										<div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-indigo-600 px-3 py-2 text-white shadow-sm w-full">
+											<CheckIcon
+												className="-ml-0.5 h-5 w-5"
+												aria-hidden="true"
+											/>
+											<p className="text-sm font-semibold">
+												{selected.title}
+											</p>
+										</div>
+										<Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-indigo-600 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
+											<span className="sr-only">
+												Change published status
+											</span>
+											<ChevronDownIcon
+												className="h-5 w-5 text-white"
+												aria-hidden="true"
+											/>
+										</Listbox.Button>
+									</div>
+
+									<Transition
+										show={open}
+										as={Fragment}
+										leave="transition ease-in duration-100"
+										leaveFrom="opacity-100"
+										leaveTo="opacity-0"
+									>
+										<Listbox.Options className="absolute right-0 z-10 mt-2 w-full origin-top-right divide-y divide-gray-200 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+											{freeOrPremiumOption.map(
+												(option) => (
+													<Listbox.Option
+														key={`${option.title}-${option.description}`}
+														className={({
+															active,
+														}) =>
+															classNames(
+																active
+																	? "bg-indigo-600 text-white"
+																	: "text-gray-900",
+																"cursor-default select-none p-4 text-sm"
+															)
+														}
+														disabled={
+															user?.pro &&
+															option.title ===
+																"Standard"
+														}
+														value={option}
+													>
+														{({
+															selected,
+															active,
+														}) => (
+															<div className="flex flex-col">
+																<div className="flex justify-between">
+																	<p
+																		className={
+																			selected
+																				? "font-semibold"
+																				: "font-normal"
+																		}
+																	>
+																		{
+																			option.title
+																		}
+																	</p>
+																	{selected ? (
+																		<span
+																			className={
+																				active
+																					? "text-white"
+																					: "text-indigo-600"
+																			}
+																		>
+																			<CheckIcon
+																				className="h-5 w-5"
+																				aria-hidden="true"
+																			/>
+																		</span>
+																	) : null}
+																</div>
+																<p
+																	className={classNames(
+																		active
+																			? "text-indigo-200"
+																			: "text-gray-500",
+																		"mt-2"
+																	)}
+																>
+																	{
+																		option.description
+																	}
+																</p>
+															</div>
+														)}
+													</Listbox.Option>
+												)
+											)}
+										</Listbox.Options>
+									</Transition>
+								</div>
+							</>
+						)}
+					</Listbox>
+				</div>
+				{/* Mobile */}
+				<div className="sm:hidden grid grid-cols-2 gap-3 mt-3 sm:grid-cols-3 sm:gap-4">
+					<DropDown
+						label={"Fluency"}
+						promptKey="fluency"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "Default" },
+							{ id: 2, name: "Basic" },
+							{
+								id: 3,
+								name: "Intermediate",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 4,
+								name: "Advanced",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+
+					<DropDown
+						label={"Tone"}
+						promptKey="tone"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "Default",
+							},
+							{
+								id: 2,
+								name: "Formal",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Academic",
+								disabled: !proModeEnabled,
+							},
+							{ id: 3, name: "Clear", disabled: !proModeEnabled },
+							{
+								id: 3,
+								name: "Elaborative",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Creative",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Optimistic",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Story like",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+
+					<DropDown
+						label={"Audience"}
+						promptKey="audience"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "General",
+							},
+							{
+								id: 2,
+								name: "Business",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Knowledgable",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Expert",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+
+					<DropDown
+						label={"Emotion"}
+						promptKey="emotion"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "Mild", disabled: !proModeEnabled },
+							{
+								id: 2,
+								name: "Strong",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+
+					<DropDown
+						label={"Length"}
+						promptKey="length"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{
+								id: 1,
+								name: "Default",
+							},
+							{
+								id: 2,
+								name: "Shortern",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 3,
+								name: "Extend",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+
+					<DropDown
+						label={"Paraphrased Language"}
+						promptKey="language"
+						setPromptOptions={setPromptOptions}
+						options={[
+							{ id: 1, name: "English (US)" },
+							{ id: 2, name: "English (UK)" },
+							{
+								id: 3,
+								name: "Spanish",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 4,
+								name: "French",
+								disabled: !proModeEnabled,
+							},
+							{
+								id: 5,
+								name: "German",
+								disabled: !proModeEnabled,
+							},
+						]}
+						setToast={setToast}
+					/>
+				</div>
+			</div>
+		</>
 	);
 }
 
@@ -313,7 +626,6 @@ function DropDown({
 	setToast,
 }: DropDownProps) {
 	const [selected, setSelected] = useState(options[0]);
-
 
 	useEffect(() => {
 		setPromptOptions((prev) => {
