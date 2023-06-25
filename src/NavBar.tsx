@@ -73,12 +73,12 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 			<div className="bg-indigo-600 pb-40">
 				<Disclosure
 					as="nav"
-					className="pb-20 border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none"
+					className="pb-20 bg-indigo-600 lg:border-none"
 				>
 					{() => (
 						<>
 							<div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-								<div className="relative flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
+								<div className="relative flex h-16 items-center justify-between">
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
 											<img
