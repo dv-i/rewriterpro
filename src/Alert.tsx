@@ -22,14 +22,14 @@ export default function Alert({ counter, user }: AlertProps) {
 					/>
 				</div>
 				<div className="ml-3 flex-1 md:flex md:justify-between">
-					<p className="text-sm text-blue-700">
+					<p className="text-md text-blue-700">
 						You have{" "}
 						<span className="font-semibold">
 							{" "}
 							{MAX_TRIES - counter}{" "}
 						</span>{" "}
 						paraphrases left for the day.{" "}
-						<button className="font-medium text-blue-700 underline hover:text-blue-600">
+						<button className="text-left font-medium text-blue-700 underline hover:text-blue-600">
 							Upgrade your account to get unlimited paraphrasing
 						</button>
 					</p>

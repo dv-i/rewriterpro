@@ -6,7 +6,14 @@ import AIInteractor from "./AIInteractor";
 import "./assets/index.css";
 import ToastNotification, { ToastProps } from "./ToastNotification";
 import { PromptOptions, User } from "./store/dataInterfaces";
-import { getLocalCounter, setLocalCounter } from "./store/browser";
+import {
+	getLocalCounter,
+	setAuthenticatedUser,
+	setLocalCounter,
+} from "./store/browser";
+import StripeUtil from "./utils/StripeUtil";
+import MongoDbClient from "./store/MongoDbClient";
+import { USERS_COLLECTION } from "./store/constants";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -23,6 +30,81 @@ function App() {
 	useEffect(() => {
 		setLocalCounter(counter);
 	}, [counter]);
+
+	const stripe = new StripeUtil(
+		process.env.REACT_APP_STRIPE_SECRET_KEY || ""
+	);
+	const mongo = new MongoDbClient();
+
+	const fetchSubscriptionsAndSetUserToProIfRequired = async () => {
+		try {
+			const subscriptions = await stripe.getAllSubscriptions();
+			if (
+				subscriptions.filter((sub) => sub.status === "active").length >
+					0 &&
+				user
+			) {
+				if (!user.pro) {
+					const updatedUser = await mongo.updateOne(
+						USERS_COLLECTION,
+						{
+							email: user.email,
+						},
+						{
+							$set: {
+								pro: true,
+							},
+						}
+					);
+					if (updatedUser) {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: user.email,
+						});
+						if (newUser) {
+							setAuthenticatedUser(newUser);
+							setUser(newUser);
+						}
+					}
+				}
+			} else {
+				if (user && user.pro) {
+					const updatedUser = await mongo.updateOne(
+						USERS_COLLECTION,
+						{
+							email: user.email,
+						},
+						{
+							$set: {
+								pro: false,
+							},
+						}
+					);
+					if (updatedUser) {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: user.email,
+						});
+						if (newUser) {
+							setAuthenticatedUser(newUser);
+							setUser(newUser);
+						}
+					}
+				}
+			}
+		} catch (error) {
+			// Handle error here
+			console.error("Error fetching subscriptions:", error);
+		}
+	};
+
+	useEffect(() => {
+		fetchSubscriptionsAndSetUserToProIfRequired();
+	}, []);
+
+	useEffect(() => {
+		if (user) {
+			fetchSubscriptionsAndSetUserToProIfRequired();
+		}
+	}, [user]);
 
 	return (
 		<>
@@ -70,13 +152,20 @@ function AIInteractorCard({
 	counter,
 	user,
 }: AIInteractorCardProps) {
+	const mainClassName = `-mt-[11rem] ${
+		user?.pro ? "-mt-[22rem] sm:-mt-[11rem]" : ""
+	} h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8`;
 	return (
-		<main className="-mt-48 h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+		<main className={mainClassName}>
 			<Alert user={user} counter={counter} />
 
-			<div className="h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
-				<div className="px-4 h-20 py-5 sm:px-6">{CardHeader}</div>
-				<div className="px-4 py-5 h-full sm:p-6">{CardBody}</div>
+			<div className="md:h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
+				<div className="pl-4 pr-4 sm:h-20 py-5 sm:px-6">
+					{CardHeader}
+				</div>
+				<div className="pl-4 sm:pr-4 py-5 h-full sm:p-6">
+					{CardBody}
+				</div>
 			</div>
 		</main>
 	);

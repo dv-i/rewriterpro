@@ -2,7 +2,6 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { DATABASE } from "../constants";
 import { User } from "./dataInterfaces";
 import { getMongoAccessToken, setMongoAccessToken } from "./browser";
-import { USERS_COLLECTION } from "./constants";
 
 const getAxiosClient = async (): Promise<AxiosInstance> => {
 	if (!getMongoAccessToken()) {
@@ -18,13 +17,11 @@ const getAxiosClient = async (): Promise<AxiosInstance> => {
 };
 
 export const refreshMongoAccessToken = async () => {
-	if (!getMongoAccessToken()) {
-		const mongoAuthDetails = await axios.post(DATABASE.AUTH_URL, {
-			key: process.env.REACT_APP_ATLAS_DATA_API_KEY,
-		});
-		if (mongoAuthDetails.data.access_token) {
-			setMongoAccessToken(mongoAuthDetails.data.access_token);
-		}
+	const mongoAuthDetails = await axios.post(DATABASE.AUTH_URL, {
+		key: process.env.REACT_APP_ATLAS_DATA_API_KEY,
+	});
+	if (mongoAuthDetails.data.access_token) {
+		setMongoAccessToken(mongoAuthDetails.data.access_token);
 	}
 };
 
