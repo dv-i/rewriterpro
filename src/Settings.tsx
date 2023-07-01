@@ -228,7 +228,7 @@ export default function Settings({
 												className="-ml-0.5 h-5 w-5"
 												aria-hidden="true"
 											/>
-											<p className="text-sm font-semibold">
+											<p className="text-md font-semibold">
 												{selected.title}
 											</p>
 										</div>
@@ -262,7 +262,7 @@ export default function Settings({
 																active
 																	? "bg-indigo-600 text-white"
 																	: "text-gray-900",
-																"cursor-default select-none p-4 text-sm"
+																"cursor-default select-none p-4 text-md"
 															)
 														}
 														disabled={
@@ -346,7 +346,7 @@ export default function Settings({
 												className="-ml-0.5 h-5 w-5"
 												aria-hidden="true"
 											/>
-											<p className="text-sm font-semibold">
+											<p className="text-md font-semibold">
 												{selected.title}
 											</p>
 										</div>
@@ -380,7 +380,7 @@ export default function Settings({
 																active
 																	? "bg-indigo-600 text-white"
 																	: "text-gray-900",
-																"cursor-default select-none p-4 text-sm"
+																"cursor-default select-none p-4 text-md"
 															)
 														}
 														disabled={
@@ -651,7 +651,7 @@ function DropDown({
 						{label}
 					</div>
 					<div className="relative w-36">
-						<Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+						<Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-md sm:leading-6">
 							<span className="block truncate">
 								{selected.name}
 							</span>
@@ -670,7 +670,7 @@ function DropDown({
 							leaveFrom="opacity-100"
 							leaveTo="opacity-0"
 						>
-							<Listbox.Options className="absolute z-10 mt-1 max-h-200 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+							<Listbox.Options className="absolute z-10 mt-1 max-h-200 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-md">
 								{options.map((opt) =>
 									opt.disabled ? (
 										<div

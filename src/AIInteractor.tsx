@@ -168,14 +168,14 @@ function OriginalSection({
 									className=" h-5 w-5"
 									aria-hidden="true"
 								/>
-								<div className="-mb-2 font-light text-sm">
+								<div className="-mb-2 font-light text-md">
 									{aiPrompt.length} / 3000 characters
 								</div>
 							</div>
 						</div>
 						<button
 							type="submit"
-							className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							onClick={() => {
 								setAiPrompt("");
 								setAiResult("");
@@ -187,7 +187,7 @@ function OriginalSection({
 					<div className="flex-shrink-0 gap-2 flex w-full flex-row mt-3">
 						<button
 							type="submit"
-							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								MAX_TRIES <= counter && !user?.pro
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
@@ -253,7 +253,7 @@ function OriginalSection({
 									className=" h-5 w-5"
 									aria-hidden="true"
 								/>
-								<div className="-mb-2 font-light text-sm">
+								<div className="-mb-2 font-light text-md">
 									{aiPrompt.length} / 3000 characters
 								</div>
 							</div>
@@ -262,7 +262,7 @@ function OriginalSection({
 					<div className="flex-shrink-0 gap-2 flex flex-row">
 						<button
 							type="submit"
-							className="inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							onClick={() => {
 								setAiPrompt("");
 								setAiResult("");
@@ -272,7 +272,7 @@ function OriginalSection({
 						</button>
 						<button
 							type="submit"
-							className={`inline-flex items-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+							className={`inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								MAX_TRIES <= counter && !user?.pro
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
@@ -303,7 +303,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -313,7 +313,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -357,7 +357,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 								className=" h-5 w-5"
 								aria-hidden="true"
 							/>
-							<div className="-mb-2 font-light text-sm">
+							<div className="-mb-2 font-light text-md">
 								{aiResult.length} / 3000 characters
 							</div>
 						</div>
@@ -409,7 +409,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={3}
 									name="comment"
 									id="comment"
-									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
@@ -417,7 +417,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={10}
 									name="comment"
 									id="comment"
-									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>

@@ -154,7 +154,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 					<div>
 						<label
 							htmlFor="email"
-							className="block text-sm font-medium leading-6 text-gray-900"
+							className="block text-md font-medium leading-6 text-gray-900"
 						>
 							Email address
 						</label>
@@ -166,7 +166,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="email"
 								onChange={(e) => setEmail(e.target.value)}
 								required
-								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div>
@@ -175,7 +175,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 						<div className="flex items-center justify-between">
 							<label
 								htmlFor="password"
-								className="block text-sm font-medium leading-6 text-gray-900"
+								className="block text-md font-medium leading-6 text-gray-900"
 							>
 								Password
 							</label>
@@ -188,7 +188,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="current-password"
 								onChange={(e) => setPassword(e.target.value)}
 								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div>
@@ -196,14 +196,14 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 					<div>
 						<button
 							type="submit"
-							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>
 							Log in
 						</button>
 					</div>
 				</form>
 
-				<p className="mt-10 text-center text-sm text-gray-500">
+				<p className="mt-10 text-center text-md text-gray-500">
 					Not a member?{" "}
 					<button
 						className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
@@ -265,7 +265,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 					<div>
 						<label
 							htmlFor="fullName"
-							className="block text-sm font-medium leading-6 text-gray-900"
+							className="block text-md font-medium leading-6 text-gray-900"
 						>
 							Full name
 						</label>
@@ -277,14 +277,14 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="fullName"
 								onChange={(e) => setFullName(e.target.value)}
 								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div>
 					{/* <div>
 						<label
 							htmlFor="lastName"
-							className="block text-sm font-medium leading-6 text-gray-900"
+							className="block text-md font-medium leading-6 text-gray-900"
 						>
 							Last name
 						</label>
@@ -296,14 +296,14 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="lastName"
 								onChange={(e) => setLastName(e.target.value)}
 								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div> */}
 					<div>
 						<label
 							htmlFor="email"
-							className="block text-sm font-medium leading-6 text-gray-900"
+							className="block text-md font-medium leading-6 text-gray-900"
 						>
 							Email address
 						</label>
@@ -315,7 +315,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="email"
 								onChange={(e) => setEmail(e.target.value)}
 								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div>
@@ -324,7 +324,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 						<div className="flex items-center justify-between">
 							<label
 								htmlFor="password"
-								className="block text-sm font-medium leading-6 text-gray-900"
+								className="block text-md font-medium leading-6 text-gray-900"
 							>
 								Password
 							</label>
@@ -337,7 +337,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								autoComplete="current-password"
 								onChange={(e) => setPassword(e.target.value)}
 								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 							/>
 						</div>
 					</div>
@@ -345,14 +345,14 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 					<div>
 						<button
 							type="submit"
-							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 						>
 							Sign up
 						</button>
 					</div>
 				</form>
 
-				<p className="mt-10 text-center text-sm text-gray-500">
+				<p className="mt-10 text-center text-md text-gray-500">
 					Already a member?{" "}
 					<button
 						onClick={() => setSideBarMode("login")}

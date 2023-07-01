@@ -22,7 +22,7 @@ export default function Alert({ counter, user }: AlertProps) {
 					/>
 				</div>
 				<div className="ml-3 flex-1 md:flex md:justify-between">
-					<p className="text-sm text-blue-700">
+					<p className="text-md text-blue-700">
 						You have{" "}
 						<span className="font-semibold">
 							{" "}

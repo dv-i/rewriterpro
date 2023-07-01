@@ -6,7 +6,14 @@ import AIInteractor from "./AIInteractor";
 import "./assets/index.css";
 import ToastNotification, { ToastProps } from "./ToastNotification";
 import { PromptOptions, User } from "./store/dataInterfaces";
-import { getLocalCounter, setLocalCounter } from "./store/browser";
+import {
+	getLocalCounter,
+	setAuthenticatedUser,
+	setLocalCounter,
+} from "./store/browser";
+import StripeUtil from "./utils/StripeUtil";
+import MongoDbClient from "./store/MongoDbClient";
+import { USERS_COLLECTION } from "./store/constants";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -23,6 +30,79 @@ function App() {
 	useEffect(() => {
 		setLocalCounter(counter);
 	}, [counter]);
+
+	const stripe = new StripeUtil(
+		process.env.REACT_APP_STRIPE_SECRET_KEY || ""
+	);
+	const mongo = new MongoDbClient();
+
+	const fetchSubscriptionsAndSetUserToProIfRequired = async () => {
+		try {
+			if (user) {
+				const subscriptions =
+					await stripe.getCustomerSubscriptionsByEmail(user.email);
+				const hasActiveSubscriptions =
+					subscriptions.filter((sub) => sub.status === "active")
+						.length > 0;
+				if (!user.pro && hasActiveSubscriptions) {
+					const updatedUser = await mongo.updateOne(
+						USERS_COLLECTION,
+						{
+							email: user.email,
+						},
+						{
+							$set: {
+								pro: true,
+							},
+						}
+					);
+					if (updatedUser) {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: user.email,
+						});
+						if (newUser) {
+							setAuthenticatedUser(newUser);
+							setUser(newUser);
+						}
+					}
+				} else if (user.pro && !hasActiveSubscriptions) {
+					const updatedUser = await mongo.updateOne(
+						USERS_COLLECTION,
+						{
+							email: user.email,
+						},
+						{
+							$set: {
+								pro: false,
+							},
+						}
+					);
+					if (updatedUser) {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: user.email,
+						});
+						if (newUser) {
+							setAuthenticatedUser(newUser);
+							setUser(newUser);
+						}
+					}
+				}
+			}
+		} catch (error) {
+			// Handle error here
+			console.error("Error fetching subscriptions:", error);
+		}
+	};
+
+	useEffect(() => {
+		fetchSubscriptionsAndSetUserToProIfRequired();
+	}, []);
+
+	useEffect(() => {
+		if (user) {
+			fetchSubscriptionsAndSetUserToProIfRequired();
+		}
+	}, [user]);
 
 	return (
 		<>
