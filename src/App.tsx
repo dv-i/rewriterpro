@@ -38,13 +38,13 @@ function App() {
 
 	const fetchSubscriptionsAndSetUserToProIfRequired = async () => {
 		try {
-			const subscriptions = await stripe.getAllSubscriptions();
-			if (
-				subscriptions.filter((sub) => sub.status === "active").length >
-					0 &&
-				user
-			) {
-				if (!user.pro) {
+			if (user) {
+				const subscriptions =
+					await stripe.getCustomerSubscriptionsByEmail(user.email);
+				const hasActiveSubscriptions =
+					subscriptions.filter((sub) => sub.status === "active")
+						.length > 0;
+				if (!user.pro && hasActiveSubscriptions) {
 					const updatedUser = await mongo.updateOne(
 						USERS_COLLECTION,
 						{
@@ -65,9 +65,7 @@ function App() {
 							setUser(newUser);
 						}
 					}
-				}
-			} else {
-				if (user && user.pro) {
+				} else if (user.pro && !hasActiveSubscriptions) {
 					const updatedUser = await mongo.updateOne(
 						USERS_COLLECTION,
 						{

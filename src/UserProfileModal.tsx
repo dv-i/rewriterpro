@@ -137,7 +137,7 @@ function UserProfileModal({
 	);
 
 	useEffect(() => {
-		stripe.getAllSubscriptions().then((res) => {
+		stripe.getCustomerSubscriptionsByEmail(user.email).then((res) => {
 			if (res.length > 0) {
 				setSubscription(res[0]);
 			}

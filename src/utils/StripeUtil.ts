@@ -18,7 +18,7 @@ class StripeUtil {
 			throw error;
 		}
 	}
-	async getAllSubscriptions(): Promise<Stripe.Subscription[]> {
+	async getAllSubscriptions(email?: string): Promise<Stripe.Subscription[]> {
 		try {
 			const subscriptions = await this.stripe.subscriptions.list({
 				limit: 100,
@@ -26,6 +26,32 @@ class StripeUtil {
 			return subscriptions.data;
 		} catch (error) {
 			console.error("Error fetching subscriptions:", error);
+			throw error;
+		}
+	}
+
+	async getCustomerSubscriptionsByEmail(
+		email: string
+	): Promise<Stripe.Subscription[]> {
+		try {
+			const customers = await this.stripe.customers.list({
+				email: email,
+				limit: 1, // Limit the result to 1 customer (since email should be unique)
+				expand: ["data.subscriptions"], // Expand the 'subscriptions' field
+			});
+
+			if (customers.data.length === 0) {
+				return [];
+			}
+
+			// Extract and return the subscriptions from the customer data
+			const customer = customers.data[0];
+			return customer.subscriptions?.data || [];
+		} catch (error) {
+			console.error(
+				`Error fetching customer subscriptions for email - ${email}`,
+				error
+			);
 			throw error;
 		}
 	}
