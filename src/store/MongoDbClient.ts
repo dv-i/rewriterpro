@@ -117,6 +117,7 @@ class MongoDbClient {
 	async updateOne(
 		collection: string,
 		filter: { [key: string]: string },
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		update: { [key: string]: any }
 	): Promise<AxiosResponse | null> {
 		try {
