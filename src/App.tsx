@@ -14,6 +14,12 @@ import {
 import StripeUtil from "./utils/StripeUtil";
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
+import CTA from "./CTA";
+import FAQ from "./FAQ";
+import Benefits from "./Benefits";
+import Steps from "./Steps";
+import Work from "./Work";
+import WhyUse from "./WhyUse";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -109,6 +115,7 @@ function App() {
 			<ToastNotification toast={toast} setToast={setToast} />
 			<div className="h-screen flex flex-col flex-grow">
 				<NavBar setToast={setToast} setUser={setUser} user={user} />
+				<CTA />
 				<AIInteractorCard
 					CardHeader={
 						<Settings
@@ -132,6 +139,12 @@ function App() {
 					user={user}
 				/>
 			</div>
+
+			<WhyUse />
+			<Benefits />
+			<Work />
+			<Steps />
+			<FAQ />
 		</>
 	);
 }

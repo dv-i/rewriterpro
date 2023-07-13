@@ -65,11 +65,8 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 	}, [sideBarMode]);
 	return (
 		<>
-			<div className="bg-indigo-600 pb-40">
-				<Disclosure
-					as="nav"
-					className="pb-20 bg-indigo-600 lg:border-none"
-				>
+			<div className="bg-indigo-600">
+				<Disclosure as="nav" className="bg-indigo-600 lg:border-none">
 					{() => (
 						<>
 							<div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">

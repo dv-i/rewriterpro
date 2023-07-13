@@ -32,6 +32,7 @@ function UserProfileModal({
 	const [isEditingEmail, setIsEditingEmail] = useState(false);
 	const [fullName, setFullName] = useState(user.fullName);
 	const [email, setEmail] = useState(user.email);
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [subscription, setSubscription] = useState<any>();
 
 	const handleEmailUpdate = async () => {
