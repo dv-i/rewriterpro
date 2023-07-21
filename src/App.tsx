@@ -20,6 +20,7 @@ import Benefits from "./Benefits";
 import Steps from "./Steps";
 import Work from "./Work";
 import WhyUse from "./WhyUse";
+import WhyUseV2 from "./WhyUseV2";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -113,7 +114,7 @@ function App() {
 	return (
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
-			<div className="h-screen flex flex-col flex-grow">
+			<div className="sm:h-screen flex flex-col flex-grow">
 				<NavBar setToast={setToast} setUser={setUser} user={user} />
 				<CTA />
 				<AIInteractorCard
@@ -140,7 +141,8 @@ function App() {
 				/>
 			</div>
 
-			<WhyUse />
+			{/* <WhyUse /> */}
+			<WhyUseV2 />
 			<Benefits />
 			<Work />
 			<Steps />

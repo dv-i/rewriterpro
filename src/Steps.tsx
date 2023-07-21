@@ -20,7 +20,6 @@ export default function Example() {
 						{/* Step 1 */}
 						<div>
 							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-								<span className="absolute inset-0" />
 								Step 1: Input
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
@@ -66,7 +65,6 @@ export default function Example() {
 						{/* Step 2 */}
 						<div>
 							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-								<span className="absolute inset-0" />
 								Step 2: Paraphrasing
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
@@ -87,7 +85,6 @@ export default function Example() {
 						{/* Step 3 */}
 						<div>
 							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-								<span className="absolute inset-0" />
 								Step 3: Output
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
