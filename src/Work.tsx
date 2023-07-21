@@ -4,10 +4,10 @@ export default function Example() {
 		<div className="bg-indigo-600">
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
 				<div className="mx-auto max-w-5xl text-center">
-					<h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+					<h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
 						How does ReWriter Pro Work?
 					</h2>
-					<p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-indigo-200">
+					<p className="pt-10 mx-auto mt-6 max-w-5xl text-xl leading-8 text-indigo-200 text-left">
 						ReWriter Pro uses cutting-edge artificial intelligence
 						technology that enhances the quality of pre-existing
 						content. In other words, whatever content you give as
