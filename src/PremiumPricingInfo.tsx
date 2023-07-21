@@ -188,7 +188,7 @@ export const PremiumPricingInfoModal = ({
 										}}
 										height={40}
 										width={40}
-										className="absolute right-5 top-5"
+										className="absolute right-5 top-5 cursor-pointer"
 									/>
 									<div className="mx-auto max-w-7xl px-6 lg:px-8">
 										<div className="mx-auto max-w-4xl sm:text-center">

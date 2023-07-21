@@ -20,6 +20,7 @@ import Benefits from "./Benefits";
 import Steps from "./Steps";
 import Work from "./Work";
 import WhyUse from "./WhyUse";
+import WhyUseV2 from "./WhyUseV2";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -113,7 +114,7 @@ function App() {
 	return (
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
-			<div className="h-screen flex flex-col flex-grow">
+			<div className="sm:h-screen bg-gray-50 flex flex-col flex-grow">
 				<NavBar setToast={setToast} setUser={setUser} user={user} />
 				<CTA />
 				<AIInteractorCard
@@ -140,7 +141,8 @@ function App() {
 				/>
 			</div>
 
-			<WhyUse />
+			{/* <WhyUse /> */}
+			<WhyUseV2 />
 			<Benefits />
 			<Work />
 			<Steps />
@@ -170,7 +172,7 @@ function AIInteractorCard({
 		<main className={mainClassName}>
 			<Alert user={user} counter={counter} />
 
-			<div className="md:h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
+			<div className="md:h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-indigo-600 shadow">
 				<div className="pl-4 pr-4 sm:h-20 py-5 sm:px-6">
 					{CardHeader}
 				</div>
