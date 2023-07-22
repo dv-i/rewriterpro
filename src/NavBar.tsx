@@ -110,7 +110,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 											{!user && (
 												<button
 													type="button"
-													className="rounded-md py-2 px-3 text-md font-medium ml-4 bg-indigo-500 text-white shadow-sm hover:bg-indigo-400"
+													className="rounded-md py-2 px-3 text-md font-medium ml-4 bg-indigo-700 text-white shadow-sm hover:bg-indigo-500"
 													onClick={() => {
 														setSideBarMode("login");
 													}}

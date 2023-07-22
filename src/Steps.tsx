@@ -12,14 +12,14 @@ export default function Example() {
 					<h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
 						How to use ReWriter Pro?
 					</h2>
-					<p className="mt-2 text-xl leading-8 text-gray-600">
+					<p className="mt-8 text-xl leading-8 text-gray-600">
 						Follow these three easy steps in order to generate
 						fantastic content in just a few seconds:
 					</p>
 					<div className="mt-16 space-y-10 lg:mt-20 lg:space-y-2">
 						{/* Step 1 */}
 						<div>
-							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+							<h3 className="mb-10 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
 								Step 1: Input
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
@@ -64,7 +64,7 @@ export default function Example() {
 
 						{/* Step 2 */}
 						<div>
-							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+							<h3 className="mb-10 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
 								Step 2: Paraphrasing
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
@@ -84,7 +84,7 @@ export default function Example() {
 
 						{/* Step 3 */}
 						<div>
-							<h3 className="mb-10 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+							<h3 className="mb-10 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
 								Step 3: Output
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
