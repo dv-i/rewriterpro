@@ -409,7 +409,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={3}
 									name="comment"
 									id="comment"
-									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
@@ -417,7 +417,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={10}
 									name="comment"
 									id="comment"
-									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>

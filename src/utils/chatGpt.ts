@@ -16,33 +16,41 @@ export const getResponseToAPrompt = async ({
 	prompt,
 	promptOptions,
 }: GetResponseToAPromptArgs): Promise<string | undefined> => {
-	const api = new ChatGPTAPI({
-		apiKey: process.env.REACT_APP_OPEN_AI_API_KEY || "",
-	});
+	const apiKey = process.env.REACT_APP_OPEN_AI_API_KEY || "";
+	const apiUrl = "https://api.openai.com/v1/chat/completions";
+
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${apiKey}`,
+	};
+
+	const requestData = {
+		model: "gpt-3.5-turbo",
+		messages: [
+			{
+				role: "user",
+				content: promptFormatter({ prompt, promptOptions }),
+			},
+		],
+		temperature: 0.7,
+	};
 
 	try {
-		const res = await api.sendMessage(
-			promptFormatter({ prompt, promptOptions })
-		);
-		return res.text;
-	} catch (error) {
-		console.error(error);
-	}
-	// const api = new ChatGPTUnofficialProxyAPI({
-	// 	accessToken: process.env.REACT_APP_CHAT_GPT_ACCESS_TOKEN || "",
-	// 	apiReverseProxyUrl: "https://ai.fakeopen.com/api/conversation",
-	// 	// debug: true,
-	// 	model: MODELS.GPT_4,
-	// });
+		const response = await fetch(apiUrl, {
+			method: "POST",
+			headers: headers,
+			body: JSON.stringify(requestData),
+		});
 
-	// try {
-	// 	const res = await api.sendMessage(
-	// 		promptFormatter({ prompt, promptOptions })
-	// 	);
-	// 	return res.text;
-	// } catch (error) {
-	// 	console.error(error);
-	// }
+		if (!response.ok) {
+			throw new Error("API request failed");
+		}
+
+		const data = await response.json();
+		return data.choices[0].message.content as string;
+	} catch (error) {
+		console.error("Error fetching data:", error);
+	}
 };
 
 const promptFormatter = ({
