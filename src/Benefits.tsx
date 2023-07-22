@@ -38,17 +38,8 @@ export default function Example() {
 		<div className="bg-white py-24 sm:py-32">
 			<div className="mx-auto max-w-7xl px-6 lg:px-8">
 				<div className="mx-auto max-w-2xl lg:text-center">
-					<h2 className="text-base font-semibold leading-7 text-indigo-600">
-						Deploy faster
-					</h2>
 					<p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-						Benefits of unique content
-					</p>
-					<p className="mt-6 text-xl leading-8 text-gray-600">
-						Although the benefits are endless for content that
-						ReWriter AI generates, these are just a few of the
-						prominent ones that you can see right after you create
-						the content for your personal use:
+						Benefits Of Unique Content
 					</p>
 				</div>
 				<div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -62,7 +53,7 @@ export default function Example() {
 											aria-hidden="true"
 										/>
 									</div>
-									<div className="text-lg">
+									<div className="text-xl">
 										{feature.name}
 									</div>
 								</dt>

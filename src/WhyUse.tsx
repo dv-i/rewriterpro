@@ -59,9 +59,6 @@ export default function Example() {
 		<div className="bg-indigo-600 py-24 sm:py-32">
 			<div className="mx-auto max-w-7xl px-6 lg:px-8">
 				<div className="mx-auto max-w-2xl lg:mx-0">
-					<h2 className="text-base font-semibold leading-7 text-gray-300">
-						Everything you need
-					</h2>
 					<p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
 						Why use ReWriter Pro?
 					</p>

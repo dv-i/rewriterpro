@@ -1,4 +1,4 @@
-import { ChatGPTUnofficialProxyAPI } from "chatgpt";
+import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from "chatgpt";
 import { PromptOptions } from "../store/dataInterfaces";
 
 //https://platform.openai.com/docs/api-reference/completions/create
@@ -16,50 +16,40 @@ export const getResponseToAPrompt = async ({
 	prompt,
 	promptOptions,
 }: GetResponseToAPromptArgs): Promise<string | undefined> => {
-	// const completionParams = {
-	// 	model: MODELS.GPT_4,
-	// };
-	// if (process.env.NODE_ENV === "development") {
-	// 	const api = new ChatGPTUnofficialProxyAPI({
-	// 		accessToken: process.env.REACT_APP_CHAT_GPT_ACCESS_TOKEN || "",
-	// 		apiReverseProxyUrl: "https://ai.fakeopen.com/api/conversation",
-	// 		debug: true,
-	// 		model: MODELS.GPT_4,
-	// 	});
+	const apiKey = process.env.REACT_APP_OPEN_AI_API_KEY || "";
+	const apiUrl = "https://api.openai.com/v1/chat/completions";
 
-	// 	try {
-	// 		const res = await api.sendMessage(promptFormatter(prompt));
-	// 		return res.text;
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// } else {
-	// 	const api = new ChatGPTAPI({
-	// 		apiKey: process.env.REACT_APP_OPEN_AI_API_KEY || "",
-	// 		completionParams,
-	// 	});
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${apiKey}`,
+	};
 
-	// 	try {
-	// 		const res = await api.sendMessage(promptFormatter(prompt));
-	// 		return res.text;
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// }
-	const api = new ChatGPTUnofficialProxyAPI({
-		accessToken: process.env.REACT_APP_CHAT_GPT_ACCESS_TOKEN || "",
-		apiReverseProxyUrl: "https://ai.fakeopen.com/api/conversation",
-		// debug: true,
-		model: MODELS.GPT_4,
-	});
+	const requestData = {
+		model: "gpt-3.5-turbo",
+		messages: [
+			{
+				role: "user",
+				content: promptFormatter({ prompt, promptOptions }),
+			},
+		],
+		temperature: 0.7,
+	};
 
 	try {
-		const res = await api.sendMessage(
-			promptFormatter({ prompt, promptOptions })
-		);
-		return res.text;
+		const response = await fetch(apiUrl, {
+			method: "POST",
+			headers: headers,
+			body: JSON.stringify(requestData),
+		});
+
+		if (!response.ok) {
+			throw new Error("API request failed");
+		}
+
+		const data = await response.json();
+		return data.choices[0].message.content as string;
 	} catch (error) {
-		console.error(error);
+		console.error("Error fetching data:", error);
 	}
 };
 

@@ -165,7 +165,7 @@ function AIInteractorCard({
 	counter,
 	user,
 }: AIInteractorCardProps) {
-	const mainClassName = `-mt-[11rem] ${
+	const mainClassName = `-mt-[11rem] pt-[2rem] ${
 		user?.pro ? "-mt-[22rem] sm:-mt-[11rem]" : ""
 	} h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8`;
 	return (

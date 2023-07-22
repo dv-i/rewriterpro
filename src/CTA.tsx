@@ -4,12 +4,13 @@ export default function CTA() {
 		<div className="bg-white pb-40">
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-3xl text-center">
-					<h2 className="text-4xl text-indigo-600 font-bold tracking-tight sm:text-5xl">
-						Boost your content productivity
+					<h2 className="text-4xl text-black font-bold tracking-tight sm:text-5xl">
+						Boost Your Content Productivity
 						<br />
-						using ReWriter Pro
+						Using{" "}
+						<span className="text-indigo-600">ReWriter Pro</span>
 					</h2>
-					<p className="pt-10 mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-500">
+					<p className="pt-10 mx-auto mt-6 max-w-xl text-xl leading-8 text-black">
 						ReWriter Pro integrates cutting-edge artificial
 						technology to create far superior, error-free, and
 						easy-to-read content in far less time.
