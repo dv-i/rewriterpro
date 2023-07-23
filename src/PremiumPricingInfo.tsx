@@ -10,6 +10,9 @@ import Stripe from "stripe";
 interface PremiumPricingInfoModalProps {
 	isGetPremiumModalOpen: boolean;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	setSideBarMode: React.Dispatch<
+		React.SetStateAction<"login" | "signup" | undefined>
+	>;
 }
 
 interface PricingTier {
@@ -27,6 +30,7 @@ interface PricingTier {
 export const PremiumPricingInfoModal = ({
 	isGetPremiumModalOpen,
 	setIsGetPremiumModalOpen,
+	setSideBarMode,
 }: PremiumPricingInfoModalProps) => {
 	const [tiers, setTiers] = useState<PricingTier[]>([]);
 	const stripe = new StripeUtil(
@@ -38,21 +42,19 @@ export const PremiumPricingInfoModal = ({
 		return "";
 	};
 
-	const getPrice = (
-		checkoutSession: Stripe.Response<Stripe.Checkout.Session> | null
-	): string => {
-		return checkoutSession?.amount_total
-			? (checkoutSession?.amount_total / 100).toString()
-			: "";
+	const getPrice = (amount: number | null): string => {
+		return amount ? (amount / 100).toString() : "";
 	};
 
-	const getMonthlyPriceForYearlyPlan = (
-		checkoutSession: Stripe.Response<Stripe.Checkout.Session> | null
-	) => {
-		return checkoutSession?.amount_total
-			? Math.trunc((checkoutSession.amount_total / 100 / 12) * 100) / 100
-			: "";
+	const getMonthlyPriceForYearlyPlan = (amount: number | null) => {
+		return amount ? Math.trunc((amount / 100 / 12) * 100) / 100 : "";
 	};
+
+	useEffect(() => {
+		if (isGetPremiumModalOpen) {
+			populatePricingTiers();
+		}
+	}, [isGetPremiumModalOpen]);
 
 	const populatePricingTiers = async () => {
 		try {
@@ -62,6 +64,14 @@ export const PremiumPricingInfoModal = ({
 				const productId = products[0].id;
 				const prices = await stripe.getAllPrices(productId);
 
+				const monthlyPrice = prices.find(
+					(price) => price.recurring?.interval === "month"
+				);
+
+				const yearlyPrice = prices.find(
+					(price) => price.recurring?.interval === "year"
+				);
+
 				const authedUser = getAuthenticatedUser();
 				if (authedUser) {
 					//Stripe doesn't support creating one checkout session with different billing intervals hence we need 2 separate calls
@@ -69,11 +79,7 @@ export const PremiumPricingInfoModal = ({
 						await stripe.createCheckoutSession(
 							[
 								{
-									price: prices.find(
-										(price) =>
-											price.recurring?.interval ===
-											"month"
-									)?.id,
+									price: monthlyPrice?.id,
 									quantity: 1,
 								},
 							],
@@ -83,10 +89,7 @@ export const PremiumPricingInfoModal = ({
 						await stripe.createCheckoutSession(
 							[
 								{
-									price: prices.find(
-										(price) =>
-											price.recurring?.interval === "year"
-									)?.id,
+									price: yearlyPrice?.id,
 									quantity: 1,
 								},
 							],
@@ -99,7 +102,9 @@ export const PremiumPricingInfoModal = ({
 							price: {
 								monthly: `${getCurrencySymbol(
 									checkoutSessionMonthly.currency
-								)}${getPrice(checkoutSessionMonthly)}`,
+								)}${getPrice(
+									checkoutSessionMonthly.amount_total
+								)}`,
 							},
 							description: "Everything necessary to get started.",
 							features: [
@@ -120,11 +125,13 @@ export const PremiumPricingInfoModal = ({
 								monthly: `${getCurrencySymbol(
 									checkoutSessionYearly.currency
 								)}${getMonthlyPriceForYearlyPlan(
-									checkoutSessionYearly
+									checkoutSessionYearly.amount_total
 								)}`,
 								annually: `${getCurrencySymbol(
 									checkoutSessionYearly.currency
-								)}${getPrice(checkoutSessionYearly)}`,
+								)}${getPrice(
+									checkoutSessionYearly.amount_total
+								)}`,
 							},
 							description:
 								"Everything in Basic, plus essential tools for growing your business.",
@@ -141,6 +148,60 @@ export const PremiumPricingInfoModal = ({
 							checkoutUrl: checkoutSessionYearly.url,
 						},
 					]);
+				} else {
+					setTiers([
+						{
+							name: "Monthly",
+							id: "tier-monthly",
+							price: {
+								monthly: `${getCurrencySymbol(
+									monthlyPrice?.currency || ""
+								)}${getPrice(
+									monthlyPrice?.unit_amount || null
+								)}`,
+							},
+							description: "Everything necessary to get started.",
+							features: [
+								"Unlimited paraphrases per day",
+								"Extra fluency options",
+								"Extra tone options",
+								"Extra audience options",
+								"Extra emotion options",
+								"Extra length options",
+								"Extra language options (Spanish, French & German)",
+							],
+							checkoutUrl: "",
+						},
+						{
+							name: "Yearly",
+							id: "tier-yearly",
+							price: {
+								monthly: `${getCurrencySymbol(
+									yearlyPrice?.currency || ""
+								)}${getMonthlyPriceForYearlyPlan(
+									yearlyPrice?.unit_amount || null
+								)}`,
+								annually: `${getCurrencySymbol(
+									yearlyPrice?.currency || ""
+								)}${getPrice(
+									yearlyPrice?.unit_amount || null
+								)}`,
+							},
+							description:
+								"Everything in Basic, plus essential tools for growing your business.",
+							features: [
+								"Save $60 on a yearly subscription",
+								"Unlimited paraphrases per day",
+								"Extra fluency options",
+								"Extra tone options",
+								"Extra audience options",
+								"Extra emotion options",
+								"Extra length options",
+								"Extra language options (Spanish, French & German)",
+							],
+							checkoutUrl: "",
+						},
+					]);
 				}
 			}
 		} catch (error) {
@@ -150,6 +211,80 @@ export const PremiumPricingInfoModal = ({
 	useEffect(() => {
 		populatePricingTiers();
 	}, []);
+
+	const getTiers = (isUserAuthed: boolean) => {
+		return (
+			tiers.length > 0 &&
+			tiers.map((tier: PricingTier) => (
+				<div
+					key={tier.id}
+					className="py-4 px-4 lg:px-8 xl:px-14 shadow-lg relative"
+				>
+					{tier.id === "tier-yearly" && (
+						<div className="absolute rounded-md top-0 right-0 mt-4 p-2 mr-4 bg-orange-600 text-xs lg:text-base text-white">
+							Recommended
+						</div>
+					)}
+
+					<h3
+						id={tier.id}
+						className="text-base font-semibold leading-7 text-gray-900"
+					>
+						{tier.name}
+					</h3>
+					<p className="mt-6 flex items-baseline gap-x-1">
+						<span className="text-5xl font-bold tracking-tight text-gray-900">
+							{tier.price.monthly}
+						</span>
+						<span className="text-md font-semibold leading-6 text-gray-600">
+							/month
+						</span>
+					</p>
+					<p className="mt-3 text-md leading-6 text-gray-500">
+						{tier.price.annually}{" "}
+						{tier.id === "tier-yearly"
+							? "billed every 12 months"
+							: "billed every month"}
+					</p>
+					{isUserAuthed ? (
+						<a
+							href={tier.checkoutUrl || "#"}
+							aria-describedby={tier.id}
+							className="mt-10 block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						>
+							Buy plan
+						</a>
+					) : (
+						<button
+							onClick={() => {
+								setIsGetPremiumModalOpen(false);
+								setSideBarMode("login");
+							}}
+							aria-describedby={tier.id}
+							className="w-full mt-10 block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						>
+							Get Started
+						</button>
+					)}
+
+					<ul
+						role="list"
+						className="mt-6 space-y-3 text-md leading-6 text-gray-600"
+					>
+						{tier.features.map((feature: string) => (
+							<li key={feature} className="flex gap-x-3">
+								<CheckCircleIcon
+									className="h-6 w-5 flex-none text-indigo-600"
+									aria-hidden="true"
+								/>
+								{feature}
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		);
+	};
 	return (
 		<Transition.Root show={isGetPremiumModalOpen} as={Fragment}>
 			<Dialog
@@ -190,97 +325,18 @@ export const PremiumPricingInfoModal = ({
 										width={40}
 										className="absolute right-5 top-5 cursor-pointer"
 									/>
-									<div className="mx-auto max-w-7xl px-6 lg:px-8">
+									<div className="mx-auto max-w-7xl lg:px-8">
 										<div className="mx-auto max-w-4xl sm:text-center">
-											<h2 className="text-base font-semibold leading-7 text-indigo-600">
-												Pricing
-											</h2>
-											<p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+											<p className="mt-2 lg:text-5xl text-2xl font-bold tracking-tight text-gray-900">
 												Choose the right plan
 												for&nbsp;you
 											</p>
 										</div>
 										<div className="mt-20 flow-root">
-											<div className="isolate -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-gray-100 sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-2 lg:divide-x lg:divide-y-0 xl:-mx-4">
-												{tiers.length > 0 &&
-													tiers.map(
-														(tier: PricingTier) => (
-															<div
-																key={tier.id}
-																className="pt-8 lg:px-8 lg:pt-0 xl:px-14"
-															>
-																<h3
-																	id={tier.id}
-																	className="text-base font-semibold leading-7 text-gray-900"
-																>
-																	{tier.name}
-																</h3>
-																<p className="mt-6 flex items-baseline gap-x-1">
-																	<span className="text-5xl font-bold tracking-tight text-gray-900">
-																		{
-																			tier
-																				.price
-																				.monthly
-																		}
-																	</span>
-																	<span className="text-md font-semibold leading-6 text-gray-600">
-																		/month
-																	</span>
-																</p>
-																<p className="mt-3 text-md leading-6 text-gray-500">
-																	{
-																		tier
-																			.price
-																			.annually
-																	}{" "}
-																	{tier.id ===
-																	"tier-yearly"
-																		? "billed every 12 months"
-																		: "billed every month"}
-																</p>
-																<a
-																	href={
-																		tier.checkoutUrl ||
-																		"#"
-																	}
-																	aria-describedby={
-																		tier.id
-																	}
-																	className="mt-10 block rounded-md bg-indigo-600 px-3 py-2 text-center text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-																>
-																	Buy plan
-																</a>
-																{/* <p className="mt-10 text-md font-semibold leading-6 text-gray-900">
-															{tier.description}
-														</p> */}
-																<ul
-																	role="list"
-																	className="mt-6 space-y-3 text-md leading-6 text-gray-600"
-																>
-																	{tier.features.map(
-																		(
-																			feature: string
-																		) => (
-																			<li
-																				key={
-																					feature
-																				}
-																				className="flex gap-x-3"
-																			>
-																				<CheckCircleIcon
-																					className="h-6 w-5 flex-none text-indigo-600"
-																					aria-hidden="true"
-																				/>
-																				{
-																					feature
-																				}
-																			</li>
-																		)
-																	)}
-																</ul>
-															</div>
-														)
-													)}
+											<div className="gap-8 isolate -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-gray-100 sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-2 lg:divide-x lg:divide-y-0 xl:-mx-4">
+												{getAuthenticatedUser()
+													? getTiers(true)
+													: getTiers(false)}
 											</div>
 										</div>
 									</div>

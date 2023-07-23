@@ -51,7 +51,7 @@ export default function SideBar({
 								leaveTo="translate-x-full"
 							>
 								<Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-									<div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+									<div className="flex h-full flex-col overflow-y-scroll bg-indigo-100 py-6 shadow-xl">
 										<div className="px-4 sm:px-6">
 											<div className="flex items-start justify-between">
 												<Dialog.Title className="text-base font-semibold leading-6 text-gray-900"></Dialog.Title>
@@ -139,7 +139,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 				<img
 					className="mx-auto h-20 w-auto"
 					src={logo}
-					alt="Rewriter Pro"
+					alt="RewriterPro.ai"
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Log in to your account

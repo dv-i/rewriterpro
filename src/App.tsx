@@ -21,6 +21,7 @@ import Steps from "./Steps";
 import Work from "./Work";
 import WhyUse from "./WhyUse";
 import WhyUseV2 from "./WhyUseV2";
+import Footer from "./Footer";
 function App() {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
@@ -147,6 +148,7 @@ function App() {
 			<Work />
 			<Steps />
 			<FAQ />
+			<Footer />
 		</>
 	);
 }

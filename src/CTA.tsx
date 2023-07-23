@@ -8,10 +8,10 @@ export default function CTA() {
 						Boost Your Content Productivity
 						<br />
 						Using{" "}
-						<span className="text-indigo-600">ReWriter Pro</span>
+						<span className="text-indigo-600">RewriterPro.ai</span>
 					</h2>
 					<p className="pt-10 mx-auto mt-6 max-w-xl text-xl leading-8 text-black">
-						ReWriter Pro integrates cutting-edge artificial
+						RewriterPro.ai integrates cutting-edge artificial
 						technology to create far superior, error-free, and
 						easy-to-read content in far less time.
 					</p>
