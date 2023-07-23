@@ -16,13 +16,13 @@ const features = [
 	{
 		name: "Break The SEO Charts",
 		description:
-			"SOne of the most difficult ways to stand out from the competition is to make SEO-friendly content. With ReWriter Pro, you will be able to generate content that can rank on Google’s first page and hence, be able to attract a lot of attention from visitors right off the bat.",
+			"SOne of the most difficult ways to stand out from the competition is to make SEO-friendly content. With ReWriterPro.ai, you will be able to generate content that can rank on Google’s first page and hence, be able to attract a lot of attention from visitors right off the bat.",
 		icon: PresentationChartLineIcon,
 	},
 	{
 		name: "Rule Social Media",
 		description:
-			"It’s quite hard to get in and keep up with the latest social media trends. And most of the “stay on top charts” game relies on how EPIC and thrilling your content is.\nReWriter Pro is able to capture the same voice and tone that matches the social media vibes in order to people’s attention.\nWith an exemplary touch, you can generate content that stays on top charts and attracts the eyes of potential audiences all the time.",
+			"It’s quite hard to get in and keep up with the latest social media trends. And most of the “stay on top charts” game relies on how EPIC and thrilling your content is.\nRewriterPro.ai is able to capture the same voice and tone that matches the social media vibes in order to people’s attention.\nWith an exemplary touch, you can generate content that stays on top charts and attracts the eyes of potential audiences all the time.",
 		icon: GlobeAsiaAustraliaIcon,
 	},
 	{

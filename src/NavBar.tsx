@@ -74,9 +74,9 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
 											<img
-												className="block h-10 w-10"
+												className="block h-8"
 												src={logo}
-												alt="Rewriter pro"
+												alt="RewriterPro.ai"
 											/>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
@@ -235,6 +235,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 			<PremiumPricingInfoModal
 				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}
 				isGetPremiumModalOpen={isGetPremiumModalOpen}
+				setSideBarMode={setSideBarMode}
 			/>
 		</>
 	);

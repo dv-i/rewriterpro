@@ -4,20 +4,20 @@ import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 
 const faqs = [
 	{
-		question: "What is ReWriter Pro",
-		answer: "ReWriter Pro is a rewriting tool that helps you paraphrase your existing content through artificial intelligence ",
+		question: "What is RewriterPro.ai",
+		answer: "RewriterPro.ai is a rewriting tool that helps you paraphrase your existing content through artificial intelligence ",
 	},
 	{
-		question: "How does ReWriter Pro Work?",
-		answer: "ReWriter Pro features proprietary AI technology (that took 2 months to develop) to generate brilliant, and amazing content for your brand, business, or work. ",
+		question: "How does RewriterPro.ai Work?",
+		answer: "RewriterPro.ai features proprietary AI technology (that took 2 months to develop) to generate brilliant, and amazing content for your brand, business, or work. ",
 	},
 	{
-		question: "Does ReWriter Pro create Plagiairsm-Free content?",
-		answer: "Indeed. With the help of Artificial Intelligence, ReWriter Pro produces exceptional, error-free, and plagiarism-free content. However, just to be safe, you can run the final content through any available plagiarism-checker tool to check for any possible plagiarism.",
+		question: "Does RewriterPro.ai create Plagiairsm-Free content?",
+		answer: "Indeed. With the help of Artificial Intelligence, RewriterPro.ai produces exceptional, error-free, and plagiarism-free content. However, just to be safe, you can run the final content through any available plagiarism-checker tool to check for any possible plagiarism.",
 	},
 	{
-		question: "Is ReWriter Pro available for Free?",
-		answer: "Unfortunately, ReWriter Pro is a paid tool. But it comes with insanely low price packages. However, You can get 15 FREE paraphrases for one day. This can help you get a good idea of what this tool is capable of.",
+		question: "Is RewriterPro.ai available for Free?",
+		answer: "Unfortunately, RewriterPro.ai is a paid tool. But it comes with insanely low price packages. However, You can get 15 FREE paraphrases for one day. This can help you get a good idea of what this tool is capable of.",
 	},
 	{
 		question: "What are the subscription plans?",
