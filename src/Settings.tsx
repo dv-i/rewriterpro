@@ -447,7 +447,7 @@ export default function Settings({
 					</Listbox>
 				</div>
 				{/* Mobile */}
-				<div className="sm:hidden grid grid-cols-2 gap-3 mt-3 sm:grid-cols-3 sm:gap-4">
+				<div className="sm:hidden xs:grid-cols-1 grid grid-cols-2 gap-3 mt-3 sm:grid-cols-3 sm:gap-4">
 					<DropDown
 						label={"Fluency"}
 						promptKey="fluency"

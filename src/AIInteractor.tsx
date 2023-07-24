@@ -132,7 +132,7 @@ function OriginalSection({
 							/>
 							<button
 								type="button"
-								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-white"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
 								onClick={() => inputFile.current?.click()}
 							>
 								<PaperClipIcon
@@ -142,7 +142,7 @@ function OriginalSection({
 								<span className="sr-only">Attach a file</span>
 							</button>
 							<div
-								className="hidden sm:flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								className="sm:flex flex-row gap-2 items-start text-white cursor-pointer "
 								onClick={async () => {
 									setAiPrompt(
 										await navigator.clipboard.readText()
@@ -155,7 +155,7 @@ function OriginalSection({
 								/>
 							</div>
 							<div
-								className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								className="flex flex-row gap-2 items-start text-white cursor-pointer "
 								onClick={() => setAiPrompt(sentence())}
 							>
 								<ArrowPathIcon
@@ -163,19 +163,20 @@ function OriginalSection({
 									aria-hidden="true"
 								/>
 							</div>
-							<div className="flex flex-row gap-2 items-start text-gray-400 ">
+							<div className="flex flex-row gap-2 items-start text-white ">
 								<ChatBubbleBottomCenterTextIcon
 									className=" h-5 w-5"
 									aria-hidden="true"
 								/>
 								<div className="-mb-2 font-light text-md">
-									{aiPrompt.length} / 3000 characters
+									{aiPrompt.length} / 3000{" "}
+									<div className="xs:hidden">characters</div>
 								</div>
 							</div>
 						</div>
 						<button
 							type="submit"
-							className="inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="inline-flex items-center rounded-md py-2 text-md font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							onClick={() => {
 								setAiPrompt("");
 								setAiResult("");
@@ -217,7 +218,7 @@ function OriginalSection({
 							/>
 							<button
 								type="button"
-								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-white"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
 								onClick={() => inputFile.current?.click()}
 							>
 								<PaperClipIcon
@@ -227,7 +228,7 @@ function OriginalSection({
 								<span className="sr-only">Attach a file</span>
 							</button>
 							<div
-								className="hidden sm:flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								className="hidden sm:flex flex-row gap-2 items-start text-white cursor-pointer "
 								onClick={async () => {
 									setAiPrompt(
 										await navigator.clipboard.readText()
@@ -240,7 +241,7 @@ function OriginalSection({
 								/>
 							</div>
 							<div
-								className="flex flex-row gap-2 items-start text-gray-400 cursor-pointer "
+								className="flex flex-row gap-2 items-start text-white cursor-pointer "
 								onClick={() => setAiPrompt(sentence())}
 							>
 								<ArrowPathIcon
@@ -248,13 +249,14 @@ function OriginalSection({
 									aria-hidden="true"
 								/>
 							</div>
-							<div className="flex flex-row gap-2 items-start text-gray-400 ">
+							<div className="flex flex-row gap-2 items-start text-white ">
 								<ChatBubbleBottomCenterTextIcon
 									className=" h-5 w-5"
 									aria-hidden="true"
 								/>
 								<div className="-mb-2 font-light text-md">
-									{aiPrompt.length} / 3000 characters
+									{aiPrompt.length} / 3000{" "}
+									<div className="sm:hidden">characters</div>
 								</div>
 							</div>
 						</div>
@@ -303,7 +305,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -313,7 +315,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -336,7 +338,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 					<div className="flex gap-4 items-center w-full">
 						<button
 							type="button"
-							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-white"
+							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
 							onClick={() => {
 								const blob = new Blob([aiResult], {
 									type: "text/plain",
@@ -352,13 +354,14 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 								aria-hidden="true"
 							/>
 						</button>
-						<div className="flex flex-row gap-2 items-start text-gray-400 ">
+						<div className="flex flex-row gap-2 items-start text-white ">
 							<ChatBubbleBottomCenterTextIcon
 								className=" h-5 w-5"
 								aria-hidden="true"
 							/>
 							<div className="-mb-2 font-light text-md">
-								{aiResult.length} / 3000 characters
+								{aiResult.length} / 3000{" "}
+								<div className="xs:hidden">characters</div>
 							</div>
 						</div>
 					</div>
@@ -366,7 +369,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 				<div className="flex-shrink-0 py-2">
 					<button
 						type="button"
-						className="hidden sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-white"
+						className="sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
 						onClick={() => {
 							if (aiResult) {
 								navigator.clipboard.writeText(aiResult);
@@ -409,7 +412,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={3}
 									name="comment"
 									id="comment"
-									className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
@@ -417,7 +420,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={10}
 									name="comment"
 									id="comment"
-									className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
