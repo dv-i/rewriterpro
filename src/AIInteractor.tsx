@@ -369,7 +369,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 				<div className="flex-shrink-0 py-2">
 					<button
 						type="button"
-						className="hidden sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
+						className="sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
 						onClick={() => {
 							if (aiResult) {
 								navigator.clipboard.writeText(aiResult);
