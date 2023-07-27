@@ -18,7 +18,7 @@ class StripeUtil {
 			throw error;
 		}
 	}
-	async getAllSubscriptions(email?: string): Promise<Stripe.Subscription[]> {
+	async getAllSubscriptions(): Promise<Stripe.Subscription[]> {
 		try {
 			const subscriptions = await this.stripe.subscriptions.list({
 				limit: 100,

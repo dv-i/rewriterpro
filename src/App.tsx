@@ -19,7 +19,6 @@ import FAQ from "./FAQ";
 import Benefits from "./Benefits";
 import Steps from "./Steps";
 import Work from "./Work";
-import WhyUse from "./WhyUse";
 import WhyUseV2 from "./WhyUseV2";
 import Footer from "./Footer";
 function App() {

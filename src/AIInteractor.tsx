@@ -435,7 +435,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 	);
 }
 
-function Loader({ visible }: { visible: boolean }) {
+export function Loader({ visible }: { visible: boolean }) {
 	return (
 		<svg
 			aria-hidden="true"

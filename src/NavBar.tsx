@@ -11,13 +11,6 @@ import { ToastProps } from "./ToastNotification";
 import { PremiumPricingInfoModal } from "./PremiumPricingInfo";
 import UserProfileModal from "./UserProfileModal";
 import { classNames } from "./utils/general";
-const navigation = [
-	{ name: "Rewriter", href: "#", current: true },
-	// { name: "Team", href: "#", current: false },
-	// { name: "Projects", href: "#", current: false },
-	// { name: "Calendar", href: "#", current: false },
-	// { name: "Reports", href: "#", current: false },
-];
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -73,34 +66,16 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 								<div className="relative flex h-16 items-center justify-between">
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
-											<img
-												className="block h-8"
-												src={logo}
-												alt="RewriterPro.ai"
-											/>
+											<a href="http://rewriterpro.ai/">
+												<img
+													className="block h-9"
+													src={logo}
+													alt="RewriterPro.ai"
+												/>
+											</a>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
-											<div className="flex space-x-4">
-												{navigation.map((item) => (
-													<a
-														key={item.name}
-														href={item.href}
-														className={classNames(
-															item.current
-																? "bg-indigo-700 text-white"
-																: "text-white hover:bg-indigo-500 hover:bg-opacity-75",
-															"rounded-md py-2 px-3 text-md font-medium"
-														)}
-														aria-current={
-															item.current
-																? "page"
-																: undefined
-														}
-													>
-														{item.name}
-													</a>
-												))}
-											</div>
+											<div className="flex space-x-4"></div>
 										</div>
 									</div>
 
