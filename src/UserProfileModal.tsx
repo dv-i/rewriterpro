@@ -8,6 +8,7 @@ import { USERS_COLLECTION } from "./store/constants";
 import { User } from "./store/dataInterfaces";
 import { classNames } from "./utils/general";
 import StripeUtil from "./utils/StripeUtil";
+import { Loader } from "./Loader";
 const mongo = new MongoDbClient();
 interface UserProfileModalProps {
 	isUserProfileModalOpen: boolean;
@@ -34,6 +35,8 @@ function UserProfileModal({
 	const [email, setEmail] = useState(user.email);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [subscription, setSubscription] = useState<any>();
+	const [showCancelSubLoader, setShowCancelSubLoader] =
+		useState<boolean>(false);
 
 	const handleEmailUpdate = async () => {
 		const mongo = new MongoDbClient();
@@ -155,6 +158,7 @@ function UserProfileModal({
 	}
 
 	const handleCancelSubscription = () => {
+		setShowCancelSubLoader(true);
 		if (subscription && subscription.status === "active") {
 			stripe
 				.cancelSubscription(subscription.id)
@@ -188,6 +192,7 @@ function UserProfileModal({
 							}
 						}
 						setIsUserProfileModalOpen(false);
+						setShowCancelSubLoader(false);
 					} else {
 						setToast({
 							visible: true,
@@ -196,6 +201,7 @@ function UserProfileModal({
 								"Could not cancel your subscription, please try again...",
 							type: "warning",
 						});
+						setShowCancelSubLoader(false);
 					}
 				})
 				.catch((error) => {
@@ -207,6 +213,7 @@ function UserProfileModal({
 							"Could not cancel your subscription, please try again...",
 						type: "warning",
 					});
+					setShowCancelSubLoader(false);
 				});
 		} else {
 			return <p>Your subscription has been cancelled</p>;
@@ -249,6 +256,7 @@ function UserProfileModal({
 						}}
 					>
 						Cancel subscription
+						<Loader visible={showCancelSubLoader} />
 					</button>
 				</div>
 			);

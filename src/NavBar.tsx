@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
-import { FEATURE_FLAGS } from "./constants";
+import { BASE_URL, FEATURE_FLAGS } from "./constants";
 import { clear, getAuthenticatedUser } from "./store/browser";
 import { User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
@@ -11,20 +11,20 @@ import { ToastProps } from "./ToastNotification";
 import { PremiumPricingInfoModal } from "./PremiumPricingInfo";
 import UserProfileModal from "./UserProfileModal";
 import { classNames } from "./utils/general";
-const navigation = [
-	{ name: "Rewriter", href: "#", current: true },
-	// { name: "Team", href: "#", current: false },
-	// { name: "Projects", href: "#", current: false },
-	// { name: "Calendar", href: "#", current: false },
-	// { name: "Reports", href: "#", current: false },
-];
+import { Loader } from "./Loader";
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+	showProfileLoader: boolean;
 	user: User | undefined;
 }
-export default function NavBar({ setToast, setUser, user }: NavBarProps) {
+export default function NavBar({
+	setToast,
+	setUser,
+	user,
+	showProfileLoader,
+}: NavBarProps) {
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | undefined
 	>();
@@ -73,34 +73,16 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 								<div className="relative flex h-16 items-center justify-between">
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
-											<img
-												className="block h-8"
-												src={logo}
-												alt="RewriterPro.ai"
-											/>
+											<a href={BASE_URL}>
+												<img
+													className="block h-9"
+													src={logo}
+													alt="RewriterPro.ai"
+												/>
+											</a>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
-											<div className="flex space-x-4">
-												{navigation.map((item) => (
-													<a
-														key={item.name}
-														href={item.href}
-														className={classNames(
-															item.current
-																? "bg-indigo-700 text-white"
-																: "text-white hover:bg-indigo-500 hover:bg-opacity-75",
-															"rounded-md py-2 px-3 text-md font-medium"
-														)}
-														aria-current={
-															item.current
-																? "page"
-																: undefined
-														}
-													>
-														{item.name}
-													</a>
-												))}
-											</div>
+											<div className="flex space-x-4"></div>
 										</div>
 									</div>
 
@@ -135,13 +117,21 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 																	Open user
 																	menu
 																</span>
-																<UserCircleIcon
-																	className={`h-8 w-8 ${
-																		user.pro
-																			? "border-4 rounded-3xl border-yellow-300"
-																			: ""
-																	}`}
-																/>
+																{showProfileLoader ? (
+																	<Loader
+																		visible={
+																			showProfileLoader
+																		}
+																	/>
+																) : (
+																	<UserCircleIcon
+																		className={`h-8 w-8 ${
+																			user.pro
+																				? "border-4 rounded-3xl border-yellow-300"
+																				: ""
+																		}`}
+																	/>
+																)}
 															</Menu.Button>
 														</div>
 														<Transition

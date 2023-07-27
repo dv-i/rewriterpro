@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { BASE_URL } from "../constants";
 
 class StripeUtil {
 	private stripe: Stripe;
@@ -18,7 +19,7 @@ class StripeUtil {
 			throw error;
 		}
 	}
-	async getAllSubscriptions(email?: string): Promise<Stripe.Subscription[]> {
+	async getAllSubscriptions(): Promise<Stripe.Subscription[]> {
 		try {
 			const subscriptions = await this.stripe.subscriptions.list({
 				limit: 100,
@@ -87,14 +88,8 @@ class StripeUtil {
 				line_items: [...lineItems],
 				mode: "subscription",
 				customer_email: customerEmail,
-				success_url:
-					process.env.REACT_APP_ENV === "development"
-						? "http://localhost:3000/"
-						: "https://main--effortless-kitten-a7f8ef.netlify.app/",
-				cancel_url:
-					process.env.REACT_APP_ENV === "development"
-						? "http://localhost:3000/"
-						: "https://main--effortless-kitten-a7f8ef.netlify.app/",
+				success_url: BASE_URL,
+				cancel_url: BASE_URL,
 			});
 			return session;
 		} catch (error) {

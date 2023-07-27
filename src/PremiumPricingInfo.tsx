@@ -5,7 +5,6 @@ import React from "react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getAuthenticatedUser } from "./store/browser";
-import Stripe from "stripe";
 
 interface PremiumPricingInfoModalProps {
 	isGetPremiumModalOpen: boolean;

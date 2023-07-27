@@ -9,3 +9,8 @@ export const DATABASE = {
 export const FEATURE_FLAGS = {
 	DEV_TOGGLE_SWITCH: false,
 };
+
+export const BASE_URL =
+	process.env.REACT_APP_ENV === "development"
+		? "http://localhost:3000"
+		: "https://rewriterpro.ai/";

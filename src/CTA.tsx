@@ -12,8 +12,8 @@ export default function CTA() {
 					</h2>
 					<p className="pt-10 mx-auto mt-6 max-w-xl text-xl leading-8 text-black">
 						RewriterPro.ai integrates cutting-edge artificial
-						technology to create far superior, error-free, and
-						easy-to-read content in far less time.
+						intelligence technology to create far superior,
+						error-free, and easy-to-read content in far less time.
 					</p>
 					{/* <div className="mt-10 flex items-center justify-center gap-x-6">
 						<a

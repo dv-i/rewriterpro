@@ -1,12 +1,4 @@
-import { ChatGPTAPI, ChatGPTUnofficialProxyAPI } from "chatgpt";
 import { PromptOptions } from "../store/dataInterfaces";
-
-//https://platform.openai.com/docs/api-reference/completions/create
-//https://platform.openai.com/docs/models/continuous-model-upgrades
-const enum MODELS {
-	GPT_4 = "gpt-4",
-	GPT_3_5_TURBO = "gpt-3.5-turbo",
-}
 
 interface GetResponseToAPromptArgs {
 	prompt: string;

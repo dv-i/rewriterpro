@@ -19,7 +19,6 @@ import FAQ from "./FAQ";
 import Benefits from "./Benefits";
 import Steps from "./Steps";
 import Work from "./Work";
-import WhyUse from "./WhyUse";
 import WhyUseV2 from "./WhyUseV2";
 import Footer from "./Footer";
 function App() {
@@ -32,6 +31,7 @@ function App() {
 		audience: undefined,
 		length: undefined,
 	});
+	const [showProfileLoader, setShowProfileLoader] = useState<boolean>(false);
 
 	const [counter, setCounter] = useState<number>(getLocalCounter() || 0);
 
@@ -45,6 +45,9 @@ function App() {
 	const mongo = new MongoDbClient();
 
 	const fetchSubscriptionsAndSetUserToProIfRequired = async () => {
+		console.log("fetchSubscriptionsAndSetUserToProIfRequired");
+		console.log(user);
+		setShowProfileLoader(true);
 		try {
 			if (user) {
 				const subscriptions =
@@ -52,6 +55,7 @@ function App() {
 				const hasActiveSubscriptions =
 					subscriptions.filter((sub) => sub.status === "active")
 						.length > 0;
+				console.log(hasActiveSubscriptions);
 				if (!user.pro && hasActiveSubscriptions) {
 					const updatedUser = await mongo.updateOne(
 						USERS_COLLECTION,
@@ -100,6 +104,7 @@ function App() {
 			// Handle error here
 			console.error("Error fetching subscriptions:", error);
 		}
+		setShowProfileLoader(false);
 	};
 
 	useEffect(() => {
@@ -116,7 +121,12 @@ function App() {
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
 			<div className="sm:h-screen bg-gray-50 flex flex-col flex-grow">
-				<NavBar setToast={setToast} setUser={setUser} user={user} />
+				<NavBar
+					setToast={setToast}
+					showProfileLoader={showProfileLoader}
+					setUser={setUser}
+					user={user}
+				/>
 				<CTA />
 				<AIInteractorCard
 					CardHeader={
