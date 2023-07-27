@@ -5,7 +5,7 @@ import logo from "./assets/logo.png";
 import { login, signUp } from "./api";
 import { setAuthenticatedUser } from "./store/browser";
 import { ToastProps } from "./ToastNotification";
-import { Loader } from "./AIInteractor";
+import { Loader } from "./Loader";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
@@ -230,8 +230,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	// const [lastName, setLastName] = useState<string>("");
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		setShowLoader;
-		true;
+		setShowLoader(true);
 		e.preventDefault();
 		if (email && password && fullName) {
 			const createdUser = await signUp({

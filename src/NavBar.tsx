@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
-import { FEATURE_FLAGS } from "./constants";
+import { BASE_URL, FEATURE_FLAGS } from "./constants";
 import { clear, getAuthenticatedUser } from "./store/browser";
 import { User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
@@ -11,13 +11,20 @@ import { ToastProps } from "./ToastNotification";
 import { PremiumPricingInfoModal } from "./PremiumPricingInfo";
 import UserProfileModal from "./UserProfileModal";
 import { classNames } from "./utils/general";
+import { Loader } from "./Loader";
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+	showProfileLoader: boolean;
 	user: User | undefined;
 }
-export default function NavBar({ setToast, setUser, user }: NavBarProps) {
+export default function NavBar({
+	setToast,
+	setUser,
+	user,
+	showProfileLoader,
+}: NavBarProps) {
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | undefined
 	>();
@@ -66,7 +73,7 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 								<div className="relative flex h-16 items-center justify-between">
 									<div className="flex items-center px-2 lg:px-0">
 										<div className="flex-shrink-0">
-											<a href="http://rewriterpro.ai/">
+											<a href={BASE_URL}>
 												<img
 													className="block h-9"
 													src={logo}
@@ -110,13 +117,21 @@ export default function NavBar({ setToast, setUser, user }: NavBarProps) {
 																	Open user
 																	menu
 																</span>
-																<UserCircleIcon
-																	className={`h-8 w-8 ${
-																		user.pro
-																			? "border-4 rounded-3xl border-yellow-300"
-																			: ""
-																	}`}
-																/>
+																{showProfileLoader ? (
+																	<Loader
+																		visible={
+																			showProfileLoader
+																		}
+																	/>
+																) : (
+																	<UserCircleIcon
+																		className={`h-8 w-8 ${
+																			user.pro
+																				? "border-4 rounded-3xl border-yellow-300"
+																				: ""
+																		}`}
+																	/>
+																)}
 															</Menu.Button>
 														</div>
 														<Transition
