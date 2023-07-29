@@ -137,7 +137,7 @@ function UserProfileModal({
 	};
 
 	const stripe = new StripeUtil(
-		process.env.REACT_APP_STRIPE_SECRET_KEY || ""
+		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
 
 	useEffect(() => {

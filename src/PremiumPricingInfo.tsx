@@ -33,7 +33,7 @@ export const PremiumPricingInfoModal = ({
 }: PremiumPricingInfoModalProps) => {
 	const [tiers, setTiers] = useState<PricingTier[]>([]);
 	const stripe = new StripeUtil(
-		process.env.REACT_APP_STRIPE_SECRET_KEY || ""
+		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
 
 	const getCurrencySymbol = (currencyShortName: string | null): string => {
@@ -60,147 +60,154 @@ export const PremiumPricingInfoModal = ({
 			const products = await stripe.getAllProducts();
 
 			if (products.length > 0) {
-				const productId = products[0].id;
-				const prices = await stripe.getAllPrices(productId);
+				// const productId = products[0].id;
+				const productId = products.find(
+					(prod) => prod.id === process.env.REACT_APP_PRODUCT_ID
+				)?.id;
+				if (productId) {
+					const prices = await stripe.getAllPrices(productId);
 
-				const monthlyPrice = prices.find(
-					(price) => price.recurring?.interval === "month"
-				);
+					const monthlyPrice = prices.find(
+						(price) => price.recurring?.interval === "month"
+					);
 
-				const yearlyPrice = prices.find(
-					(price) => price.recurring?.interval === "year"
-				);
+					const yearlyPrice = prices.find(
+						(price) => price.recurring?.interval === "year"
+					);
 
-				const authedUser = getAuthenticatedUser();
-				if (authedUser) {
-					//Stripe doesn't support creating one checkout session with different billing intervals hence we need 2 separate calls
-					const checkoutSessionMonthly =
-						await stripe.createCheckoutSession(
-							[
-								{
-									price: monthlyPrice?.id,
-									quantity: 1,
+					const authedUser = getAuthenticatedUser();
+					if (authedUser) {
+						//Stripe doesn't support creating one checkout session with different billing intervals hence we need 2 separate calls
+						const checkoutSessionMonthly =
+							await stripe.createCheckoutSession(
+								[
+									{
+										price: monthlyPrice?.id,
+										quantity: 1,
+									},
+								],
+								authedUser?.email
+							);
+						const checkoutSessionYearly =
+							await stripe.createCheckoutSession(
+								[
+									{
+										price: yearlyPrice?.id,
+										quantity: 1,
+									},
+								],
+								authedUser?.email
+							);
+						setTiers([
+							{
+								name: "Monthly",
+								id: "tier-monthly",
+								price: {
+									monthly: `${getCurrencySymbol(
+										checkoutSessionMonthly.currency
+									)}${getPrice(
+										checkoutSessionMonthly.amount_total
+									)}`,
 								},
-							],
-							authedUser?.email
-						);
-					const checkoutSessionYearly =
-						await stripe.createCheckoutSession(
-							[
-								{
-									price: yearlyPrice?.id,
-									quantity: 1,
+								description:
+									"Everything necessary to get started.",
+								features: [
+									"Unlimited paraphrases per day",
+									"Extra fluency options",
+									"Extra tone options",
+									"Extra audience options",
+									"Extra emotion options",
+									"Extra length options",
+									"Extra language options (Spanish, French & German)",
+								],
+								checkoutUrl: checkoutSessionMonthly.url,
+							},
+							{
+								name: "Yearly",
+								id: "tier-yearly",
+								price: {
+									monthly: `${getCurrencySymbol(
+										checkoutSessionYearly.currency
+									)}${getMonthlyPriceForYearlyPlan(
+										checkoutSessionYearly.amount_total
+									)}`,
+									annually: `${getCurrencySymbol(
+										checkoutSessionYearly.currency
+									)}${getPrice(
+										checkoutSessionYearly.amount_total
+									)}`,
 								},
-							],
-							authedUser?.email
-						);
-					setTiers([
-						{
-							name: "Monthly",
-							id: "tier-monthly",
-							price: {
-								monthly: `${getCurrencySymbol(
-									checkoutSessionMonthly.currency
-								)}${getPrice(
-									checkoutSessionMonthly.amount_total
-								)}`,
+								description:
+									"Everything in Basic, plus essential tools for growing your business.",
+								features: [
+									"Save $60 on a yearly subscription",
+									"Unlimited paraphrases per day",
+									"Extra fluency options",
+									"Extra tone options",
+									"Extra audience options",
+									"Extra emotion options",
+									"Extra length options",
+									"Extra language options (Spanish, French & German)",
+								],
+								checkoutUrl: checkoutSessionYearly.url,
 							},
-							description: "Everything necessary to get started.",
-							features: [
-								"Unlimited paraphrases per day",
-								"Extra fluency options",
-								"Extra tone options",
-								"Extra audience options",
-								"Extra emotion options",
-								"Extra length options",
-								"Extra language options (Spanish, French & German)",
-							],
-							checkoutUrl: checkoutSessionMonthly.url,
-						},
-						{
-							name: "Yearly",
-							id: "tier-yearly",
-							price: {
-								monthly: `${getCurrencySymbol(
-									checkoutSessionYearly.currency
-								)}${getMonthlyPriceForYearlyPlan(
-									checkoutSessionYearly.amount_total
-								)}`,
-								annually: `${getCurrencySymbol(
-									checkoutSessionYearly.currency
-								)}${getPrice(
-									checkoutSessionYearly.amount_total
-								)}`,
+						]);
+					} else {
+						setTiers([
+							{
+								name: "Monthly",
+								id: "tier-monthly",
+								price: {
+									monthly: `${getCurrencySymbol(
+										monthlyPrice?.currency || ""
+									)}${getPrice(
+										monthlyPrice?.unit_amount || null
+									)}`,
+								},
+								description:
+									"Everything necessary to get started.",
+								features: [
+									"Unlimited paraphrases per day",
+									"Extra fluency options",
+									"Extra tone options",
+									"Extra audience options",
+									"Extra emotion options",
+									"Extra length options",
+									"Extra language options (Spanish, French & German)",
+								],
+								checkoutUrl: "",
 							},
-							description:
-								"Everything in Basic, plus essential tools for growing your business.",
-							features: [
-								"Save $60 on a yearly subscription",
-								"Unlimited paraphrases per day",
-								"Extra fluency options",
-								"Extra tone options",
-								"Extra audience options",
-								"Extra emotion options",
-								"Extra length options",
-								"Extra language options (Spanish, French & German)",
-							],
-							checkoutUrl: checkoutSessionYearly.url,
-						},
-					]);
-				} else {
-					setTiers([
-						{
-							name: "Monthly",
-							id: "tier-monthly",
-							price: {
-								monthly: `${getCurrencySymbol(
-									monthlyPrice?.currency || ""
-								)}${getPrice(
-									monthlyPrice?.unit_amount || null
-								)}`,
+							{
+								name: "Yearly",
+								id: "tier-yearly",
+								price: {
+									monthly: `${getCurrencySymbol(
+										yearlyPrice?.currency || ""
+									)}${getMonthlyPriceForYearlyPlan(
+										yearlyPrice?.unit_amount || null
+									)}`,
+									annually: `${getCurrencySymbol(
+										yearlyPrice?.currency || ""
+									)}${getPrice(
+										yearlyPrice?.unit_amount || null
+									)}`,
+								},
+								description:
+									"Everything in Basic, plus essential tools for growing your business.",
+								features: [
+									"Save $60 on a yearly subscription",
+									"Unlimited paraphrases per day",
+									"Extra fluency options",
+									"Extra tone options",
+									"Extra audience options",
+									"Extra emotion options",
+									"Extra length options",
+									"Extra language options (Spanish, French & German)",
+								],
+								checkoutUrl: "",
 							},
-							description: "Everything necessary to get started.",
-							features: [
-								"Unlimited paraphrases per day",
-								"Extra fluency options",
-								"Extra tone options",
-								"Extra audience options",
-								"Extra emotion options",
-								"Extra length options",
-								"Extra language options (Spanish, French & German)",
-							],
-							checkoutUrl: "",
-						},
-						{
-							name: "Yearly",
-							id: "tier-yearly",
-							price: {
-								monthly: `${getCurrencySymbol(
-									yearlyPrice?.currency || ""
-								)}${getMonthlyPriceForYearlyPlan(
-									yearlyPrice?.unit_amount || null
-								)}`,
-								annually: `${getCurrencySymbol(
-									yearlyPrice?.currency || ""
-								)}${getPrice(
-									yearlyPrice?.unit_amount || null
-								)}`,
-							},
-							description:
-								"Everything in Basic, plus essential tools for growing your business.",
-							features: [
-								"Save $60 on a yearly subscription",
-								"Unlimited paraphrases per day",
-								"Extra fluency options",
-								"Extra tone options",
-								"Extra audience options",
-								"Extra emotion options",
-								"Extra length options",
-								"Extra language options (Spanish, French & German)",
-							],
-							checkoutUrl: "",
-						},
-					]);
+						]);
+					}
 				}
 			}
 		} catch (error) {
