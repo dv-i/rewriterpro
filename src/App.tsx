@@ -14,7 +14,7 @@ import {
 import StripeUtil from "./utils/StripeUtil";
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
-import CTA from "./CTA";
+import CTA, { CTAv2 } from "./CTA";
 import FAQ from "./FAQ";
 import Benefits from "./Benefits";
 import Steps from "./Steps";
@@ -120,14 +120,14 @@ function App() {
 	return (
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
-			<div className="sm:h-screen bg-gray-50 flex flex-col flex-grow">
+			<div className=" bg-gray-100 flex flex-col flex-grow">
 				<NavBar
 					setToast={setToast}
 					showProfileLoader={showProfileLoader}
 					setUser={setUser}
 					user={user}
 				/>
-				<CTA />
+				<CTAv2 />
 				<AIInteractorCard
 					CardHeader={
 						<Settings
@@ -177,20 +177,16 @@ function AIInteractorCard({
 	counter,
 	user,
 }: AIInteractorCardProps) {
-	const mainClassName = `-mt-[11rem] pt-[2rem] ${
-		user?.pro ? "-mt-[22rem] sm:-mt-[11rem]" : ""
-	} h-3/5 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8`;
 	return (
-		<main className={mainClassName}>
+		<main className="-mt-[11rem] mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 block">
 			<Alert user={user} counter={counter} />
 
-			<div className="md:h-full w-full flex flex-col mt-10 divide-y divide-gray-200 rounded-lg bg-white shadow">
+			<div style={{ height: 20 }}></div>
+			<div className="md:h-max h-auto w-full flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow">
 				<div className="pl-4 pr-4 sm:h-20 py-5 sm:px-6">
 					{CardHeader}
 				</div>
-				<div className="pl-4 sm:pr-4 py-5 h-full sm:p-6">
-					{CardBody}
-				</div>
+				<div className="pl-4 sm:pr-4 py-5 h-max sm:p-6">{CardBody}</div>
 			</div>
 		</main>
 	);

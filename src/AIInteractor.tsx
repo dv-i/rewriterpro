@@ -151,7 +151,7 @@ function OriginalSection({
 								}}
 							>
 								<ClipboardDocumentIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
 							</div>
@@ -160,16 +160,16 @@ function OriginalSection({
 								onClick={() => setAiPrompt(sentence())}
 							>
 								<ArrowPathIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
 							</div>
 							<div className="flex flex-row gap-2 items-start text-white ">
 								<ChatBubbleBottomCenterTextIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
-								<div className="-mb-2 font-light text-md">
+								<div className="-mb-2 font-light text-md text-gray-400">
 									{aiPrompt.length} / 3000{" "}
 									<div className="xs:hidden">characters</div>
 								</div>
@@ -183,7 +183,7 @@ function OriginalSection({
 								setAiResult("");
 							}}
 						>
-							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
+							<TrashIcon className="h-5 w-5 stroke-gray-400" />
 						</button>
 					</div>
 					<div className="flex-shrink-0 gap-2 flex w-full flex-row mt-3">
@@ -223,7 +223,7 @@ function OriginalSection({
 								onClick={() => inputFile.current?.click()}
 							>
 								<PaperClipIcon
-									className="h-5 w-5"
+									className="h-5 w-5 "
 									aria-hidden="true"
 								/>
 								<span className="sr-only">Attach a file</span>
@@ -237,7 +237,7 @@ function OriginalSection({
 								}}
 							>
 								<ClipboardDocumentIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
 							</div>
@@ -246,16 +246,16 @@ function OriginalSection({
 								onClick={() => setAiPrompt(sentence())}
 							>
 								<ArrowPathIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
 							</div>
 							<div className="flex flex-row gap-2 items-start text-white ">
 								<ChatBubbleBottomCenterTextIcon
-									className=" h-5 w-5"
+									className=" h-5 w-5 stroke-gray-400"
 									aria-hidden="true"
 								/>
-								<div className="-mb-2 font-light text-md">
+								<div className="-mb-2 font-light text-md text-gray-400">
 									{aiPrompt.length} / 3000{" "}
 									<div className="sm:hidden">characters</div>
 								</div>
@@ -271,7 +271,7 @@ function OriginalSection({
 								setAiResult("");
 							}}
 						>
-							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
+							<TrashIcon className="h-5 w-5 stroke-gray-400" />
 						</button>
 						<button
 							type="submit"
@@ -351,16 +351,16 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 							}}
 						>
 							<ArrowDownTrayIcon
-								className="h-5 w-5"
+								className="h-5 w-5 stroke-gray-400"
 								aria-hidden="true"
 							/>
 						</button>
 						<div className="flex flex-row gap-2 items-start text-white ">
 							<ChatBubbleBottomCenterTextIcon
-								className=" h-5 w-5"
+								className=" h-5 w-5 stroke-gray-400"
 								aria-hidden="true"
 							/>
-							<div className="-mb-2 font-light text-md">
+							<div className="-mb-2 font-light text-md text-gray-400">
 								{aiResult.length} / 3000{" "}
 								<div className="xs:hidden">characters</div>
 							</div>
@@ -391,7 +391,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 						}}
 					>
 						<DocumentDuplicateIcon
-							className="h-5 w-5"
+							className="h-5 w-5 stroke-gray-400"
 							aria-hidden="true"
 						/>
 					</button>
@@ -404,7 +404,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Paraphrased:
 			</h3>
-			<div className="flex items-start space-x-4  h-full">
+			<div className="flex items-start space-x-4 h-full">
 				<div className="min-w-0 flex-1 h-full">
 					<form action="#" className="relative h-full ">
 						<div className="flex flex-col h-full">
@@ -426,7 +426,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									disabled
 								/>
 							</div>
-
+							{/* Assuming Options() is a function that renders some UI */}
 							{Options()}
 						</div>
 					</form>
