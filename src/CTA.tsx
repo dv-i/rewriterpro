@@ -34,3 +34,25 @@ export default function CTA() {
 		</div>
 	);
 }
+
+export function CTAv2() {
+	return (
+		<div className="bg-indigo-600">
+			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+				<div className="mx-auto max-w-2xl text-center">
+					<h2 className="text-3xl font-bold tracking-tight text-indigo-200 sm:text-4xl">
+						Boost Your Content Productivity
+						<br />
+						Using <span className="text-white">RewriterPro.ai</span>
+					</h2>
+					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
+						RewriterPro.ai integrates cutting-edge artificial
+						intelligence technology to create far superior,
+						error-free, and easy-to-read content in far less time.
+					</p>
+				</div>
+			</div>
+			<div style={{ height: 100 }}></div>
+		</div>
+	);
+}
