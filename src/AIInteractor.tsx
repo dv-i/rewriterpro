@@ -133,7 +133,7 @@ function OriginalSection({
 							/>
 							<button
 								type="button"
-								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
 								onClick={() => inputFile.current?.click()}
 							>
 								<PaperClipIcon
@@ -183,16 +183,16 @@ function OriginalSection({
 								setAiResult("");
 							}}
 						>
-							<TrashIcon className="h-5 w-5 stroke-white" />
+							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
 						</button>
 					</div>
 					<div className="flex-shrink-0 gap-2 flex w-full flex-row mt-3">
 						<button
 							type="submit"
-							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-indigo-600 bg-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								MAX_TRIES <= counter && !user?.pro
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-									: "bg-white hover:bg-white focus-visible:outline-indigo-600"
+									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => {
 								handleParaphraseClick();
@@ -219,7 +219,7 @@ function OriginalSection({
 							/>
 							<button
 								type="button"
-								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
+								className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
 								onClick={() => inputFile.current?.click()}
 							>
 								<PaperClipIcon
@@ -271,14 +271,14 @@ function OriginalSection({
 								setAiResult("");
 							}}
 						>
-							<TrashIcon className="h-5 w-5 stroke-gray-400" />
+							<TrashIcon className="h-5 w-5 stroke-indigo-600" />
 						</button>
 						<button
 							type="submit"
-							className={`inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-indigo-600 bg-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+							className={`inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								MAX_TRIES <= counter && !user?.pro
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-									: "bg-white hover:bg-white focus-visible:outline-indigo-600"
+									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => {
 								handleParaphraseClick();
@@ -295,7 +295,7 @@ function OriginalSection({
 	};
 	return (
 		<div className="flex flex-col h-full w-full md:w-1/2 pr-3">
-			<h2 className="text-lg font-semibold leading-6 text-white pb-5">
+			<h2 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Original:
 			</h2>
 			<div className="flex items-start space-x-4  h-full">
@@ -306,7 +306,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
+								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -316,7 +316,7 @@ function OriginalSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
+								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								maxLength={3000}
@@ -339,7 +339,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 					<div className="flex gap-4 items-center w-full">
 						<button
 							type="button"
-							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
+							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
 							onClick={() => {
 								const blob = new Blob([aiResult], {
 									type: "text/plain",
@@ -370,7 +370,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 				<div className="flex-shrink-0 py-2">
 					<button
 						type="button"
-						className="sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-white hover:text-white"
+						className="hidden sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
 						onClick={() => {
 							if (aiResult) {
 								navigator.clipboard.writeText(aiResult);
@@ -401,7 +401,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 	};
 	return (
 		<div className="flex flex-col h-full w-full md:w-1/2 mt-5 sm:mt-0 sm:pl-3 pr-3">
-			<h3 className="text-lg font-semibold leading-6 text-white pb-5">
+			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Paraphrased:
 			</h3>
 			<div className="flex items-start space-x-4  h-full">
@@ -413,7 +413,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={3}
 									name="comment"
 									id="comment"
-									className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
+									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>
@@ -421,7 +421,7 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 									rows={10}
 									name="comment"
 									id="comment"
-									className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-white placeholder:text-gray-200 focus:ring-0 sm:text-md sm:leading-6"
+									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
 									disabled
 								/>

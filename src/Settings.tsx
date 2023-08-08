@@ -223,7 +223,7 @@ export default function Settings({
 								</Listbox.Label>
 								<div className="relative w-full">
 									<div className="inline-flex divide-x divide-indigo-700 rounded-md shadow-sm w-full">
-										<div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-white px-3 py-2 text-indigo-600 shadow-sm w-full">
+										<div className="inline-flex items-center gap-x-1.5 rounded-l-md bg-indigo-600 px-3 py-2 text-white shadow-sm w-full">
 											<CheckIcon
 												className="-ml-0.5 h-5 w-5"
 												aria-hidden="true"
@@ -232,12 +232,12 @@ export default function Settings({
 												{selected.title}
 											</p>
 										</div>
-										<Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-white p-2 hover:bg-indigo-700  focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
+										<Listbox.Button className="inline-flex items-center rounded-l-none rounded-r-md bg-indigo-600 p-2 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-gray-50">
 											<span className="sr-only">
 												Change published status
 											</span>
 											<ChevronDownIcon
-												className="h-5 w-5 text-indigo-600 hover:text-white"
+												className="h-5 w-5 text-white"
 												aria-hidden="true"
 											/>
 										</Listbox.Button>
@@ -260,7 +260,7 @@ export default function Settings({
 														}) =>
 															classNames(
 																active
-																	? "bg-white text-indigo-600"
+																	? "bg-indigo-600 text-white"
 																	: "text-gray-900",
 																"cursor-default select-none p-4 text-md"
 															)
@@ -378,7 +378,7 @@ export default function Settings({
 														}) =>
 															classNames(
 																active
-																	? "bg-white text-indigo-600"
+																	? "bg-indigo-600 text-white"
 																	: "text-gray-900",
 																"cursor-default select-none p-4 text-md"
 															)
@@ -688,7 +688,7 @@ function DropDown({
 												className={({ active }) =>
 													classNames(
 														active
-															? "bg-white text-indigo-600"
+															? "bg-indigo-600 text-white"
 															: "text-gray-900",
 														"relative cursor-default select-none py-2 pl-3 pr-9 ",
 														opt.disabled
@@ -737,7 +737,7 @@ function DropDown({
 											className={({ active }) =>
 												classNames(
 													active
-														? "bg-white text-indigo-600"
+														? "bg-indigo-600 text-white"
 														: "text-gray-900",
 													"relative cursor-default select-none py-2 pl-3 pr-9 ",
 													opt.disabled

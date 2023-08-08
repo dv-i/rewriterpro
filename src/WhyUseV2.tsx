@@ -71,7 +71,7 @@ export default function Example() {
 						<img
 							className="relative mx-auto"
 							width={490}
-							src="https://placehold.co/540x960"
+							src="https://tailwindui.com/img/features/feature-example-1.png"
 							alt=""
 						/>
 					</div> */}
@@ -101,7 +101,7 @@ export default function Example() {
 							<img
 								className="relative mx-auto"
 								width={490}
-								src="https://placehold.co/540x540"
+								src="https://tailwindui.com/img/features/feature-example-2.png"
 								alt=""
 							/>
 						</div> */}
@@ -131,7 +131,7 @@ export default function Example() {
 						<img
 							className="relative mx-auto"
 							width={490}
-							src="https://placehold.co/540x540"
+							src="https://tailwindui.com/img/features/feature-example-1.png"
 							alt=""
 						/>
 					</div> */}
