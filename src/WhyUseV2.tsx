@@ -40,10 +40,10 @@ const features1 = [
 
 export default function Example() {
 	return (
-		<div className="overflow-hidden bg-gray-50 py-16 lg:py-24">
+		<div className="overflow-hidden bg-gray-100 py-16 lg:py-24">
 			<div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
 				<div className="relative">
-					<h2 className="mx-auto mt-24 text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+					<h2 className="mx-auto mt-100 text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
 						Why use RewriterPro.ai?
 					</h2>
 				</div>
@@ -71,7 +71,7 @@ export default function Example() {
 						<img
 							className="relative mx-auto"
 							width={490}
-							src="https://placehold.co/540x960"
+							src="https://tailwindui.com/img/features/feature-example-1.png"
 							alt=""
 						/>
 					</div> */}
@@ -101,7 +101,7 @@ export default function Example() {
 							<img
 								className="relative mx-auto"
 								width={490}
-								src="https://placehold.co/540x540"
+								src="https://tailwindui.com/img/features/feature-example-2.png"
 								alt=""
 							/>
 						</div> */}
@@ -131,7 +131,7 @@ export default function Example() {
 						<img
 							className="relative mx-auto"
 							width={490}
-							src="https://placehold.co/540x540"
+							src="https://tailwindui.com/img/features/feature-example-1.png"
 							alt=""
 						/>
 					</div> */}

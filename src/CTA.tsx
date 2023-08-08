@@ -1,19 +1,19 @@
 import React from "react";
 export default function CTA() {
 	return (
-		<div className="bg-white pb-40">
+		<div className="bg-indigo-600 pb-40">
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-3xl text-center">
-					<h2 className="text-4xl text-black font-bold tracking-tight sm:text-5xl">
-						Boost Your Content Productivity
+					<h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+						Boost your content productivity
 						<br />
 						Using{" "}
 						<span className="text-indigo-600">RewriterPro.ai</span>
 					</h2>
-					<p className="pt-10 mx-auto mt-6 max-w-xl text-xl leading-8 text-black">
-						RewriterPro.ai integrates cutting-edge artificial
-						intelligence technology to create far superior,
-						error-free, and easy-to-read content in far less time.
+					<p className="pt-10 mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
+						ReWriter Pro integrates cutting-edge artificial
+						technology to create far superior, error-free, and
+						easy-to-read content in far less time.
 					</p>
 					{/* <div className="mt-10 flex items-center justify-center gap-x-6">
 						<a
@@ -31,6 +31,28 @@ export default function CTA() {
 					</div> */}
 				</div>
 			</div>
+		</div>
+	);
+}
+
+export function CTAv2() {
+	return (
+		<div className="bg-indigo-600">
+			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+				<div className="mx-auto max-w-3xl text-center">
+					<h2 className="text-4xl font-bold tracking-tight text-indigo-200 sm:text-5xl">
+						Boost Your Content Productivity
+						<br />
+						Using <span className="text-white">RewriterPro.ai</span>
+					</h2>
+					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
+						RewriterPro.ai integrates cutting-edge artificial
+						intelligence technology to create far superior,
+						error-free, and easy-to-read content in far less time.
+					</p>
+				</div>
+			</div>
+			<div style={{ height: 100 }}></div>
 		</div>
 	);
 }
