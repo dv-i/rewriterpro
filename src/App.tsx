@@ -182,11 +182,13 @@ function AIInteractorCard({
 			<Alert user={user} counter={counter} />
 
 			<div style={{ height: 20 }}></div>
-			<div className="md:h-max h-auto w-full flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow">
+			<div className="h-full w-full flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow">
 				<div className="pl-4 pr-4 sm:h-20 py-5 sm:px-6">
 					{CardHeader}
 				</div>
-				<div className="pl-4 sm:pr-4 py-5 h-max sm:p-6">{CardBody}</div>
+				<div className="pl-4 sm:pr-4 py-5 h-full sm:p-6">
+					{CardBody}
+				</div>
 			</div>
 		</main>
 	);

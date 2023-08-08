@@ -55,7 +55,7 @@ export default function Settings({
 		<>
 			{/* Desktop */}
 			<div className="hidden sm:flex justify-between">
-				<div className="flex-row flex gap-3 -mt-1.5">
+				<div className="flex-row flex gap-3  -mt-1.5">
 					<DropDown
 						label={"Fluency"}
 						promptKey="fluency"

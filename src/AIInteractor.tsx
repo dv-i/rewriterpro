@@ -33,7 +33,7 @@ export default function AIInteractor({
 	const [aiResult, setAiResult] = useState<string>("");
 
 	return (
-		<div className="flex flex-wrap flex-col md:flex-row md:h-full">
+		<div className="flex flex-wrap flex-col md:flex-row md:h-full ">
 			<OriginalSection
 				aiPrompt={aiPrompt}
 				setAiPrompt={setAiPrompt}
@@ -299,10 +299,11 @@ function OriginalSection({
 				Original:
 			</h2>
 			<div className="flex items-start space-x-4  h-full">
-				<div className="min-w-0 flex-1 h-full">
+				<div className="min-w-0 flex-1 h-full ">
 					<div className="flex flex-col h-full">
 						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
 							<textarea
+								style={{ height: 300 }}
 								rows={10}
 								name="comment"
 								id="comment"
@@ -313,6 +314,7 @@ function OriginalSection({
 								onChange={(e) => setAiPrompt(e.target.value)}
 							/>
 							<textarea
+								style={{ height: 300 }}
 								rows={10}
 								name="comment"
 								id="comment"
@@ -404,32 +406,32 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
 				Paraphrased:
 			</h3>
-			<div className="flex items-start space-x-4 h-full">
+			<div className="flex items-start space-x-4 h-full  flex-1">
 				<div className="min-w-0 flex-1 h-full">
-					<form action="#" className="relative h-full ">
-						<div className="flex flex-col h-full">
-							<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-								<textarea
-									rows={3}
-									name="comment"
-									id="comment"
-									className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-									value={aiResult}
-									disabled
-								/>
-								<textarea
-									rows={10}
-									name="comment"
-									id="comment"
-									className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-									value={aiResult}
-									disabled
-								/>
-							</div>
-							{/* Assuming Options() is a function that renders some UI */}
-							{Options()}
+					<div className="flex flex-col h-full">
+						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+							<textarea
+								style={{ height: 300 }}
+								rows={3}
+								name="comment"
+								id="comment"
+								className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								value={aiResult}
+								disabled
+							/>
+							<textarea
+								style={{ height: 300 }}
+								rows={10}
+								name="comment"
+								id="comment"
+								className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								value={aiResult}
+								disabled
+							/>
 						</div>
-					</form>
+						{/* Assuming Options() is a function that renders some UI */}
+						{Options()}
+					</div>
 				</div>
 			</div>
 		</div>
