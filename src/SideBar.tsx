@@ -6,6 +6,8 @@ import { login, signUp } from "./api";
 import { setAuthenticatedUser } from "./store/browser";
 import { ToastProps } from "./ToastNotification";
 import { Loader } from "./Loader";
+import { IResolveParams, LoginSocialGoogle } from "reactjs-social-login";
+import { GoogleLoginButton } from "react-social-login-buttons";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
@@ -118,6 +120,41 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	const [password, setPassword] = useState<string>("");
 	const [showLoader, setShowLoader] = useState(false);
 
+	const gAuthLogin = async ({
+		email,
+		firstName,
+		lastName,
+	}: {
+		email: string;
+		firstName: string;
+		lastName: string;
+	}): Promise<void> => {
+		setShowLoader(true);
+		console.log("gAuthLogin", { email, firstName, lastName });
+
+		//Add user/sign up
+		const createdUser = await signUp({
+			email,
+			fullName: `${firstName} ${lastName}`,
+			password,
+			passwordHash: undefined,
+			authType: "google",
+		});
+		if (createdUser) {
+			setAuthenticatedUser(createdUser);
+			setSideBarMode(undefined);
+			setShowLoader(false);
+		} else {
+			setToast({
+				visible: true,
+				title: "Error",
+				content: "Please try again after some time",
+				type: "error",
+			});
+			setShowLoader(false);
+		}
+	};
+
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		setShowLoader(true);
 		e.preventDefault();
@@ -150,74 +187,117 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 				</h2>
 			</div>
 
-			<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-				<form
-					className="space-y-6"
-					onSubmit={(e) => handleFormSubmit(e)}
-				>
-					<div>
-						<label
-							htmlFor="email"
-							className="block text-md font-medium leading-6 text-gray-900"
-						>
-							Email address
-						</label>
-						<div className="mt-2">
-							<input
-								id="email"
-								name="email"
-								type="email"
-								autoComplete="email"
-								onChange={(e) => setEmail(e.target.value)}
-								required
-								className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
-							/>
-						</div>
-					</div>
-
-					<div>
-						<div className="flex items-center justify-between">
+			{showLoader ? (
+				<div className="flex justify-center pt-10">
+					<Loader
+						width="w-8"
+						height="h-8"
+						color={"text-black"}
+						visible={showLoader}
+					/>
+				</div>
+			) : (
+				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+					<form
+						className="space-y-6"
+						onSubmit={(e) => handleFormSubmit(e)}
+					>
+						<div>
 							<label
-								htmlFor="password"
+								htmlFor="email"
 								className="block text-md font-medium leading-6 text-gray-900"
 							>
-								Password
+								Email address
 							</label>
+							<div className="mt-2">
+								<input
+									id="email"
+									name="email"
+									type="email"
+									autoComplete="email"
+									onChange={(e) => setEmail(e.target.value)}
+									required
+									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 p-3 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+								/>
+							</div>
 						</div>
-						<div className="mt-2">
-							<input
-								id="password"
-								name="password"
-								type="password"
-								autoComplete="current-password"
-								onChange={(e) => setPassword(e.target.value)}
-								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
-							/>
-						</div>
-					</div>
 
-					<div>
+						<div>
+							<div className="flex items-center justify-between">
+								<label
+									htmlFor="password"
+									className="block text-md font-medium leading-6 text-gray-900"
+								>
+									Password
+								</label>
+							</div>
+							<div className="mt-2">
+								<input
+									id="password"
+									name="password"
+									type="password"
+									autoComplete="current-password"
+									onChange={(e) =>
+										setPassword(e.target.value)
+									}
+									required
+									className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+								/>
+							</div>
+						</div>
+
+						<div>
+							<button
+								type="submit"
+								className=" w-full inline-flex items-center align-baseline gap-1 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							>
+								Log in
+								<Loader visible={showLoader} />
+							</button>
+						</div>
+						<>
+							<LoginSocialGoogle
+								client_id={
+									"1068841889733-k1olne1s3pl50ifbo36l3rsp4hmctn05.apps.googleusercontent.com" ||
+									""
+								}
+								// onLoginStart={onGAuthLoginStart}
+								// redirect_uri={undefined}
+								scope="openid profile email"
+								discoveryDocs="claims_supported"
+								access_type="offline"
+								onResolve={({ data }: IResolveParams) => {
+									console.log("GAUTH");
+									console.log(data);
+									if (data) {
+										gAuthLogin({
+											email: data.email,
+											firstName: data.given_name,
+											lastName: data.family_name,
+										});
+									}
+								}}
+								onReject={(err) => {
+									setShowLoader(false);
+									console.log(err);
+								}}
+							>
+								<GoogleLoginButton />
+							</LoginSocialGoogle>
+						</>
+					</form>
+
+					<p className="mt-10 text-center text-md text-gray-500">
+						Not a member?{" "}
 						<button
-							type="submit"
-							className=" w-full inline-flex items-center align-baseline gap-1 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-md font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+							onClick={() => setSideBarMode("signup")}
 						>
-							Log in
-							<Loader visible={showLoader} />
+							Sign Up
 						</button>
-					</div>
-				</form>
-
-				<p className="mt-10 text-center text-md text-gray-500">
-					Not a member?{" "}
-					<button
-						className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-						onClick={() => setSideBarMode("signup")}
-					>
-						Sign Up
-					</button>
-				</p>
-			</div>
+					</p>
+				</div>
+			)}
 		</div>
 	);
 }
@@ -227,7 +307,6 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 	const [password, setPassword] = useState<string>("");
 	const [fullName, setFullName] = useState<string>("");
 	const [showLoader, setShowLoader] = useState(false);
-	// const [lastName, setLastName] = useState<string>("");
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		setShowLoader(true);
@@ -235,8 +314,8 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 		if (email && password && fullName) {
 			const createdUser = await signUp({
 				email,
-				password,
 				fullName,
+				password,
 			});
 			if (createdUser) {
 				setAuthenticatedUser(createdUser);
@@ -289,25 +368,7 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 							/>
 						</div>
 					</div>
-					{/* <div>
-						<label
-							htmlFor="lastName"
-							className="block text-md font-medium leading-6 text-gray-900"
-						>
-							Last name
-						</label>
-						<div className="mt-2">
-							<input
-								id="lastName"
-								name="lastName"
-								type="text"
-								autoComplete="lastName"
-								onChange={(e) => setLastName(e.target.value)}
-								required
-								className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
-							/>
-						</div>
-					</div> */}
+
 					<div>
 						<label
 							htmlFor="email"

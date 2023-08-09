@@ -14,7 +14,7 @@ import {
 import StripeUtil from "./utils/StripeUtil";
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
-import CTA, { CTAv2 } from "./CTA";
+import { CTAv2 } from "./CTA";
 import FAQ from "./FAQ";
 import Benefits from "./Benefits";
 import Steps from "./Steps";

@@ -3,6 +3,7 @@ export interface User {
 	email: string;
 	passwordHash?: string;
 	pro?: boolean;
+	authType?: string;
 }
 
 export interface PromptOptions {
