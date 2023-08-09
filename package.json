@@ -21,6 +21,8 @@
 		"react-app-rewired": "^2.2.1",
 		"react-dom": "^18.2.0",
 		"react-scripts": "5.0.1",
+		"react-social-login-buttons": "^3.9.1",
+		"reactjs-social-login": "^2.6.2",
 		"stream-browserify": "^3.0.0",
 		"stripe": "^12.10.0",
 		"txtgen": "^3.0.6",

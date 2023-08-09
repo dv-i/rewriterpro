@@ -1,12 +1,25 @@
 import React from "react";
-export function Loader({ visible }: { visible: boolean }) {
+export function Loader({
+	visible,
+	color,
+	width,
+	height,
+}: {
+	visible: boolean;
+	color?: string;
+	width?: string;
+	height?: string;
+}) {
+	console.log("color - " + color);
 	return (
 		<svg
 			aria-hidden="true"
 			role="status"
-			className={`${
-				visible ? "" : "hidden"
-			} inline ml-3 w-4 h-4 text-white animate-spin`}
+			className={`${visible ? "" : "hidden"} inline ml-3 ${
+				width ? width : "w-4"
+			} ${height ? height : "h-4"} ${
+				color ? color : "text-white"
+			} animate-spin`}
 			viewBox="0 0 100 101"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

@@ -27,19 +27,29 @@ export const signUp = async (userToAdd: {
 	fullName: string;
 	password?: string;
 	passwordHash?: string;
+	authType?: string;
 }): Promise<User | undefined> => {
 	const mongo = new MongoDbClient();
 	const user = await mongo.findOne(USERS_COLLECTION, {
 		email: userToAdd.email,
 	});
 	if (user) {
+		if (userToAdd.authType) {
+			return userToAdd;
+		}
 		console.error("User already exists");
 		return;
 	}
 
-	const passwordHash = await toHash(userToAdd.password || "");
-	userToAdd.passwordHash = passwordHash;
-	delete userToAdd.password;
+	console.log("User to add");
+	console.log(userToAdd);
+
+	if (!userToAdd?.authType) {
+		console.log("only hash password if no google auth");
+		const passwordHash = await toHash(userToAdd.password || "");
+		userToAdd.passwordHash = passwordHash;
+		delete userToAdd.password;
+	}
 
 	try {
 		await mongo.insertOne(USERS_COLLECTION, userToAdd);
