@@ -7,7 +7,7 @@ import { setAuthenticatedUser } from "./store/browser";
 import { ToastProps } from "./ToastNotification";
 import { Loader } from "./Loader";
 import { IResolveParams, LoginSocialGoogle } from "reactjs-social-login";
-import { GoogleLoginButton } from "react-social-login-buttons";
+import GoogleButton from "react-google-button";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | undefined;
@@ -198,6 +198,38 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 				</div>
 			) : (
 				<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+					<LoginSocialGoogle
+						client_id={
+							"1068841889733-k1olne1s3pl50ifbo36l3rsp4hmctn05.apps.googleusercontent.com" ||
+							""
+						}
+						// onLoginStart={onGAuthLoginStart}
+						// redirect_uri={undefined}
+						scope="openid profile email"
+						discoveryDocs="claims_supported"
+						access_type="offline"
+						onResolve={({ data }: IResolveParams) => {
+							console.log("GAUTH");
+							console.log(data);
+							if (data) {
+								gAuthLogin({
+									email: data.email,
+									firstName: data.given_name,
+									lastName: data.family_name,
+								});
+							}
+						}}
+						onReject={(err) => {
+							setShowLoader(false);
+							console.log(err);
+						}}
+					>
+						<GoogleButton
+							label="Continue with Google"
+							style={{ width: "100%" }}
+						/>
+					</LoginSocialGoogle>
+					<div className="text-center py-4">OR</div>
 					<form
 						className="space-y-6"
 						onSubmit={(e) => handleFormSubmit(e)}
@@ -255,36 +287,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								<Loader visible={showLoader} />
 							</button>
 						</div>
-						<>
-							<LoginSocialGoogle
-								client_id={
-									"1068841889733-k1olne1s3pl50ifbo36l3rsp4hmctn05.apps.googleusercontent.com" ||
-									""
-								}
-								// onLoginStart={onGAuthLoginStart}
-								// redirect_uri={undefined}
-								scope="openid profile email"
-								discoveryDocs="claims_supported"
-								access_type="offline"
-								onResolve={({ data }: IResolveParams) => {
-									console.log("GAUTH");
-									console.log(data);
-									if (data) {
-										gAuthLogin({
-											email: data.email,
-											firstName: data.given_name,
-											lastName: data.family_name,
-										});
-									}
-								}}
-								onReject={(err) => {
-									setShowLoader(false);
-									console.log(err);
-								}}
-							>
-								<GoogleLoginButton />
-							</LoginSocialGoogle>
-						</>
+						<></>
 					</form>
 
 					<p className="mt-10 text-center text-md text-gray-500">

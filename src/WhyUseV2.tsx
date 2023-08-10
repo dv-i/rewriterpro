@@ -1,5 +1,10 @@
 import React from "react";
 
+import CreateContentImage from "./assets/create-content.png";
+import EnhanceProductvityImage from "./assets/enhance-productivity.png";
+import MoneyImage from "./assets/money.png";
+import SaveHoursImage from "./assets/save-hours.png";
+
 const features1 = [
 	{
 		name: "Create Breathtaking Content.",
@@ -64,17 +69,17 @@ export default function Example() {
 						</dl>
 					</div>
 
-					{/* <div
+					<div
 						className="relative -mx-4 mt-10 lg:mt-0"
 						aria-hidden="true"
 					>
 						<img
 							className="relative mx-auto"
-							width={490}
-							src="https://tailwindui.com/img/features/feature-example-1.png"
+							width={300}
+							src={CreateContentImage}
 							alt=""
 						/>
-					</div> */}
+					</div>
 				</div>
 
 				<div className="relative mt-12 sm:mt-16 lg:mt-6">
@@ -97,14 +102,14 @@ export default function Example() {
 							</dl>
 						</div>
 
-						{/* <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
+						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
 							<img
 								className="relative mx-auto"
-								width={490}
-								src="https://tailwindui.com/img/features/feature-example-2.png"
+								width={300}
+								src={SaveHoursImage}
 								alt=""
 							/>
-						</div> */}
+						</div>
 					</div>
 				</div>
 
@@ -124,17 +129,17 @@ export default function Example() {
 						</dl>
 					</div>
 
-					{/* <div
+					<div
 						className="relative -mx-4 mt-10 lg:mt-0"
 						aria-hidden="true"
 					>
 						<img
 							className="relative mx-auto"
-							width={490}
-							src="https://tailwindui.com/img/features/feature-example-1.png"
+							width={300}
+							src={MoneyImage}
 							alt=""
 						/>
-					</div> */}
+					</div>
 				</div>
 
 				<div className="relative mt-12 sm:mt-16 lg:mt-6">
@@ -157,14 +162,14 @@ export default function Example() {
 							</dl>
 						</div>
 
-						{/* <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
+						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
 							<img
 								className="relative mx-auto"
-								width={490}
-								src="https://placehold.co/540x540"
+								width={300}
+								src={EnhanceProductvityImage}
 								alt=""
 							/>
-						</div> */}
+						</div>
 					</div>
 				</div>
 
