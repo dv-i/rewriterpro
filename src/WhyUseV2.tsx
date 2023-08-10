@@ -4,6 +4,9 @@ import CreateContentImage from "./assets/create-content.png";
 import EnhanceProductvityImage from "./assets/enhance-productivity.png";
 import MoneyImage from "./assets/money.png";
 import SaveHoursImage from "./assets/save-hours.png";
+import CreativityImage from "./assets/creatitivity.png";
+import PlagiarismImage from "./assets/plagiarism.png";
+import SimplifyImage from "./assets/simplify.png";
 
 const features1 = [
 	{
@@ -135,7 +138,7 @@ export default function Example() {
 					>
 						<img
 							className="relative mx-auto"
-							width={300}
+							width={400}
 							src={MoneyImage}
 							alt=""
 						/>
@@ -165,7 +168,7 @@ export default function Example() {
 						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
 							<img
 								className="relative mx-auto"
-								width={300}
+								width={400}
 								src={EnhanceProductvityImage}
 								alt=""
 							/>
@@ -189,17 +192,17 @@ export default function Example() {
 						</dl>
 					</div>
 
-					{/* <div
+					<div
 						className="relative -mx-4 mt-10 lg:mt-0"
 						aria-hidden="true"
 					>
 						<img
 							className="relative mx-auto"
-							width={490}
-							src="https://placehold.co/540x540"
+							width={400}
+							src={CreativityImage}
 							alt=""
 						/>
-					</div> */}
+					</div>
 				</div>
 
 				<div className="relative mt-12 sm:mt-16 lg:mt-6">
@@ -222,14 +225,14 @@ export default function Example() {
 							</dl>
 						</div>
 
-						{/* <div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
+						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
 							<img
 								className="relative mx-auto"
-								width={490}
-								src="https://placehold.co/540x540"
+								width={400}
+								src={PlagiarismImage}
 								alt=""
 							/>
-						</div> */}
+						</div>
 					</div>
 				</div>
 
@@ -249,17 +252,17 @@ export default function Example() {
 						</dl>
 					</div>
 
-					{/* <div
+					<div
 						className="relative -mx-4 mt-10 lg:mt-0"
 						aria-hidden="true"
 					>
 						<img
 							className="relative mx-auto"
-							width={490}
-							src="https://placehold.co/540x540"
+							width={400}
+							src={SimplifyImage}
 							alt=""
 						/>
-					</div> */}
+					</div>
 				</div>
 			</div>
 		</div>
