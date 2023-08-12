@@ -21,9 +21,66 @@ import Steps from "./Steps";
 import Work from "./Work";
 import WhyUseV2 from "./WhyUseV2";
 import Footer from "./Footer";
-function App() {
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+
+interface MainAppProps {
+	toast: ToastProps | undefined;
+	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	user: User | undefined;
+	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+	showProfileLoader: boolean;
+	setShowProfileLoader: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function App(): JSX.Element {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
+	const [showProfileLoader, setShowProfileLoader] = useState<boolean>(false);
+	return (
+		<>
+			<BrowserRouter>
+				<NavBar
+					setToast={setToast}
+					showProfileLoader={showProfileLoader}
+					setUser={setUser}
+					user={user}
+				/>
+				<Routes>
+					<Route
+						path="/"
+						index
+						element={
+							<MainApp
+								showProfileLoader={showProfileLoader}
+								user={user}
+								setUser={setUser}
+								toast={toast}
+								setToast={setToast}
+								setShowProfileLoader={setShowProfileLoader}
+							/>
+						}
+					/>
+					<Route path="/about" element={<About />} />
+					<Route path="/contact" element={<Contact />} />
+					<Route path="/privacy" element={<Privacy />} />
+				</Routes>
+				<Footer />
+			</BrowserRouter>
+		</>
+	);
+}
+
+function MainApp({
+	showProfileLoader,
+	user,
+	setToast,
+	setUser,
+	setShowProfileLoader,
+	toast,
+}: MainAppProps) {
 	const [promptOptions, setPromptOptions] = useState<PromptOptions>({
 		fluency: undefined,
 		tone: undefined,
@@ -31,7 +88,6 @@ function App() {
 		audience: undefined,
 		length: undefined,
 	});
-	const [showProfileLoader, setShowProfileLoader] = useState<boolean>(false);
 
 	const [counter, setCounter] = useState<number>(getLocalCounter() || 0);
 
@@ -45,8 +101,6 @@ function App() {
 	const mongo = new MongoDbClient();
 
 	const fetchSubscriptionsAndSetUserToProIfRequired = async () => {
-		console.log("fetchSubscriptionsAndSetUserToProIfRequired");
-		console.log(user);
 		setShowProfileLoader(true);
 		try {
 			if (user) {
@@ -121,12 +175,6 @@ function App() {
 		<>
 			<ToastNotification toast={toast} setToast={setToast} />
 			<div className=" bg-gray-100 flex flex-col flex-grow">
-				<NavBar
-					setToast={setToast}
-					showProfileLoader={showProfileLoader}
-					setUser={setUser}
-					user={user}
-				/>
 				<CTAv2 />
 				<AIInteractorCard
 					CardHeader={
@@ -152,13 +200,11 @@ function App() {
 				/>
 			</div>
 
-			{/* <WhyUse /> */}
 			<WhyUseV2 />
 			<Benefits />
 			<Work />
 			<Steps />
 			<FAQ />
-			<Footer />
 		</>
 	);
 }
