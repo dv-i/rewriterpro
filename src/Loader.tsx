@@ -10,7 +10,6 @@ export function Loader({
 	width?: string;
 	height?: string;
 }) {
-	console.log("color - " + color);
 	return (
 		<svg
 			aria-hidden="true"

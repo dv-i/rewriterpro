@@ -228,7 +228,7 @@ export default function Settings({
 												className="-ml-0.5 h-5 w-5"
 												aria-hidden="true"
 											/>
-											<p className="text-md font-semibold">
+											<p className="text-md font-semibold text-white">
 												{selected.title}
 											</p>
 										</div>
@@ -346,7 +346,7 @@ export default function Settings({
 												className="-ml-0.5 h-5 w-5"
 												aria-hidden="true"
 											/>
-											<p className="text-md font-semibold">
+											<p className="text-md font-semibold text-white">
 												{selected.title}
 											</p>
 										</div>

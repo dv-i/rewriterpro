@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-
+import { NavLink } from "react-router-dom";
 const navigation = {
 	main: [
-		{ name: "About" },
+		{ name: "About", href: "/about" },
 		{ name: "Privacy & Terms", href: "/privacy" },
 		{ name: "Contact Us", href: "/contact" },
 	],
@@ -31,12 +31,18 @@ export default function Footer() {
 				>
 					{navigation.main.map((item) => (
 						<div key={item.name} className="pb-6">
-							<button
+							{/* <button
 								onClick={() => openModal(item.name)}
 								className="text-sm leading-6 text-gray-600 hover:text-gray-900 cursor-pointer"
 							>
 								{item.name}
-							</button>
+							</button> */}
+							<NavLink
+								to={`${item.href}`}
+								className="text-sm leading-6 text-gray-600 hover:text-gray-900 cursor-pointer"
+							>
+								{item.name}
+							</NavLink>
 						</div>
 					))}
 				</nav>
