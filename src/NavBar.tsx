@@ -12,6 +12,7 @@ import { PremiumPricingInfoModal } from "./PremiumPricingInfo";
 import UserProfileModal from "./UserProfileModal";
 import { classNames } from "./utils/general";
 import { Loader } from "./Loader";
+import StripeUtil from "./utils/StripeUtil";
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -25,11 +26,16 @@ export default function NavBar({
 	user,
 	showProfileLoader,
 }: NavBarProps) {
+	const stripe = new StripeUtil(
+		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
+	);
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
+	const [userHasActiveSubscriptions, setUserHasActiveSubscriptions] =
+		useState(false);
 	const userNavigation = [
 		{
 			name: "Your Profile",
@@ -46,12 +52,30 @@ export default function NavBar({
 		},
 	];
 
+	const hasActiveSubscriptions = async () => {
+		const authedUser = getAuthenticatedUser();
+		if (authedUser) {
+			const subscriptions = await stripe.getCustomerSubscriptionsByEmail(
+				authedUser.email
+			);
+			console.log(subscriptions);
+			const hasActiveSubscriptions =
+				subscriptions.filter((sub) => sub.status === "active").length >
+				0;
+			setUserHasActiveSubscriptions(hasActiveSubscriptions);
+		}
+	};
+	useEffect(() => {
+		hasActiveSubscriptions();
+	}, []);
+
 	useEffect(() => {
 		if (!isUserProfileModalOpen) {
 			const authedUser = getAuthenticatedUser();
 			if (authedUser) {
 				setUser(authedUser);
 			}
+			hasActiveSubscriptions();
 		}
 	}, [isUserProfileModalOpen]);
 
@@ -61,8 +85,19 @@ export default function NavBar({
 			if (authedUser) {
 				setUser(authedUser);
 			}
+			hasActiveSubscriptions();
 		}
 	}, [sideBarMode]);
+
+	const getBuyNowButton = () => (
+		<button
+			type="button"
+			className="rounded-md py-2 px-3 text-md font-medium ml-4 bg-indigo-700 text-white shadow-sm hover:bg-indigo-500"
+			onClick={() => setIsGetPremiumModalOpen(true)}
+		>
+			Buy Pro
+		</button>
+	);
 	return (
 		<>
 			<div className="bg-indigo-600">
@@ -190,19 +225,10 @@ export default function NavBar({
 											)}
 
 											{/* Buy Premium Button */}
-											{user?.pro !== true && (
-												<button
-													type="button"
-													className="rounded-md py-2 px-3 text-md font-medium ml-4 bg-indigo-700 text-white shadow-sm hover:bg-indigo-500"
-													onClick={() =>
-														setIsGetPremiumModalOpen(
-															true
-														)
-													}
-												>
-													Buy Pro
-												</button>
-											)}
+											{user?.pro !== true &&
+												userHasActiveSubscriptions ===
+													false &&
+												getBuyNowButton()}
 
 											<div className="ml-4 pt-1.5">
 												{FEATURE_FLAGS.DEV_TOGGLE_SWITCH && (
