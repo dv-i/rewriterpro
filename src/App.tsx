@@ -25,6 +25,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 interface MainAppProps {
 	toast: ToastProps | undefined;
@@ -63,9 +64,23 @@ function App(): JSX.Element {
 							/>
 						}
 					/>
+					<Route
+						path="/reset-password/*"
+						element={
+							<MainApp
+								showProfileLoader={showProfileLoader}
+								user={user}
+								setUser={setUser}
+								toast={toast}
+								setToast={setToast}
+								setShowProfileLoader={setShowProfileLoader}
+							/>
+						}
+					/>
 					<Route path="/about" element={<About />} />
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/privacy" element={<Privacy />} />
+					<Route path="/terms" element={<Terms />} />
 				</Routes>
 				<Footer />
 			</BrowserRouter>
@@ -109,7 +124,6 @@ function MainApp({
 				const hasActiveSubscriptions =
 					subscriptions.filter((sub) => sub.status === "active")
 						.length > 0;
-				console.log(hasActiveSubscriptions);
 				if (!user.pro && hasActiveSubscriptions) {
 					const updatedUser = await mongo.updateOne(
 						USERS_COLLECTION,

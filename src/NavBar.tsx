@@ -30,7 +30,7 @@ export default function NavBar({
 		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
 	const [sideBarMode, setSideBarMode] = useState<
-		"login" | "signup" | undefined
+		"login" | "signup" | "forgot-password" | undefined
 	>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
@@ -48,6 +48,7 @@ export default function NavBar({
 			onClick: () => {
 				clear();
 				setUser(undefined);
+				window.location.pathname = "/";
 			},
 		},
 	];
@@ -58,7 +59,6 @@ export default function NavBar({
 			const subscriptions = await stripe.getCustomerSubscriptionsByEmail(
 				authedUser.email
 			);
-			console.log(subscriptions);
 			const hasActiveSubscriptions =
 				subscriptions.filter((sub) => sub.status === "active").length >
 				0;
@@ -67,6 +67,9 @@ export default function NavBar({
 	};
 	useEffect(() => {
 		hasActiveSubscriptions();
+		if (window.location.pathname.includes("/reset-password")) {
+			setSideBarMode("forgot-password");
+		}
 	}, []);
 
 	useEffect(() => {
@@ -247,6 +250,7 @@ export default function NavBar({
 				sideBarMode={sideBarMode}
 				setSideBarMode={setSideBarMode}
 				setToast={setToast}
+				setUser={setUser}
 			/>
 			<PremiumPricingInfoModal
 				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}
