@@ -29,6 +29,12 @@ export const generateResetToken = (): string => {
 	return resetToken;
 };
 
+export const generateRandomSixDigitNumber = (): string => {
+	const min = 100000; // Minimum 6-digit number
+	const max = 999999; // Maximum 6-digit number
+	return (Math.floor(Math.random() * (max - min + 1)) + min).toString();
+};
+
 export const verifyResetToken = (resetToken: string): string | null => {
 	// Split the token into token and expiration parts
 	const [token, expiration] = resetToken.split(".");

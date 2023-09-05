@@ -11,7 +11,12 @@ import GoogleButton from "react-google-button";
 import emailjs from "@emailjs/browser";
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
-import { generateResetToken, toHash, verifyResetToken } from "./utils/general";
+import {
+	generateRandomSixDigitNumber,
+	generateResetToken,
+	toHash,
+	verifyResetToken,
+} from "./utils/general";
 import { User } from "./store/dataInterfaces";
 
 export interface SideBarProps {
@@ -469,10 +474,11 @@ function ForgotPassword({
 }: LogInAndSignUpProps) {
 	const [email, setEmail] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
+	const [resetCode, setResetCode] = useState<string>("");
 	const [showLoader, setShowLoader] = useState(false);
 	const [sentEmailSuccess, setSentEmailSuccess] = useState(false);
 
-	const saveResetTokenToDb = async (resetToken: string) => {
+	const saveResetCodeToDb = async (resetCode: string) => {
 		await mongo.updateOne(
 			USERS_COLLECTION,
 			{
@@ -480,13 +486,13 @@ function ForgotPassword({
 			},
 			{
 				$set: {
-					passwordResetToken: resetToken,
+					passwordResetCode: resetCode,
 				},
 			}
 		);
 	};
 
-	const deleteResetTokenFromDb = async () => {
+	const deleteResetCodeFromDb = async () => {
 		await mongo.updateOne(
 			USERS_COLLECTION,
 			{
@@ -494,7 +500,7 @@ function ForgotPassword({
 			},
 			{
 				$unset: {
-					passwordResetToken: 1,
+					passwordResetCode: 1,
 				},
 			}
 		);
@@ -504,8 +510,8 @@ function ForgotPassword({
 		setShowLoader(true);
 		e.preventDefault();
 		if (email) {
-			const resetToken = generateResetToken();
-			await saveResetTokenToDb(resetToken);
+			const resetCode = generateRandomSixDigitNumber();
+			await saveResetCodeToDb(resetCode);
 
 			const user = await mongo.findOne(USERS_COLLECTION, {
 				email: email,
@@ -513,7 +519,7 @@ function ForgotPassword({
 			const templateParams = {
 				userFullName: user?.fullName,
 				email: email,
-				token: resetToken,
+				code: resetCode,
 			};
 
 			if (user) {
@@ -538,7 +544,7 @@ function ForgotPassword({
 								content: "Failed to send password reset email",
 								type: "error",
 							});
-							deleteResetTokenFromDb();
+							deleteResetCodeFromDb();
 						}
 					);
 			} else {
@@ -560,15 +566,14 @@ function ForgotPassword({
 		e.preventDefault();
 		setShowLoader(true);
 
-		const hrefPath = window.location.pathname;
-		const resetToken = hrefPath.split("/")[2];
+		// const hrefPath = window.location.pathname;
+		// const resetToken = hrefPath.split("/")[2];
 		const user = await mongo.findOne(USERS_COLLECTION, {
 			email,
 		});
-		const resetTokenInDb = user?.passwordResetToken;
-		const validToken = verifyResetToken(resetToken);
-		console.log(validToken, resetTokenInDb);
-		if (password && validToken && resetToken === resetTokenInDb) {
+		const resetCodeInDb = user?.passwordResetCode;
+		// const validToken = verifyResetToken(resetToken);
+		if (password && resetCode === resetCodeInDb) {
 			const passwordHash = await toHash(password || "");
 			if (passwordHash) {
 				const updatedUser = await mongo.updateOne(
@@ -599,7 +604,7 @@ function ForgotPassword({
 							content: "Successfully reset password",
 							type: "success",
 						});
-						deleteResetTokenFromDb();
+						deleteResetCodeFromDb();
 					}
 				}
 			}
@@ -636,6 +641,26 @@ function ForgotPassword({
 									type="email"
 									autoComplete="email"
 									onChange={(e) => setEmail(e.target.value)}
+									required
+									className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
+								/>
+							</div>
+						</div>
+						<div>
+							<label
+								htmlFor="reset-code"
+								className="block text-md font-medium leading-6 text-gray-900"
+							>
+								Reset code
+							</label>
+							<div className="mt-2">
+								<input
+									id="reset-code"
+									name="reset-code"
+									type="text"
+									onChange={(e) =>
+										setResetCode(e.target.value)
+									}
 									required
 									className="block p-3 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6"
 								/>
