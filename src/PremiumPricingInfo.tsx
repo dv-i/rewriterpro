@@ -10,7 +10,7 @@ interface PremiumPricingInfoModalProps {
 	isGetPremiumModalOpen: boolean;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	setSideBarMode: React.Dispatch<
-		React.SetStateAction<"login" | "signup" | undefined>
+		React.SetStateAction<"login" | "signup" | "forgot-password" | undefined>
 	>;
 }
 

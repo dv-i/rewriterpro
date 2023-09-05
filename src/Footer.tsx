@@ -3,8 +3,9 @@ import { NavLink } from "react-router-dom";
 const navigation = {
 	main: [
 		{ name: "About", href: "/about" },
-		{ name: "Privacy & Terms", href: "/privacy" },
+		{ name: "Privacy", href: "/privacy" },
 		{ name: "Contact Us", href: "/contact" },
+		{ name: "Terms of Service", href: "/terms" },
 	],
 };
 

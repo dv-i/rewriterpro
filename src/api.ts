@@ -1,6 +1,7 @@
 import MongoDbClient from "./store/MongoDbClient";
 import { USERS_COLLECTION } from "./store/constants";
 import { User } from "./store/dataInterfaces";
+import { toHash } from "./utils/general";
 export const login = async (
 	email: string,
 	password: string
@@ -41,11 +42,7 @@ export const signUp = async (userToAdd: {
 		return;
 	}
 
-	console.log("User to add");
-	console.log(userToAdd);
-
 	if (!userToAdd?.authType) {
-		console.log("only hash password if no google auth");
 		const passwordHash = await toHash(userToAdd.password || "");
 		userToAdd.passwordHash = passwordHash;
 		delete userToAdd.password;
@@ -59,13 +56,3 @@ export const signUp = async (userToAdd: {
 		return;
 	}
 };
-
-async function toHash(payload: string): Promise<string> {
-	const utf8 = new TextEncoder().encode(payload);
-	const hashBuffer = await crypto.subtle.digest("SHA-256", utf8);
-	const hashArray = Array.from(new Uint8Array(hashBuffer));
-	const hashHex = hashArray
-		.map((bytes) => bytes.toString(16).padStart(2, "0"))
-		.join("");
-	return hashHex;
-}
