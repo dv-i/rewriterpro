@@ -4,7 +4,7 @@ export interface User {
 	passwordHash?: string;
 	pro?: boolean;
 	authType?: string;
-	passwordResetToken?: string;
+	passwordResetCode?: string;
 }
 
 export interface PromptOptions {
