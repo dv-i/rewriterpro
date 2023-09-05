@@ -235,7 +235,7 @@ function LogIn({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 								});
 							}
 						}}
-						onReject={(err) => {
+						onReject={() => {
 							setShowLoader(false);
 						}}
 					>
@@ -472,41 +472,83 @@ function ForgotPassword({
 	const [showLoader, setShowLoader] = useState(false);
 	const [sentEmailSuccess, setSentEmailSuccess] = useState(false);
 
+	const saveResetTokenToDb = async (resetToken: string) => {
+		await mongo.updateOne(
+			USERS_COLLECTION,
+			{
+				email: email,
+			},
+			{
+				$set: {
+					passwordResetToken: resetToken,
+				},
+			}
+		);
+	};
+
+	const deleteResetTokenFromDb = async () => {
+		await mongo.updateOne(
+			USERS_COLLECTION,
+			{
+				email: email,
+			},
+			{
+				$unset: {
+					passwordResetToken: 1,
+				},
+			}
+		);
+	};
+
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		setShowLoader(true);
 		e.preventDefault();
 		if (email) {
 			const resetToken = generateResetToken();
-			const authedUser = getAuthenticatedUser();
+			await saveResetTokenToDb(resetToken);
+
+			const user = await mongo.findOne(USERS_COLLECTION, {
+				email: email,
+			});
 			const templateParams = {
-				userFullName: authedUser?.fullName,
+				userFullName: user?.fullName,
 				email: email,
 				token: resetToken,
 			};
 
-			emailjs
-				.send(
-					process.env.REACT_APP_APP_EMAILJS_SERVICE_ID || "",
-					process.env.REACT_APP_APP_EMAILJS_TEMPLATE_ID || "",
-					templateParams,
-					process.env.REACT_APP_APP_EMAILJS_API_KEY || ""
-				)
-				.then(
-					function (response) {
-						setSentEmailSuccess(true);
-						setShowLoader(false);
-					},
-					function (error) {
-						setSentEmailSuccess(false);
-						setShowLoader(false);
-						setToast({
-							visible: true,
-							title: "Error",
-							content: "Failed to send password reset email",
-							type: "error",
-						});
-					}
-				);
+			if (user) {
+				emailjs
+					.send(
+						process.env.REACT_APP_APP_EMAILJS_SERVICE_ID || "",
+						process.env.REACT_APP_APP_EMAILJS_TEMPLATE_ID || "",
+						templateParams,
+						process.env.REACT_APP_APP_EMAILJS_API_KEY || ""
+					)
+					.then(
+						function () {
+							setSentEmailSuccess(true);
+							setShowLoader(false);
+						},
+						function () {
+							setSentEmailSuccess(false);
+							setShowLoader(false);
+							setToast({
+								visible: true,
+								title: "Error",
+								content: "Failed to send password reset email",
+								type: "error",
+							});
+							deleteResetTokenFromDb();
+						}
+					);
+			} else {
+				setToast({
+					visible: true,
+					title: "Error",
+					content: "User not found",
+					type: "error",
+				});
+			}
 		}
 	};
 
@@ -517,10 +559,16 @@ function ForgotPassword({
 	) => {
 		e.preventDefault();
 		setShowLoader(true);
+
 		const hrefPath = window.location.pathname;
 		const resetToken = hrefPath.split("/")[2];
+		const user = await mongo.findOne(USERS_COLLECTION, {
+			email,
+		});
+		const resetTokenInDb = user?.passwordResetToken;
 		const validToken = verifyResetToken(resetToken);
-		if (password && validToken) {
+		console.log(validToken, resetTokenInDb);
+		if (password && validToken && resetToken === resetTokenInDb) {
 			const passwordHash = await toHash(password || "");
 			if (passwordHash) {
 				const updatedUser = await mongo.updateOne(
@@ -551,6 +599,7 @@ function ForgotPassword({
 							content: "Successfully reset password",
 							type: "success",
 						});
+						deleteResetTokenFromDb();
 					}
 				}
 			}
