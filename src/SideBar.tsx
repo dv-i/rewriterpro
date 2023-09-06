@@ -462,6 +462,17 @@ function SignUp({ setSideBarMode, setToast }: LogInAndSignUpProps) {
 						Sign In
 					</button>
 				</p>
+				<p className="mt-2 text-center text-md text-gray-500">
+					By signing up, you agree to the{" "}
+					<a className="underline" href="/terms">
+						Terms and Service
+					</a>{" "}
+					and{" "}
+					<a className="underline" href="/privacy">
+						Privacy Policy
+					</a>
+					.
+				</p>
 			</div>
 		</div>
 	);
@@ -745,6 +756,14 @@ function ForgotPassword({
 									<Loader visible={showLoader} />
 								</button>
 							</div>
+							<p className="mt-10 text-center text-md text-gray-500">
+								<button
+									className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+									onClick={() => setSideBarMode("login")}
+								>
+									Back to login
+								</button>
+							</p>
 						</form>
 					</div>
 				);
@@ -755,13 +774,17 @@ function ForgotPassword({
 		<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 				<img
-					className="mx-auto h-10 w-auto"
-					src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-					alt="Your Company"
+					className="mx-auto h-20 w-auto"
+					src={logo}
+					alt="RewriterPro.ai"
 				/>
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Forgot Password
 				</h2>
+				<p>
+					Please provide your email address, and we will send you
+					detailed instructions on how to reset your password.
+				</p>
 			</div>
 
 			{renderPasswordResetForm()}
