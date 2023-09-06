@@ -89,10 +89,7 @@ function Terms(): JSX.Element {
 			<p>
 				Your use of the Service is also governed by our Privacy Policy,
 				which can be found at{" "}
-				<a href="https://rewriterpro.ai/privacy-policy">
-					https://rewriterpro.ai/privacy-policy
-				</a>
-				.
+				<a href="/privacy">https://rewriterpro.ai/privacy</a>.
 			</p>
 
 			<h2>5. Changes to Terms</h2>
