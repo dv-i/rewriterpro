@@ -5,6 +5,7 @@ export interface User {
 	pro?: boolean;
 	authType?: string;
 	passwordResetCode?: string;
+	subscriptionPeriodEndDateEpochSeconds?: number;
 }
 
 export interface PromptOptions {

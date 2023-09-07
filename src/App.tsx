@@ -121,9 +121,10 @@ function MainApp({
 			if (user) {
 				const subscriptions =
 					await stripe.getCustomerSubscriptionsByEmail(user.email);
-				const hasActiveSubscriptions =
-					subscriptions.filter((sub) => sub.status === "active")
-						.length > 0;
+				const activeSubscriptions = subscriptions.filter(
+					(sub) => sub.status === "active"
+				);
+				const hasActiveSubscriptions = activeSubscriptions.length > 0;
 				if (!user.pro && hasActiveSubscriptions) {
 					const updatedUser = await mongo.updateOne(
 						USERS_COLLECTION,
@@ -133,6 +134,8 @@ function MainApp({
 						{
 							$set: {
 								pro: true,
+								subscriptionPeriodEndDateEpochSeconds:
+									activeSubscriptions[0].current_period_end,
 							},
 						}
 					);
