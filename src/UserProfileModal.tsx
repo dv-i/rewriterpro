@@ -163,46 +163,32 @@ function UserProfileModal({
 			stripe
 				.cancelSubscription(subscription.id)
 				.then(async (res) => {
-					if (res.status === "canceled") {
-						setToast({
-							visible: true,
-							title: "Succesfully Cancelled",
-							content: "Your subscription has been cancelled",
-						});
-						const updatedUser = await mongo.updateOne(
-							USERS_COLLECTION,
-							{
-								email: user.email,
+					setToast({
+						visible: true,
+						title: "Succesfully Cancelled",
+						content: "Your subscription has been cancelled",
+					});
+					const updatedUser = await mongo.updateOne(
+						USERS_COLLECTION,
+						{
+							email: user.email,
+						},
+						{
+							$set: {
+								pro: false,
 							},
-							{
-								$set: {
-									pro: false,
-								},
-							}
-						);
-						if (updatedUser) {
-							const newUser = await mongo.findOne(
-								USERS_COLLECTION,
-								{
-									email: user.email,
-								}
-							);
-							if (newUser) {
-								setAuthenticatedUser(newUser);
-							}
 						}
-						setIsUserProfileModalOpen(false);
-						setShowCancelSubLoader(false);
-					} else {
-						setToast({
-							visible: true,
-							title: "Could not cancel",
-							content:
-								"Could not cancel your subscription, please try again...",
-							type: "warning",
+					);
+					if (updatedUser) {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: user.email,
 						});
-						setShowCancelSubLoader(false);
+						if (newUser) {
+							setAuthenticatedUser(newUser);
+						}
 					}
+					setIsUserProfileModalOpen(false);
+					setShowCancelSubLoader(false);
 				})
 				.catch((error) => {
 					console.error(error);
