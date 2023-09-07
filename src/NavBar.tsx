@@ -4,7 +4,11 @@ import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
 import SideBar from "./SideBar";
 import logo from "./assets/logo.png";
 import { BASE_URL, FEATURE_FLAGS } from "./constants";
-import { clear, getAuthenticatedUser } from "./store/browser";
+import {
+	clear,
+	getAuthenticatedUser,
+	setAuthenticatedUser,
+} from "./store/browser";
 import { User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { ToastProps } from "./ToastNotification";
@@ -13,6 +17,9 @@ import UserProfileModal from "./UserProfileModal";
 import { classNames } from "./utils/general";
 import { Loader } from "./Loader";
 import StripeUtil from "./utils/StripeUtil";
+import MongoDbClient from "./store/MongoDbClient";
+import { USERS_COLLECTION } from "./store/constants";
+import Stripe from "stripe";
 
 interface NavBarProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -26,6 +33,7 @@ export default function NavBar({
 	user,
 	showProfileLoader,
 }: NavBarProps) {
+	const mongo = new MongoDbClient();
 	const stripe = new StripeUtil(
 		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
@@ -36,6 +44,9 @@ export default function NavBar({
 	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
 	const [userHasActiveSubscriptions, setUserHasActiveSubscriptions] =
 		useState(false);
+	const [subscriptions, setSubscriptions] = useState<Stripe.Subscription[]>(
+		[]
+	);
 	const userNavigation = [
 		{
 			name: "Your Profile",
@@ -59,12 +70,92 @@ export default function NavBar({
 			const subscriptions = await stripe.getCustomerSubscriptionsByEmail(
 				authedUser.email
 			);
+			setSubscriptions(subscriptions);
+		}
+	};
+
+	useEffect(() => {
+		if (subscriptions.length > 0) {
 			const hasActiveSubscriptions =
 				subscriptions.filter((sub) => sub.status === "active").length >
 				0;
 			setUserHasActiveSubscriptions(hasActiveSubscriptions);
 		}
+	}, [subscriptions]);
+
+	const setUserProStatus = async () => {
+		const authedUser = getAuthenticatedUser();
+
+		if (
+			authedUser &&
+			userHasActiveSubscriptions &&
+			!authedUser.subscriptionPeriodEndDateEpochSeconds
+		) {
+			const activeSubscriptions = subscriptions.filter(
+				(sub) => sub.status === "active"
+			);
+			const updatedUser = await mongo.updateOne(
+				USERS_COLLECTION,
+				{
+					email: authedUser.email,
+				},
+				{
+					$set: {
+						pro: true,
+						subscriptionPeriodEndDateEpochSeconds:
+							activeSubscriptions[0].current_period_end,
+					},
+				}
+			);
+			const newUser = await mongo.findOne(USERS_COLLECTION, {
+				email: authedUser.email,
+			});
+			if (newUser) {
+				setUser(newUser);
+				setAuthenticatedUser(newUser);
+			}
+		}
+		if (authedUser) {
+			if (
+				authedUser.subscriptionPeriodEndDateEpochSeconds !==
+					undefined &&
+				authedUser.subscriptionPeriodEndDateEpochSeconds > Date.now()
+			) {
+				mongo
+					.updateOne(
+						USERS_COLLECTION,
+						{
+							email: authedUser.email,
+						},
+						{
+							$set: {
+								pro: false,
+							},
+						}
+					)
+					.then(async (res) => {
+						const newUser = await mongo.findOne(USERS_COLLECTION, {
+							email: authedUser.email,
+						});
+
+						if (newUser) {
+							setUser(newUser);
+							setAuthenticatedUser(newUser);
+						}
+						clear();
+						setUser(undefined);
+						window.location.pathname = "/";
+					})
+					.catch((err) => {
+						//Error
+					});
+			}
+		}
 	};
+
+	useEffect(() => {
+		setUserProStatus();
+	}, [userHasActiveSubscriptions]);
 	useEffect(() => {
 		hasActiveSubscriptions();
 		if (window.location.pathname.includes("/reset-password")) {

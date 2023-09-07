@@ -114,10 +114,6 @@ class StripeUtil {
 		subscriptionId: string
 	): Promise<Stripe.Subscription> {
 		try {
-			// const subscription = await this.stripe.subscriptions.cancel(
-			// 	subscriptionId
-			// );
-			// return subscription;
 			const subscription = await this.stripe.subscriptions.update(
 				subscriptionId,
 				{
@@ -126,7 +122,6 @@ class StripeUtil {
 			);
 			return subscription;
 		} catch (error) {
-			console.log("here");
 			console.error(
 				`Error canceling subscription - ${subscriptionId}`,
 				error

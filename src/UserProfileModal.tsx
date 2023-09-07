@@ -168,27 +168,15 @@ function UserProfileModal({
 						title: "Succesfully Cancelled",
 						content: "Your subscription has been cancelled",
 					});
-					const updatedUser = await mongo.updateOne(
-						USERS_COLLECTION,
-						{
-							email: user.email,
-						},
-						{
-							$set: {
-								pro: false,
-							},
-						}
-					);
-					if (updatedUser) {
-						const newUser = await mongo.findOne(USERS_COLLECTION, {
-							email: user.email,
-						});
-						if (newUser) {
-							setAuthenticatedUser(newUser);
-						}
-					}
 					setIsUserProfileModalOpen(false);
 					setShowCancelSubLoader(false);
+					stripe
+						.getCustomerSubscriptionsByEmail(user.email)
+						.then((res) => {
+							if (res.length > 0) {
+								setSubscription(res[0]);
+							}
+						});
 				})
 				.catch((error) => {
 					console.error(error);
