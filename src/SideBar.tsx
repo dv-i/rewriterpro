@@ -721,7 +721,12 @@ function ForgotPassword({
 				);
 			} else {
 				return (
-					<div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+					<div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+						<p className="mb-5">
+							Please provide your email address, and we will send
+							you detailed instructions on how to reset your
+							password.
+						</p>
 						<form
 							className="space-y-6"
 							onSubmit={(e) => handleFormSubmit(e)}
@@ -781,10 +786,6 @@ function ForgotPassword({
 				<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 					Forgot Password
 				</h2>
-				<p>
-					Please provide your email address, and we will send you
-					detailed instructions on how to reset your password.
-				</p>
 			</div>
 
 			{renderPasswordResetForm()}
