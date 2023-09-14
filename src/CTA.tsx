@@ -38,7 +38,7 @@ export default function CTA() {
 export function CTAv2() {
 	return (
 		<div className="bg-indigo-600">
-			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
+			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-4xl font-bold tracking-tight text-indigo-200 sm:text-5xl text-center">
 						Boost Your Content Productivity
