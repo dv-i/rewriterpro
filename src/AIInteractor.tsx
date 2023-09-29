@@ -14,6 +14,10 @@ import { PromptOptions, User } from "./store/dataInterfaces";
 import { MAX_TRIES } from "./store/constants";
 import { sentence } from "txtgen";
 import { Loader } from "./Loader";
+import { getRandomQuote } from "./utils/general";
+import loadingIcon from "../src/assets/loading.gif";
+// import loadingIcon2 from "../src/assets/loading2.gif";
+// import loadingIcon3 from "../src/assets/loading3.gif";
 
 export interface AIInteractorProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -31,6 +35,7 @@ export default function AIInteractor({
 }: AIInteractorProps) {
 	const [aiPrompt, setAiPrompt] = useState<string>("");
 	const [aiResult, setAiResult] = useState<string>("");
+	const [showLoader, setShowLoader] = useState(false);
 
 	return (
 		<div className="flex flex-wrap flex-col md:flex-row md:h-full ">
@@ -43,8 +48,14 @@ export default function AIInteractor({
 				counter={counter}
 				setCounter={setCounter}
 				user={user}
+				showLoader={showLoader}
+				setShowLoader={setShowLoader}
 			/>
-			<AIResultsSection aiResult={aiResult} setToast={setToast} />
+			<AIResultsSection
+				aiResult={aiResult}
+				setToast={setToast}
+				showLoader={showLoader}
+			/>
 		</div>
 	);
 }
@@ -54,6 +65,8 @@ interface OriginalSectionProps {
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	showLoader: boolean;
+	setShowLoader: React.Dispatch<React.SetStateAction<boolean>>;
 	promptOptions: PromptOptions;
 	setCounter: React.Dispatch<React.SetStateAction<number>>;
 	counter: number;
@@ -63,6 +76,7 @@ interface OriginalSectionProps {
 interface AIResultsSectionProps {
 	aiResult: string;
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
+	showLoader: boolean;
 }
 
 function OriginalSection({
@@ -74,6 +88,8 @@ function OriginalSection({
 	counter,
 	setCounter,
 	user,
+	showLoader,
+	setShowLoader,
 }: OriginalSectionProps) {
 	const handleParaphraseClick = async () => {
 		setShowLoader(true);
@@ -115,7 +131,7 @@ function OriginalSection({
 	};
 
 	const inputFile = useRef<HTMLInputElement | null>(null);
-	const [showLoader, setShowLoader] = useState(false);
+
 	const Options = () => {
 		return (
 			<>
@@ -157,7 +173,11 @@ function OriginalSection({
 							</div>
 							<div
 								className="flex flex-row gap-2 items-start text-white cursor-pointer "
-								onClick={() => setAiPrompt(sentence())}
+								onClick={() => {
+									setAiPrompt("");
+									setAiResult("");
+									setAiPrompt(sentence());
+								}}
 							>
 								<ArrowPathIcon
 									className=" h-5 w-5 stroke-gray-400"
@@ -195,6 +215,7 @@ function OriginalSection({
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => {
+								setAiResult("");
 								handleParaphraseClick();
 							}}
 							disabled={MAX_TRIES <= counter && !user?.pro}
@@ -243,7 +264,11 @@ function OriginalSection({
 							</div>
 							<div
 								className="flex flex-row gap-2 items-start text-white cursor-pointer "
-								onClick={() => setAiPrompt(sentence())}
+								onClick={() => {
+									setAiPrompt("");
+									setAiResult("");
+									setAiPrompt(sentence());
+								}}
 							>
 								<ArrowPathIcon
 									className=" h-5 w-5 stroke-gray-400"
@@ -281,6 +306,7 @@ function OriginalSection({
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => {
+								setAiResult("");
 								handleParaphraseClick();
 							}}
 							disabled={MAX_TRIES <= counter && !user?.pro}
@@ -333,7 +359,11 @@ function OriginalSection({
 	);
 }
 
-function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
+function AIResultsSection({
+	aiResult,
+	setToast,
+	showLoader,
+}: AIResultsSectionProps) {
 	const Options = () => {
 		return (
 			<div className="inset-x-0 bottom-0 flex justify-between py-2 sm:pl-3">
@@ -410,24 +440,62 @@ function AIResultsSection({ aiResult, setToast }: AIResultsSectionProps) {
 				<div className="min-w-0 flex-1 h-full">
 					<div className="flex flex-col h-full">
 						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-							<textarea
-								style={{ height: 300 }}
-								rows={3}
-								name="comment"
-								id="comment"
-								className="hidden sm:block w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-								value={aiResult}
-								disabled
-							/>
-							<textarea
-								style={{ height: 300 }}
-								rows={10}
-								name="comment"
-								id="comment"
-								className="block sm:hidden w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-								value={aiResult}
-								disabled
-							/>
+							<div className="relative hidden sm:block ">
+								{showLoader && (
+									<div className="absolute inset-0 bg-white opacity-50">
+										<div className="absolute inset-0 flex items-center flex-col justify-center px-2 py-2">
+											<p className="text-indigo-600 text-xl text-center font-bold italic">
+												{`"${getRandomQuote()}"`}
+											</p>
+											<img
+												// style={{
+												// 	width: 200,
+												// 	height: 200,
+												// }}
+												src={loadingIcon}
+											/>
+										</div>
+									</div>
+								)}
+
+								<textarea
+									style={{ height: 300 }}
+									rows={3}
+									name="comment"
+									id="comment"
+									className="w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									value={aiResult}
+									disabled
+								/>
+							</div>
+							<div className="relative block sm:hidden ">
+								{showLoader && (
+									<div className="absolute inset-0 bg-white opacity-50">
+										<div className="absolute inset-0 flex items-center flex-col justify-center px-2 py-2">
+											<p className="text-indigo-600 text-xl text-center font-bold italic">
+												{`"${getRandomQuote()}"`}
+											</p>
+											<img
+												// style={{
+												// 	width: 200,
+												// 	height: 200,
+												// }}
+												src={loadingIcon}
+											/>
+										</div>
+									</div>
+								)}
+
+								<textarea
+									style={{ height: 300 }}
+									rows={10}
+									name="comment"
+									id="comment"
+									className="w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+									value={aiResult}
+									disabled
+								/>
+							</div>
 						</div>
 						{/* Assuming Options() is a function that renders some UI */}
 						{Options()}
