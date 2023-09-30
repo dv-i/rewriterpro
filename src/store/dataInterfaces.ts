@@ -16,3 +16,9 @@ export interface PromptOptions {
 	length?: string;
 	language?: string;
 }
+
+export interface QuestionAndResponse {
+	question: string;
+	response: string;
+	date: Date;
+}

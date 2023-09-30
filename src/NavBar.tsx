@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Switch, Transition } from "@headlessui/react";
-import SideBar from "./SideBar";
+import SideBar from "./Sidebar/SideBar";
 import logo from "./assets/logo.png";
 import { BASE_URL, FEATURE_FLAGS } from "./constants";
 import {
@@ -26,20 +26,30 @@ interface NavBarProps {
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	showProfileLoader: boolean;
 	user: User | undefined;
+	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
+	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	sideBarMode: "login" | "signup" | "forgot-password" | "history" | undefined;
+	setSideBarMode: React.Dispatch<
+		React.SetStateAction<
+			"login" | "signup" | "forgot-password" | "history" | undefined
+		>
+	>;
 }
 export default function NavBar({
 	setToast,
 	setUser,
 	user,
 	showProfileLoader,
+	setAiPrompt,
+	setAiResult,
+	setSideBarMode,
+	sideBarMode,
 }: NavBarProps) {
 	const mongo = new MongoDbClient();
 	const stripe = new StripeUtil(
 		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
-	const [sideBarMode, setSideBarMode] = useState<
-		"login" | "signup" | "forgot-password" | undefined
-	>();
+
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
 	const [userHasActiveSubscriptions, setUserHasActiveSubscriptions] =
@@ -47,6 +57,17 @@ export default function NavBar({
 	const [subscriptions, setSubscriptions] = useState<Stripe.Subscription[]>(
 		[]
 	);
+
+	const navigation = [
+		{
+			name: "History",
+			onClick: () => {
+				setSideBarMode("history");
+			},
+			current: false,
+		},
+	];
+
 	const userNavigation = [
 		{
 			name: "Your Profile",
@@ -211,7 +232,29 @@ export default function NavBar({
 											</a>
 										</div>
 										<div className="hidden lg:ml-10 lg:block">
-											<div className="flex space-x-4"></div>
+											<div className="flex space-x-4">
+												{/* {navigation.map((item) => (
+													<p
+														key={item.name}
+														onClick={() =>
+															item.onClick()
+														}
+														className={classNames(
+															item.current
+																? "bg-indigo-700 text-white "
+																: "text-white hover:bg-indigo-500 hover:bg-opacity-75",
+															"rounded-md py-2 px-3 text-sm font-medium cursor-pointer"
+														)}
+														aria-current={
+															item.current
+																? "page"
+																: undefined
+														}
+													>
+														{item.name}
+													</p>
+												))} */}
+											</div>
 										</div>
 									</div>
 
@@ -342,6 +385,8 @@ export default function NavBar({
 				setSideBarMode={setSideBarMode}
 				setToast={setToast}
 				setUser={setUser}
+				setAiPrompt={setAiPrompt}
+				setAiResult={setAiResult}
 			/>
 			<PremiumPricingInfoModal
 				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}

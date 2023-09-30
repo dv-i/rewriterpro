@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import Alert from "./Alert";
 import Settings from "./Settings";
-import AIInteractor from "./AIInteractor";
+import AIInteractor from "./AiInteractor/AIInteractor";
 import "./assets/index.css";
 import ToastNotification, { ToastProps } from "./ToastNotification";
 import { PromptOptions, User } from "./store/dataInterfaces";
@@ -34,12 +34,26 @@ interface MainAppProps {
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	showProfileLoader: boolean;
 	setShowProfileLoader: React.Dispatch<React.SetStateAction<boolean>>;
+	aiPrompt: string;
+	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
+	aiResult: string;
+	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	setSideBarMode: React.Dispatch<
+		React.SetStateAction<
+			"login" | "signup" | "forgot-password" | "history" | undefined
+		>
+	>;
 }
 
 function App(): JSX.Element {
 	const [toast, setToast] = useState<ToastProps>();
 	const [user, setUser] = useState<User>();
 	const [showProfileLoader, setShowProfileLoader] = useState<boolean>(false);
+	const [aiPrompt, setAiPrompt] = useState<string>("");
+	const [aiResult, setAiResult] = useState<string>("");
+	const [sideBarMode, setSideBarMode] = useState<
+		"login" | "signup" | "forgot-password" | "history" | undefined
+	>();
 	return (
 		<>
 			<BrowserRouter>
@@ -48,6 +62,10 @@ function App(): JSX.Element {
 					showProfileLoader={showProfileLoader}
 					setUser={setUser}
 					user={user}
+					setAiPrompt={setAiPrompt}
+					setAiResult={setAiResult}
+					setSideBarMode={setSideBarMode}
+					sideBarMode={sideBarMode}
 				/>
 				<Routes>
 					<Route
@@ -61,6 +79,11 @@ function App(): JSX.Element {
 								toast={toast}
 								setToast={setToast}
 								setShowProfileLoader={setShowProfileLoader}
+								aiPrompt={aiPrompt}
+								setAiPrompt={setAiPrompt}
+								aiResult={aiResult}
+								setAiResult={setAiResult}
+								setSideBarMode={setSideBarMode}
 							/>
 						}
 					/>
@@ -74,6 +97,11 @@ function App(): JSX.Element {
 								toast={toast}
 								setToast={setToast}
 								setShowProfileLoader={setShowProfileLoader}
+								aiPrompt={aiPrompt}
+								setAiPrompt={setAiPrompt}
+								aiResult={aiResult}
+								setAiResult={setAiResult}
+								setSideBarMode={setSideBarMode}
 							/>
 						}
 					/>
@@ -95,6 +123,11 @@ function MainApp({
 	setUser,
 	setShowProfileLoader,
 	toast,
+	aiPrompt,
+	aiResult,
+	setAiPrompt,
+	setAiResult,
+	setSideBarMode,
 }: MainAppProps) {
 	const [promptOptions, setPromptOptions] = useState<PromptOptions>({
 		fluency: undefined,
@@ -210,6 +243,11 @@ function MainApp({
 							counter={counter}
 							setCounter={setCounter}
 							user={user}
+							aiPrompt={aiPrompt}
+							setAiPrompt={setAiPrompt}
+							aiResult={aiResult}
+							setAiResult={setAiResult}
+							setSideBarMode={setSideBarMode}
 						/>
 					}
 					counter={counter}
