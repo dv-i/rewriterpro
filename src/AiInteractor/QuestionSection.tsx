@@ -1,66 +1,20 @@
-import React, { useRef, useState } from "react";
-import { PaperClipIcon } from "@heroicons/react/20/solid";
+import React from "react";
 import {
-	ChatBubbleBottomCenterTextIcon,
-	ArrowDownTrayIcon,
-	DocumentDuplicateIcon,
-	TrashIcon,
+	PaperClipIcon,
 	ClipboardDocumentIcon,
 	ArrowPathIcon,
-} from "@heroicons/react/24/outline";
-import { getResponseToAPrompt } from "./utils/chatGpt";
-import { ToastProps } from "./ToastNotification";
-import { PromptOptions, User } from "./store/dataInterfaces";
-import { MAX_TRIES } from "./store/constants";
+	ChatBubbleBottomCenterTextIcon,
+	TrashIcon,
+} from "@heroicons/react/20/solid";
+import { useRef } from "react";
+import { Loader } from "../Loader";
+import { ToastProps } from "../ToastNotification";
+import { MAX_TRIES } from "../store/constants";
+import { PromptOptions, User } from "../store/dataInterfaces";
+import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
-import { Loader } from "./Loader";
-import { getRandomQuote } from "./utils/general";
-import loadingIcon from "../src/assets/loading.gif";
-// import loadingIcon2 from "../src/assets/loading2.gif";
-// import loadingIcon3 from "../src/assets/loading3.gif";
 
-export interface AIInteractorProps {
-	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
-	setCounter: React.Dispatch<React.SetStateAction<number>>;
-	promptOptions: PromptOptions;
-	counter: number;
-	user: User | undefined;
-}
-export default function AIInteractor({
-	setToast,
-	promptOptions,
-	setCounter,
-	counter,
-	user,
-}: AIInteractorProps) {
-	const [aiPrompt, setAiPrompt] = useState<string>("");
-	const [aiResult, setAiResult] = useState<string>("");
-	const [showLoader, setShowLoader] = useState(false);
-
-	return (
-		<div className="flex flex-wrap flex-col md:flex-row md:h-full ">
-			<OriginalSection
-				aiPrompt={aiPrompt}
-				setAiPrompt={setAiPrompt}
-				setAiResult={setAiResult}
-				setToast={setToast}
-				promptOptions={promptOptions}
-				counter={counter}
-				setCounter={setCounter}
-				user={user}
-				showLoader={showLoader}
-				setShowLoader={setShowLoader}
-			/>
-			<AIResultsSection
-				aiResult={aiResult}
-				setToast={setToast}
-				showLoader={showLoader}
-			/>
-		</div>
-	);
-}
-
-interface OriginalSectionProps {
+interface QuestionSectionProps {
 	aiPrompt: string;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
@@ -72,14 +26,7 @@ interface OriginalSectionProps {
 	counter: number;
 	user: User | undefined;
 }
-
-interface AIResultsSectionProps {
-	aiResult: string;
-	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
-	showLoader: boolean;
-}
-
-function OriginalSection({
+export default function QuestionSection({
 	aiPrompt,
 	setAiPrompt,
 	setAiResult,
@@ -90,7 +37,7 @@ function OriginalSection({
 	user,
 	showLoader,
 	setShowLoader,
-}: OriginalSectionProps) {
+}: QuestionSectionProps) {
 	const handleParaphraseClick = async () => {
 		setShowLoader(true);
 		try {
@@ -351,153 +298,6 @@ function OriginalSection({
 								onChange={(e) => setAiPrompt(e.target.value)}
 							/>
 						</div>
-						{Options()}
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-}
-
-function AIResultsSection({
-	aiResult,
-	setToast,
-	showLoader,
-}: AIResultsSectionProps) {
-	const Options = () => {
-		return (
-			<div className="inset-x-0 bottom-0 flex justify-between py-2 sm:pl-3">
-				<div className="flex items-center space-x-5 w-full">
-					<div className="flex gap-4 items-center w-full">
-						<button
-							type="button"
-							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-							onClick={() => {
-								const blob = new Blob([aiResult], {
-									type: "text/plain",
-								});
-								const link = document.createElement("a");
-								link.href = window.URL.createObjectURL(blob);
-								link.download = "result.txt";
-								link.click();
-							}}
-						>
-							<ArrowDownTrayIcon
-								className="h-5 w-5 stroke-gray-400"
-								aria-hidden="true"
-							/>
-						</button>
-						<div className="flex flex-row gap-2 items-start text-white ">
-							<ChatBubbleBottomCenterTextIcon
-								className=" h-5 w-5 stroke-gray-400"
-								aria-hidden="true"
-							/>
-							<div className="-mb-2 font-light text-md text-gray-400">
-								{aiResult.length} / 3000{" "}
-								<div className="xs:hidden">characters</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="flex-shrink-0 py-2">
-					<button
-						type="button"
-						className="hidden sm:block -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-						onClick={() => {
-							if (aiResult) {
-								navigator.clipboard.writeText(aiResult);
-								setToast({
-									visible: true,
-									title: "Succesfully Copied",
-									content:
-										"Comeback for more paraphrasing...",
-								});
-							} else {
-								setToast({
-									visible: true,
-									title: "Nothing to copy",
-									content: "Get started with paraphrasing...",
-									type: "warning",
-								});
-							}
-						}}
-					>
-						<DocumentDuplicateIcon
-							className="h-5 w-5 stroke-gray-400"
-							aria-hidden="true"
-						/>
-					</button>
-				</div>
-			</div>
-		);
-	};
-	return (
-		<div className="flex flex-col h-full w-full md:w-1/2 mt-5 sm:mt-0 sm:pl-3 pr-3">
-			<h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
-				Paraphrased:
-			</h3>
-			<div className="flex items-start space-x-4 h-full  flex-1">
-				<div className="min-w-0 flex-1 h-full">
-					<div className="flex flex-col h-full">
-						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-							<div className="relative hidden sm:block ">
-								{showLoader && (
-									<div className="absolute inset-0 bg-white opacity-50">
-										<div className="absolute inset-0 flex items-center flex-col justify-center px-2 py-2">
-											<p className="text-indigo-600 text-xl text-center font-bold italic">
-												{`"${getRandomQuote()}"`}
-											</p>
-											<img
-												// style={{
-												// 	width: 200,
-												// 	height: 200,
-												// }}
-												src={loadingIcon}
-											/>
-										</div>
-									</div>
-								)}
-
-								<textarea
-									style={{ height: 300 }}
-									rows={3}
-									name="comment"
-									id="comment"
-									className="w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-									value={aiResult}
-									disabled
-								/>
-							</div>
-							<div className="relative block sm:hidden ">
-								{showLoader && (
-									<div className="absolute inset-0 bg-white opacity-50">
-										<div className="absolute inset-0 flex items-center flex-col justify-center px-2 py-2">
-											<p className="text-indigo-600 text-xl text-center font-bold italic">
-												{`"${getRandomQuote()}"`}
-											</p>
-											<img
-												// style={{
-												// 	width: 200,
-												// 	height: 200,
-												// }}
-												src={loadingIcon}
-											/>
-										</div>
-									</div>
-								)}
-
-								<textarea
-									style={{ height: 300 }}
-									rows={10}
-									name="comment"
-									id="comment"
-									className="w-full resize-none border-0 p-5 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
-									value={aiResult}
-									disabled
-								/>
-							</div>
-						</div>
-						{/* Assuming Options() is a function that renders some UI */}
 						{Options()}
 					</div>
 				</div>

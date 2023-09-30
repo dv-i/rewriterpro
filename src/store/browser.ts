@@ -1,4 +1,4 @@
-import { User } from "./dataInterfaces";
+import { QuestionAndResponse, User } from "./dataInterfaces";
 
 export const setAuthenticatedUser = (user: User): void => {
 	localStorage.setItem("user", JSON.stringify(user));
@@ -26,6 +26,37 @@ export const getMongoAccessToken = (): string | null => {
 export const setLocalCounter = (value: number): void => {
 	localStorage.setItem("counter", value.toString());
 	localStorage.setItem("counterDate", new Date().toDateString());
+};
+
+export const setQuestionsAndResponses = (
+	questionAndResponse: QuestionAndResponse
+) => {
+	if (localStorage.getItem("questionsAndResponses") !== null) {
+		const existingQuestionsAndAnswers = JSON.parse(
+			localStorage.getItem("questionsAndResponses") || ""
+		);
+		existingQuestionsAndAnswers.push(questionAndResponse);
+		localStorage.setItem(
+			"questionsAndResponses",
+			JSON.stringify(existingQuestionsAndAnswers)
+		);
+	} else {
+		localStorage.setItem(
+			"questionsAndResponses",
+			JSON.stringify([questionAndResponse])
+		);
+	}
+};
+
+export const getQuestionsAndResponses = ():
+	| QuestionAndResponse[]
+	| undefined => {
+	if (localStorage.getItem("questionsAndResponses") !== null) {
+		return JSON.parse(
+			localStorage.getItem("questionsAndResponses") || ""
+		) as QuestionAndResponse[];
+	}
+	return undefined;
 };
 
 export const getLocalCounter = (): number | undefined => {
