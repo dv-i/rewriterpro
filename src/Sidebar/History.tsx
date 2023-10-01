@@ -1,7 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { classNames } from "../utils/general";
-import { QuestionAndResponse } from "../store/dataInterfaces";
-import { getQuestionsAndResponses } from "../store/browser";
+import { QuestionAndResponse, User } from "../store/dataInterfaces";
+import {
+	getAuthenticatedUser,
+	getQuestionsAndResponses,
+} from "../store/browser";
 
 const MAX_QUESTION_LENGTH = 40;
 const MAX_RESPONSE_LENGTH = 150;
@@ -19,102 +21,211 @@ function formatTimestamp(timestamp: string) {
 	});
 }
 
-export default function History() {
+interface HistoryProps {
+	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
+	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	setSideBarMode: React.Dispatch<
+		React.SetStateAction<
+			"login" | "signup" | "forgot-password" | "history" | undefined
+		>
+	>;
+}
+
+export default function History({
+	setAiPrompt,
+	setAiResult,
+	setSideBarMode,
+}: HistoryProps) {
 	const [questionAndResponses, setQuestionsAndResponses] =
 		useState<QuestionAndResponse[]>();
-	const [expandedItem, setExpandedItem] = useState<any>([]);
+	const [user, setUser] = useState<User>();
 
 	useEffect(() => {
 		const existingQuestionsAndResponses = getQuestionsAndResponses();
 		if (existingQuestionsAndResponses) {
-			setQuestionsAndResponses(
-				existingQuestionsAndResponses.sort(
-					(a: any, b: any) =>
-						new Date(b.date).getTime() - new Date(a.date).getTime()
-				)
+			existingQuestionsAndResponses.sort(
+				(a: any, b: any) =>
+					new Date(b.date).getTime() - new Date(a.date).getTime()
 			);
+			//Use latest 30 items for pro users
+			setQuestionsAndResponses(
+				existingQuestionsAndResponses.slice(0, 30)
+			);
+		}
+		const authedUser = getAuthenticatedUser();
+		if (authedUser) {
+			setUser(authedUser);
 		}
 	}, []);
 
-	const toggleExpansion = (index: number) => {
-		if (expandedItem === index) {
-			// Clicking on the already expanded item collapses it
-			setExpandedItem(null);
-		} else {
-			// Clicking on a different item expands it
-			setExpandedItem(index);
-		}
+	const setAiPromptAndResult = (questionAndResponse: QuestionAndResponse) => {
+		setAiPrompt(questionAndResponse.question);
+		setAiResult(questionAndResponse.response);
+		setSideBarMode(undefined);
 	};
 
 	const renderHistoryFeed = () => {
 		return (
 			<ul role="list" className="-mb-8">
-				{questionAndResponses?.map((questionAndResponse, index) => (
-					<li key={questionAndResponse.date.toString()}>
-						<div className="relative text-left">
-							<div
-								className="relative flex items-start space-x-3"
-								onClick={() => toggleExpansion(index)}
-								style={{ cursor: "pointer" }}
-							>
-								<>
-									<div className="min-w-0 flex-1">
-										<div>
-											<div className="text-sm">
-												<p className="font-bold text-gray-900 hover:underline">
-													{expandedItem === index
-														? questionAndResponse.question // Display the full question when expanded
-														: questionAndResponse.question.slice(
-																0,
-																MAX_QUESTION_LENGTH
-														  ) +
-														  (questionAndResponse
+				{questionAndResponses?.map((questionAndResponse, index) =>
+					user && user.pro ? (
+						<li key={questionAndResponse.date.toString()}>
+							<div className="relative text-left">
+								<div
+									className="relative flex items-start space-x-3"
+									onClick={() =>
+										setAiPromptAndResult(
+											questionAndResponse
+										)
+									}
+									style={{ cursor: "pointer" }}
+								>
+									<>
+										<div className="min-w-0 flex-1">
+											<div>
+												<div className="text-sm">
+													<p className="font-bold text-gray-900 hover:underline">
+														{questionAndResponse.question.slice(
+															0,
+															MAX_QUESTION_LENGTH
+														) +
+															(questionAndResponse
 																.question
 																.length >
-														  MAX_QUESTION_LENGTH
+															MAX_QUESTION_LENGTH
 																? "..."
 																: "")}
+													</p>
+												</div>
+												<p className="mt-0.5 text-sm text-gray-500">
+													{formatTimestamp(
+														questionAndResponse.date.toString()
+													)}
 												</p>
 											</div>
-											<p className="mt-0.5 text-sm text-gray-500">
-												{formatTimestamp(
-													questionAndResponse.date.toString()
-												)}
-											</p>
-										</div>
-										<div
-											className={
-												"mt-2 text-sm text-gray-700"
-											}
-										>
-											<p className=" hover:underline">
-												{expandedItem === index
-													? questionAndResponse.response // Display the full response when expanded
-													: questionAndResponse.response.slice(
-															0,
-															MAX_RESPONSE_LENGTH
-													  ) +
-													  (questionAndResponse
+											<div
+												className={
+													"mt-2 text-sm text-gray-700"
+												}
+											>
+												<p className="hover:underline">
+													{questionAndResponse.response.slice(
+														0,
+														MAX_RESPONSE_LENGTH
+													) +
+														(questionAndResponse
 															.response.length >
-													  MAX_RESPONSE_LENGTH
+														MAX_RESPONSE_LENGTH
 															? "..."
 															: "")}
-											</p>
+												</p>
+											</div>
 										</div>
-									</div>
-								</>
+									</>
+								</div>
+								<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
 							</div>
-							<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
-						</div>
-					</li>
-				))}
+						</li>
+					) : (
+						<li key={questionAndResponse.date.toString()}>
+							<div className="relative text-left">
+								<div
+									className="relative flex items-start space-x-3"
+									onClick={() =>
+										setAiPromptAndResult(
+											questionAndResponse
+										)
+									}
+									style={{ cursor: "pointer" }}
+								>
+									<>
+										<div className="min-w-0 flex-1">
+											<div>
+												<div className="text-sm">
+													<p
+														className="font-bold text-gray-900 hover:underline"
+														style={
+															index > 2
+																? {
+																		color: "transparent",
+																		textShadow:
+																			"0 0 20px #000",
+																  }
+																: {}
+														}
+													>
+														{questionAndResponse.question.slice(
+															0,
+															MAX_QUESTION_LENGTH
+														) +
+															(questionAndResponse
+																.question
+																.length >
+															MAX_QUESTION_LENGTH
+																? "..."
+																: "")}
+													</p>
+												</div>
+												<p
+													className="mt-0.5 text-sm text-gray-500"
+													style={
+														index > 2
+															? {
+																	color: "transparent",
+																	textShadow:
+																		"0 0 20px #000",
+															  }
+															: {}
+													}
+												>
+													{formatTimestamp(
+														questionAndResponse.date.toString()
+													)}
+												</p>
+											</div>
+											<div
+												className={
+													"mt-2 text-sm text-gray-700"
+												}
+											>
+												<p
+													className="hover:underline"
+													style={
+														index > 2
+															? {
+																	color: "transparent",
+																	textShadow:
+																		"0 0 20px #000",
+															  }
+															: {}
+													}
+												>
+													{questionAndResponse.response.slice(
+														0,
+														MAX_RESPONSE_LENGTH
+													) +
+														(questionAndResponse
+															.response.length >
+														MAX_RESPONSE_LENGTH
+															? "..."
+															: "")}
+												</p>
+											</div>
+										</div>
+									</>
+								</div>
+								<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
+							</div>
+						</li>
+					)
+				)}
 			</ul>
 		);
 	};
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-start px-2 lg:px-4">
 			<div className="sm:mx-auto flex-2 sm:w-full sm:max-w-sm">
-				<h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+				<h2 className="mt-0 pt-0 text-center text-2xl font-extrabold leading-9 tracking-tight text-gray-900">
 					History
 				</h2>
 			</div>

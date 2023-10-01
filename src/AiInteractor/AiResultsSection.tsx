@@ -7,7 +7,7 @@ import {
 import { ToastProps } from "../ToastNotification";
 import { getRandomQuote } from "../utils/general";
 import loadingIcon from "../../src/assets/loading.gif";
-import historyIcon from "../../src/assets/history.svg";
+import "../../src/assets/tooltip.css";
 
 interface AIResultsSectionProps {
 	aiResult: string;
@@ -31,52 +31,61 @@ export default function AIResultsSection({
 			<div className="inset-x-0 bottom-0 flex justify-between py-2 sm:pl-3">
 				<div className="flex items-center space-x-5 w-full">
 					<div className="flex gap-4 items-center w-full">
-						<button
-							type="button"
-							className="hidden sm:block -m-2.5 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-							onClick={() => {
-								if (aiResult) {
-									navigator.clipboard.writeText(aiResult);
-									setToast({
-										visible: true,
-										title: "Succesfully Copied",
-										content:
-											"Comeback for more paraphrasing...",
+						<div className="tooltip-container">
+							<button
+								type="button"
+								className="tooltip-btn hidden sm:block -m-2.5 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+								onClick={() => {
+									if (aiResult) {
+										navigator.clipboard.writeText(aiResult);
+										setToast({
+											visible: true,
+											title: "Succesfully Copied",
+											content:
+												"Comeback for more paraphrasing...",
+										});
+									} else {
+										setToast({
+											visible: true,
+											title: "Nothing to copy",
+											content:
+												"Get started with paraphrasing...",
+											type: "warning",
+										});
+									}
+								}}
+							>
+								<DocumentDuplicateIcon
+									className="h-5 w-5 stroke-gray-400"
+									aria-hidden="true"
+								/>
+							</button>
+							<span className="tooltip-text">Copy</span>
+						</div>
+
+						<div className="tooltip-container">
+							<button
+								type="button"
+								className="tooltip-btn -m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
+								onClick={() => {
+									const blob = new Blob([aiResult], {
+										type: "text/plain",
 									});
-								} else {
-									setToast({
-										visible: true,
-										title: "Nothing to copy",
-										content:
-											"Get started with paraphrasing...",
-										type: "warning",
-									});
-								}
-							}}
-						>
-							<DocumentDuplicateIcon
-								className="h-5 w-5 stroke-gray-400"
-								aria-hidden="true"
-							/>
-						</button>
-						<button
-							type="button"
-							className="-m-2.5 flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-							onClick={() => {
-								const blob = new Blob([aiResult], {
-									type: "text/plain",
-								});
-								const link = document.createElement("a");
-								link.href = window.URL.createObjectURL(blob);
-								link.download = "result.txt";
-								link.click();
-							}}
-						>
-							<ArrowDownTrayIcon
-								className="h-5 w-5 stroke-gray-400"
-								aria-hidden="true"
-							/>
-						</button>
+									const link = document.createElement("a");
+									link.href =
+										window.URL.createObjectURL(blob);
+									link.download = "result.txt";
+									link.click();
+								}}
+							>
+								<ArrowDownTrayIcon
+									className="h-5 w-5 stroke-gray-400"
+									aria-hidden="true"
+								/>
+							</button>
+							<span className="tooltip-text">Download</span>
+						</div>
+
 						<div className="flex flex-row gap-2 items-start text-white ">
 							<ChatBubbleBottomCenterTextIcon
 								className=" h-5 w-5 stroke-gray-400"
@@ -89,15 +98,15 @@ export default function AIResultsSection({
 						</div>
 					</div>
 				</div>
-				<div className="flex-shrink-0 py-2">
+				<div className="flex-shrink-0 py-2 tooltip-container">
 					<button
 						onClick={() => {
 							setSideBarMode("history");
 						}}
-						className="h-6 w-6"
+						className="tooltip-btn h-6 w-6"
+						type="button"
 					>
 						{/* History */}
-						{/* <img className="text-gray-400" src={historyIcon} /> */}
 						<svg
 							className="w-6 h-6"
 							version="1.0"
@@ -143,6 +152,7 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 							</g>
 						</svg>
 					</button>
+					<span className="tooltip-text">History</span>
 				</div>
 			</div>
 		);
@@ -166,13 +176,7 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 											<p className="text-indigo-600 text-xl text-center font-bold italic">
 												{`"${getRandomQuote()}"`}
 											</p>
-											<img
-												// style={{
-												// 	width: 200,
-												// 	height: 200,
-												// }}
-												src={loadingIcon}
-											/>
+											<img src={loadingIcon} />
 										</div>
 									</div>
 								)}
@@ -193,13 +197,7 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 											<p className="text-indigo-600 text-xl text-center font-bold italic">
 												{`"${getRandomQuote()}"`}
 											</p>
-											<img
-												// style={{
-												// 	width: 200,
-												// 	height: 200,
-												// }}
-												src={loadingIcon}
-											/>
+											<img src={loadingIcon} />
 										</div>
 									</div>
 								)}

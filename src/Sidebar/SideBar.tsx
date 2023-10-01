@@ -7,7 +7,6 @@ import ForgotPassword from "./ForgotPassword";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import History from "./History";
-import HistoryV2 from "./HistoryV2";
 
 export interface SideBarProps {
 	sideBarMode: "login" | "signup" | "forgot-password" | "history" | undefined;
@@ -117,9 +116,7 @@ export default function SideBar({
 											)}
 
 											{sideBarMode === "history" && (
-												// <History
-												// />
-												<HistoryV2
+												<History
 													setSideBarMode={
 														setSideBarMode
 													}

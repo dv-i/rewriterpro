@@ -3,7 +3,10 @@ import { ToastProps } from "../ToastNotification";
 import { PromptOptions, User } from "../store/dataInterfaces";
 import QuestionSection from "./QuestionSection";
 import AIResultsSection from "./AiResultsSection";
-import { setQuestionsAndResponses } from "../store/browser";
+import {
+	getAuthenticatedUser,
+	setQuestionsAndResponses,
+} from "../store/browser";
 // import loadingIcon2 from "../src/assets/loading2.gif";
 // import loadingIcon3 from "../src/assets/loading3.gif";
 
