@@ -15,7 +15,7 @@ import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
 const MAX_CHARACTERS_FREE = 3000;
-const MAX_CHARACTERS_PRO = 5000;
+const MAX_CHARACTERS_PRO = 6000;
 
 interface QuestionSectionProps {
 	aiPrompt: string;
