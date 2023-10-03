@@ -6,6 +6,7 @@ export interface User {
 	authType?: string;
 	passwordResetCode?: string;
 	subscriptionPeriodEndDateEpochSeconds?: number;
+	_id?: string;
 }
 
 export interface PromptOptions {
@@ -18,6 +19,7 @@ export interface PromptOptions {
 }
 
 export interface QuestionAndResponse {
+	userId?: string;
 	question: string;
 	response: string;
 	date: Date;

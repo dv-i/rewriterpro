@@ -49,7 +49,7 @@ export const signUp = async (userToAdd: {
 	}
 
 	try {
-		await mongo.insertOne(USERS_COLLECTION, userToAdd);
+		await mongo.insertOneUser(USERS_COLLECTION, userToAdd);
 		return userToAdd;
 	} catch (error) {
 		console.error(error);

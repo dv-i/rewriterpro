@@ -59,6 +59,10 @@ export const getQuestionsAndResponses = ():
 	return undefined;
 };
 
+export const removeQuestionsAndResponses = (): void => {
+	localStorage.removeItem("questionsAndResponses");
+};
+
 export const getLocalCounter = (): number | undefined => {
 	const prevCounterDateString = localStorage.getItem("counterDate");
 	if (localStorage.getItem("counter") !== null) {

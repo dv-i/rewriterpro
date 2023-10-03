@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { DATABASE } from "../constants";
-import { User } from "./dataInterfaces";
+import { QuestionAndResponse, User } from "./dataInterfaces";
 import { getMongoAccessToken, setMongoAccessToken } from "./browser";
 
 const getAxiosClient = async (): Promise<AxiosInstance> => {
@@ -61,12 +61,7 @@ class MongoDbClient {
 		}
 	}
 
-	async find(
-		collection: string,
-		filter?: {
-			[key: string]: string;
-		}
-	): Promise<User[] | []> {
+	async find(collection: string, filter?: any): Promise<any[] | []> {
 		try {
 			const body = {
 				dataSource: DATABASE.DATA_SOURCE,
@@ -88,7 +83,7 @@ class MongoDbClient {
 		}
 	}
 
-	async insertOne(
+	async insertOneUser(
 		collection: string,
 		document: User
 	): Promise<AxiosResponse | null> {
@@ -105,6 +100,27 @@ class MongoDbClient {
 			if (userAlreadyExists) {
 				throw new Error("User already exists");
 			}
+			const axiosClient = await getAxiosClient();
+			const response = await axiosClient.post("/action/insertOne", body);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			await this.handleMongoAccessTokenRefresh(error);
+		}
+		return null;
+	}
+
+	async insertOneQuestionAndResponse(
+		collection: string,
+		document: QuestionAndResponse
+	): Promise<AxiosResponse | null> {
+		try {
+			const body = {
+				dataSource: DATABASE.DATA_SOURCE,
+				database: DATABASE.NAME,
+				collection: collection,
+				document: document,
+			};
 			const axiosClient = await getAxiosClient();
 			const response = await axiosClient.post("/action/insertOne", body);
 			return response.data;

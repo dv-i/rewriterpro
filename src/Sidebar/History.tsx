@@ -4,6 +4,11 @@ import {
 	getAuthenticatedUser,
 	getQuestionsAndResponses,
 } from "../store/browser";
+import MongoDbClient from "../store/MongoDbClient";
+import {
+	QUESTIONS_AND_RESPONSES_COLLECTION,
+	USERS_COLLECTION,
+} from "../store/constants";
 
 const MAX_QUESTION_LENGTH = 40;
 const MAX_RESPONSE_LENGTH = 150;
@@ -42,23 +47,49 @@ export default function History({
 		useState<QuestionAndResponse[]>();
 	const [user, setUser] = useState<User>();
 
-	useEffect(() => {
-		const existingQuestionsAndResponses = getQuestionsAndResponses();
-		if (existingQuestionsAndResponses) {
-			existingQuestionsAndResponses.sort(
+	const mongo = new MongoDbClient();
+	const getLocalOrRemoteQuestionsAndAnswers = async () => {
+		if (user) {
+			const remoteUser = await mongo.findOne(USERS_COLLECTION, {
+				email: user.email,
+			});
+			const remoteQuestionsAndResponses = await mongo.find(
+				QUESTIONS_AND_RESPONSES_COLLECTION,
+				{
+					userId: remoteUser?._id,
+				}
+			);
+			remoteQuestionsAndResponses.sort(
 				(a: any, b: any) =>
 					new Date(b.date).getTime() - new Date(a.date).getTime()
 			);
 			//Use latest 30 items for pro users
-			setQuestionsAndResponses(
-				existingQuestionsAndResponses.slice(0, 30)
-			);
+			setQuestionsAndResponses(remoteQuestionsAndResponses.slice(0, 30));
+		} else {
+			const existingQuestionsAndResponses = getQuestionsAndResponses();
+			if (existingQuestionsAndResponses) {
+				existingQuestionsAndResponses.sort(
+					(a: any, b: any) =>
+						new Date(b.date).getTime() - new Date(a.date).getTime()
+				);
+				//Use latest 30 items for pro users
+				setQuestionsAndResponses(
+					existingQuestionsAndResponses.slice(0, 30)
+				);
+			}
 		}
+	};
+
+	useEffect(() => {
 		const authedUser = getAuthenticatedUser();
 		if (authedUser) {
 			setUser(authedUser);
 		}
 	}, []);
+
+	useEffect(() => {
+		getLocalOrRemoteQuestionsAndAnswers();
+	}, [user]);
 
 	const setAiPromptAndResult = (questionAndResponse: QuestionAndResponse) => {
 		setAiPrompt(questionAndResponse.question);
