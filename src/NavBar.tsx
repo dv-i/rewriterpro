@@ -34,6 +34,8 @@ interface NavBarProps {
 			"login" | "signup" | "forgot-password" | "history" | undefined
 		>
 	>;
+	isGetPremiumModalOpen: boolean;
+	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export default function NavBar({
 	setToast,
@@ -44,13 +46,14 @@ export default function NavBar({
 	setAiResult,
 	setSideBarMode,
 	sideBarMode,
+	isGetPremiumModalOpen,
+	setIsGetPremiumModalOpen,
 }: NavBarProps) {
 	const mongo = new MongoDbClient();
 	const stripe = new StripeUtil(
 		process.env.REACT_APP_STRIPE_SECRET_KEY_PROD || ""
 	);
 
-	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	const [isUserProfileModalOpen, setIsUserProfileModalOpen] = useState(false);
 	const [userHasActiveSubscriptions, setUserHasActiveSubscriptions] =
 		useState(false);
@@ -381,6 +384,7 @@ export default function NavBar({
 				</Disclosure>
 			</div>
 			<SideBar
+				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}
 				sideBarMode={sideBarMode}
 				setSideBarMode={setSideBarMode}
 				setToast={setToast}
