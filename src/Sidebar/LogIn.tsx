@@ -4,7 +4,11 @@ import { LoginSocialGoogle, IResolveParams } from "reactjs-social-login";
 import { Loader } from "../Loader";
 import { LogInAndSignUpProps } from "./SideBar";
 import { signUp, login } from "../api";
-import { setAuthenticatedUser } from "../store/browser";
+import {
+	removeQuestionsAndResponses,
+	setAuthenticatedUser,
+	setQuestionsAndResponses,
+} from "../store/browser";
 import logo from "../../src/assets/logo.png";
 
 export default function LogIn({
@@ -35,6 +39,7 @@ export default function LogIn({
 			authType: "google",
 		});
 		if (createdUser) {
+			removeQuestionsAndResponses();
 			setAuthenticatedUser(createdUser);
 			setSideBarMode(undefined);
 			setShowLoader(false);
@@ -55,6 +60,7 @@ export default function LogIn({
 		if (email && password) {
 			const authedUser = await login(email, password);
 			if (authedUser) {
+				removeQuestionsAndResponses();
 				setAuthenticatedUser(authedUser);
 				setSideBarMode(undefined);
 			} else {

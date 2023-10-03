@@ -7,6 +7,11 @@ import {
 	getAuthenticatedUser,
 	setQuestionsAndResponses,
 } from "../store/browser";
+import MongoDbClient from "../store/MongoDbClient";
+import {
+	QUESTIONS_AND_RESPONSES_COLLECTION,
+	USERS_COLLECTION,
+} from "../store/constants";
 // import loadingIcon2 from "../src/assets/loading2.gif";
 // import loadingIcon3 from "../src/assets/loading3.gif";
 
@@ -39,14 +44,36 @@ export default function AIInteractor({
 	setSideBarMode,
 }: AIInteractorProps) {
 	const [showLoader, setShowLoader] = useState(false);
-
-	useEffect(() => {
-		if (aiPrompt && aiResult) {
+	const mongo = new MongoDbClient();
+	const setRemoteOrLocalQuestionsAndResponses = async () => {
+		if (user) {
+			const remoteUser = await mongo.findOne(USERS_COLLECTION, {
+				email: user.email,
+			});
+			if (remoteUser?._id) {
+				await mongo.insertOneQuestionAndResponse(
+					QUESTIONS_AND_RESPONSES_COLLECTION,
+					{
+						question: aiPrompt,
+						response: aiResult,
+						date: new Date(),
+						userId: remoteUser._id,
+					}
+				);
+			} else {
+				console.error("Not found", remoteUser);
+			}
+		} else {
 			setQuestionsAndResponses({
 				question: aiPrompt,
 				response: aiResult,
 				date: new Date(),
 			});
+		}
+	};
+	useEffect(() => {
+		if (aiPrompt && aiResult) {
+			setRemoteOrLocalQuestionsAndResponses();
 		}
 	}, [aiPrompt, aiResult]);
 
