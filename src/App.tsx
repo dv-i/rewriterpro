@@ -54,6 +54,7 @@ function App(): JSX.Element {
 	const [sideBarMode, setSideBarMode] = useState<
 		"login" | "signup" | "forgot-password" | "history" | undefined
 	>();
+	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	return (
 		<>
 			<BrowserRouter>
@@ -66,6 +67,8 @@ function App(): JSX.Element {
 					setAiResult={setAiResult}
 					setSideBarMode={setSideBarMode}
 					sideBarMode={sideBarMode}
+					isGetPremiumModalOpen={isGetPremiumModalOpen}
+					setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}
 				/>
 				<Routes>
 					<Route

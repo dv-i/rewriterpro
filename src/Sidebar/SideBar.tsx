@@ -19,6 +19,7 @@ export interface SideBarProps {
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SideBar({
@@ -28,6 +29,7 @@ export default function SideBar({
 	setUser,
 	setAiPrompt,
 	setAiResult,
+	setIsGetPremiumModalOpen,
 }: SideBarProps) {
 	return (
 		<Transition.Root show={Boolean(sideBarMode)} as={Fragment}>
@@ -122,6 +124,9 @@ export default function SideBar({
 													}
 													setAiPrompt={setAiPrompt}
 													setAiResult={setAiResult}
+													setIsGetPremiumModalOpen={
+														setIsGetPremiumModalOpen
+													}
 												/>
 											)}
 										</div>

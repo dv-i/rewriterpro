@@ -29,12 +29,14 @@ interface HistoryProps {
 			"login" | "signup" | "forgot-password" | "history" | undefined
 		>
 	>;
+	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function History({
 	setAiPrompt,
 	setAiResult,
 	setSideBarMode,
+	setIsGetPremiumModalOpen,
 }: HistoryProps) {
 	const [questionAndResponses, setQuestionsAndResponses] =
 		useState<QuestionAndResponse[]>();
@@ -126,6 +128,112 @@ export default function History({
 								<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
 							</div>
 						</li>
+					) : index === 3 ? (
+						<div className="relative">
+							<li key={questionAndResponse.date.toString()}>
+								<div className="relative text-left">
+									<div
+										className="relative flex items-start space-x-3"
+										onClick={() =>
+											setAiPromptAndResult(
+												questionAndResponse
+											)
+										}
+										style={{ cursor: "pointer" }}
+									>
+										<>
+											<div className="min-w-0 flex-1">
+												<div>
+													<div className="text-sm">
+														<p
+															className="font-bold text-gray-900 hover:underline"
+															style={
+																index > 2
+																	? {
+																			color: "transparent",
+																			textShadow:
+																				"0 0 20px #000",
+																	  }
+																	: {}
+															}
+														>
+															{questionAndResponse.question.slice(
+																0,
+																MAX_QUESTION_LENGTH
+															) +
+																(questionAndResponse
+																	.question
+																	.length >
+																MAX_QUESTION_LENGTH
+																	? "..."
+																	: "")}
+														</p>
+													</div>
+													<p
+														className="mt-0.5 text-sm text-gray-500"
+														style={
+															index > 2
+																? {
+																		color: "transparent",
+																		textShadow:
+																			"0 0 20px #000",
+																  }
+																: {}
+														}
+													>
+														{formatTimestamp(
+															questionAndResponse.date.toString()
+														)}
+													</p>
+												</div>
+												<div
+													className={
+														"mt-2 text-sm text-gray-700"
+													}
+												>
+													<p
+														className="hover:underline"
+														style={
+															index > 2
+																? {
+																		color: "transparent",
+																		textShadow:
+																			"0 0 20px #000",
+																  }
+																: {}
+														}
+													>
+														{questionAndResponse.response.slice(
+															0,
+															MAX_RESPONSE_LENGTH
+														) +
+															(questionAndResponse
+																.response
+																.length >
+															MAX_RESPONSE_LENGTH
+																? "..."
+																: "")}
+													</p>
+												</div>
+											</div>
+										</>
+									</div>
+									<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
+								</div>
+							</li>
+							<button
+								onClick={() => {
+									setSideBarMode(undefined);
+									setIsGetPremiumModalOpen(true);
+								}}
+								type="submit"
+								className={
+									"z-1 left-2 absolute top-1/4 w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+								}
+							>
+								To see more history, Upgrade to PRO!
+							</button>
+						</div>
 					) : (
 						<li key={questionAndResponse.date.toString()}>
 							<div className="relative text-left">
