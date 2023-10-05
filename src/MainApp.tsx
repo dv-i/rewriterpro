@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AIInteractor from "./AIInteractor/AIInteractor";
+import AIInteractorSection from "./AIInteractor/AIInteractorSection";
 import AIInteractorCard from "./AIInteractor/AIInteractorCard";
 import Benefits from "./Benefits";
 import { CTAv2 } from "./CTA";
@@ -166,7 +166,7 @@ export default function MainApp({
 						/>
 					}
 					CardBody={
-						<AIInteractor
+						<AIInteractorSection
 							promptOptions={promptOptions}
 							setToast={setToast}
 							counter={counter}

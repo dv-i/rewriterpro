@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastProps } from "../ToastNotification";
 import { PromptOptions, User } from "../store/dataInterfaces";
 import { setQuestionsAndResponses } from "../store/browser";
