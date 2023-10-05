@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import AIInteractorSection from "./AIInteractor/AIInteractorSection";
-import AIInteractorCard from "./AIInteractor/AIInteractorCard";
+import AIInteractorSection from "./ArtificialIntelligenceSection/AIInteractorSection";
+import AIInteractorCard from "./ArtificialIntelligenceSection/AIInteractorCard";
 import Benefits from "./Benefits";
 import { CTAv2 } from "./CTA";
 import FAQ from "./FAQ";
