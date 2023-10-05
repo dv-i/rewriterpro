@@ -9,6 +9,7 @@ import {
 	QUESTIONS_AND_RESPONSES_COLLECTION,
 	USERS_COLLECTION,
 } from "../store/constants";
+import { Loader } from "../Loader";
 
 const MAX_QUESTION_LENGTH = 40;
 const MAX_RESPONSE_LENGTH = 150;
@@ -46,9 +47,11 @@ export default function History({
 	const [questionAndResponses, setQuestionsAndResponses] =
 		useState<QuestionAndResponse[]>();
 	const [user, setUser] = useState<User>();
+	const [showLoader, setShowLoader] = useState<boolean>(false);
 
 	const mongo = new MongoDbClient();
 	const getLocalOrRemoteQuestionsAndAnswers = async () => {
+		setShowLoader(true);
 		if (user) {
 			const remoteUser = await mongo.findOne(USERS_COLLECTION, {
 				email: user.email,
@@ -78,6 +81,7 @@ export default function History({
 				);
 			}
 		}
+		setShowLoader(false);
 	};
 
 	useEffect(() => {
@@ -369,9 +373,20 @@ export default function History({
 				</h2>
 			</div>
 			<div className="text-center flex-1 flex h-full justify-center flex-col text-gray-600">
-				{questionAndResponses?.length
-					? renderHistoryFeed()
-					: "Your history is empty. Rewrite some content to see it here!"}
+				{questionAndResponses?.length ? (
+					renderHistoryFeed()
+				) : showLoader ? (
+					<div className="flex justify-center pt-10">
+						<Loader
+							width="w-8"
+							height="h-8"
+							color={"text-black"}
+							visible={showLoader}
+						/>
+					</div>
+				) : (
+					"Your history is empty. Rewrite some content to see it here!"
+				)}
 			</div>
 		</div>
 	);
