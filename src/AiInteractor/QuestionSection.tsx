@@ -98,6 +98,17 @@ export default function QuestionSection({
 		}
 	}, [aiPrompt, user, counter]);
 
+	useEffect(() => {
+		if (aiPrompt && window.location.pathname.includes("wp-redirect")) {
+			startRewrite();
+		}
+	}, [aiPrompt]);
+
+	const startRewrite = () => {
+		setAiResult("");
+		handleParaphraseClick();
+	};
+
 	const Options = () => {
 		return (
 			<>
@@ -198,10 +209,7 @@ export default function QuestionSection({
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
-							onClick={() => {
-								setAiResult("");
-								handleParaphraseClick();
-							}}
+							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
 						>
 							Rewrite
@@ -325,10 +333,7 @@ export default function QuestionSection({
 									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
 									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
-							onClick={() => {
-								setAiResult("");
-								handleParaphraseClick();
-							}}
+							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
 						>
 							Rewrite
@@ -341,9 +346,6 @@ export default function QuestionSection({
 	};
 	return (
 		<div className="flex flex-col h-full w-full md:w-1/2 pr-3">
-			<h2 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
-				Original:
-			</h2>
 			<div className="flex items-start space-x-4  h-full">
 				<div className="min-w-0 flex-1 h-full ">
 					<div className="flex flex-col h-full">
