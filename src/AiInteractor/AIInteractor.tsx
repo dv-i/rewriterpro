@@ -8,7 +8,7 @@ import {
 	USERS_COLLECTION,
 } from "../store/constants";
 import QuestionSection from "./QuestionSection";
-import AIResultsSection from "./AIResultsSection";
+import AIResultsSection from "./AIResultSection";
 // import loadingIcon2 from "../src/assets/loading2.gif";
 // import loadingIcon3 from "../src/assets/loading3.gif";
 
