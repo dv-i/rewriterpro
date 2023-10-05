@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastProps } from "../ToastNotification";
 import { PromptOptions, User } from "../store/dataInterfaces";
-import QuestionSection from "./QuestionSection";
-import AIResultsSection from "./AiResultsSection";
-import {
-	getAuthenticatedUser,
-	setQuestionsAndResponses,
-} from "../store/browser";
+import { setQuestionsAndResponses } from "../store/browser";
 import MongoDbClient from "../store/MongoDbClient";
 import {
 	QUESTIONS_AND_RESPONSES_COLLECTION,
 	USERS_COLLECTION,
 } from "../store/constants";
+import QuestionSection from "./QuestionSection";
+import AIResultsSection from "./AIResultsSection";
 // import loadingIcon2 from "../src/assets/loading2.gif";
 // import loadingIcon3 from "../src/assets/loading3.gif";
 
