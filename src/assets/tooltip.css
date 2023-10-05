@@ -19,6 +19,7 @@
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+    font-size: 11px;
 }
 
 /* Show the tooltip on hover */
