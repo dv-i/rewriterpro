@@ -93,7 +93,10 @@ export default function App(): JSX.Element {
 						}
 					/>
 					<Route path="/about" element={<About />} />
-					<Route path="/contact" element={<Contact />} />
+					<Route
+						path="/contact"
+						element={<Contact setToast={setToast} toast={toast} />}
+					/>
 					<Route path="/privacy" element={<Privacy />} />
 					<Route path="/terms" element={<Terms />} />
 				</Routes>
