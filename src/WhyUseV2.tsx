@@ -17,7 +17,7 @@ const features1 = [
 	{
 		name: "Save Countless Hours.",
 		description:
-			"ReWriter AI helps you write splendid content    Our AI is programmed to make your content tasks quick and easy.   Suppose you’re a student, teacher, or content creator. In that case, ReWriter AI helps you save tons of time by generating quality and ready-to-publish content within seconds and without compromising the original quality.   All you have to do is paste your basic-written content and click the “Rewrite” button. And by the time you check your phone’s notifications, your final content will be ready.",
+			"ReWriter AI helps you write splendid content    Our AI is programmed to make your sentence rewriting tasks quick and easy.   Suppose you’re a student, teacher, or content creator. In that case, ReWriter AI helps you save tons of time by generating quality and ready-to-publish content within seconds and without compromising the original quality.   All you have to do is paste your basic-written content and click the “Rewrite” button. And by the time you check your phone’s notifications, your final content will be ready.",
 	},
 	{
 		name: "Save Money.",

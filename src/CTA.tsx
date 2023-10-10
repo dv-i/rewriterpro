@@ -5,7 +5,8 @@ export default function CTA() {
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl text-center">
-						Boost your content productivity
+						Unleash the Power of AI for Effortless Sentence
+						Rewriting
 						<br />
 						Using{" "}
 						<span className="text-indigo-600">RewriterPro.ai</span>
