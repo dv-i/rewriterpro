@@ -42,14 +42,14 @@ export default function AIResultsSection({
 											visible: true,
 											title: "Succesfully Copied",
 											content:
-												"Comeback for more paraphrasing...",
+												"Comeback for more rewriting...",
 										});
 									} else {
 										setToast({
 											visible: true,
 											title: "Nothing to copy",
 											content:
-												"Get started with paraphrasing...",
+												"Get started with rewriting...",
 											type: "warning",
 										});
 									}
@@ -159,9 +159,6 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 	};
 	return (
 		<div className="flex flex-col h-full w-full md:w-1/2 mt-5 sm:mt-0 sm:pl-3 pr-3">
-			{/* <h3 className="text-lg font-semibold leading-6 text-gray-500 pb-5">
-				Paraphrased:
-			</h3> */}
 			<div className="flex items-start space-x-4 h-full  flex-1">
 				<div className="min-w-0 flex-1 h-full">
 					<div className="flex flex-col h-full">

@@ -188,7 +188,7 @@ export default function Settings({
 					/>
 
 					<DropDown
-						label={"Paraphrased Language"}
+						label={"Rewritten Language"}
 						promptKey="language"
 						setPromptOptions={setPromptOptions}
 						options={[
@@ -580,7 +580,7 @@ export default function Settings({
 					/>
 
 					<DropDown
-						label={"Paraphrased Language"}
+						label={"Rewritten Language"}
 						promptKey="language"
 						setPromptOptions={setPromptOptions}
 						options={[
@@ -680,7 +680,7 @@ function DropDown({
 													visible: true,
 													title: "Upgrade to Pro",
 													content:
-														"To enhance your paraphrasing experience by using this mode and many others, upgrade to pro.",
+														"To enhance your rewriting experience by using this mode and many others, upgrade to pro.",
 												})
 											}
 										>

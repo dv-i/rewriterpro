@@ -42,7 +42,7 @@ function About(): JSX.Element {
 			<p>
 				RewriterPro.Ai is designed to empower users with a powerful yet
 				intuitive tool that streamlines the process of content
-				rewriting. Whether you&#39;re a student looking to paraphrase
+				rewriting. Whether you&#39;re a student looking to rewrite
 				research material, a blogger aiming to enhance your articles, or
 				a professional seeking to rephrase documents, our AI-driven
 				platform is your go-to solution.

@@ -28,9 +28,9 @@ export default function Alert({ counter, user }: AlertProps) {
 							{" "}
 							{MAX_TRIES - counter}{" "}
 						</span>{" "}
-						paraphrases left for the day.{" "}
+						rewrites left for the day.{" "}
 						<button className="text-left font-medium text-blue-700 underline hover:text-blue-600">
-							Upgrade your account to get unlimited paraphrasing
+							Upgrade your account to get unlimited rewriting
 						</button>
 					</p>
 				</div>

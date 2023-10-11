@@ -114,7 +114,7 @@ export const PremiumPricingInfoModal = ({
 								description:
 									"Everything necessary to get started.",
 								features: [
-									"Unlimited paraphrases per day",
+									"Unlimited rewrites per day",
 									"Extra fluency options",
 									"Extra tone options",
 									"Extra audience options",
@@ -143,7 +143,7 @@ export const PremiumPricingInfoModal = ({
 									"Everything in Basic, plus essential tools for growing your business.",
 								features: [
 									"Save $60 on a yearly subscription",
-									"Unlimited paraphrases per day",
+									"Unlimited rewrites per day",
 									"Extra fluency options",
 									"Extra tone options",
 									"Extra audience options",
@@ -169,7 +169,7 @@ export const PremiumPricingInfoModal = ({
 								description:
 									"Everything necessary to get started.",
 								features: [
-									"Unlimited paraphrases per day",
+									"Unlimited rewrites per day",
 									"Extra fluency options",
 									"Extra tone options",
 									"Extra audience options",
@@ -198,7 +198,7 @@ export const PremiumPricingInfoModal = ({
 									"Everything in Basic, plus essential tools for growing your business.",
 								features: [
 									"Save $60 on a yearly subscription",
-									"Unlimited paraphrases per day",
+									"Unlimited rewrites per day",
 									"Extra fluency options",
 									"Extra tone options",
 									"Extra audience options",

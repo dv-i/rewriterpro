@@ -42,9 +42,8 @@ export function CTAv2() {
 			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-4xl font-bold tracking-tight text-indigo-200 sm:text-5xl text-center">
-						Boost Your Content Productivity
-						<br />
-						Using <span className="text-white">RewriterPro.ai</span>
+						Unleash the Power of AI for Effortless
+						<span className="text-white"> Sentence Rewriting</span>
 					</h2>
 					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
 						RewriterPro.ai integrates cutting-edge artificial

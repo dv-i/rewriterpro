@@ -65,13 +65,12 @@ export default function Example() {
 						{/* Step 2 */}
 						<div>
 							<h3 className="mb-10 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-								Step 2: Paraphrasing
+								Step 2: Rewriting
 							</h3>
 							<p className="text-lg leading-6 text-gray-600">
 								When everything’s set according to you, click on
 								the “Rewrite” button”. Our proprietary AI will
-								paraphrase the text according to your
-								requirements
+								rewrite the text according to your requirements
 							</p>
 							<div className="flex justify-center py-10 pr-20">
 								<img

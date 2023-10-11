@@ -5,7 +5,7 @@ import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 const faqs = [
 	{
 		question: "What is RewriterPro.ai",
-		answer: "RewriterPro.ai is a rewriting tool that helps you paraphrase your existing content through artificial intelligence ",
+		answer: "RewriterPro.ai is a rewriting tool that helps you rewrite your existing content through artificial intelligence ",
 	},
 	{
 		question: "How does RewriterPro.ai Work?",
@@ -17,7 +17,7 @@ const faqs = [
 	},
 	{
 		question: "Is RewriterPro.ai available for Free?",
-		answer: "Unfortunately, RewriterPro.ai is a paid tool. But it comes with insanely low price packages. However, You can get 15 FREE paraphrases for one day. This can help you get a good idea of what this tool is capable of.",
+		answer: "Unfortunately, RewriterPro.ai is a paid tool. But it comes with insanely low price packages. However, You can get 15 FREE rewrites for one day. This can help you get a good idea of what this tool is capable of.",
 	},
 	{
 		question: "What are the subscription plans?",
