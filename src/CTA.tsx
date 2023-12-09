@@ -5,10 +5,8 @@ export default function CTA() {
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl text-center">
-						Unleash the Power of AI for Effortless Sentence
-						Rewriting
+						Experience the Power of AI Rewriting with
 						<br />
-						Using{" "}
 						<span className="text-indigo-600">RewriterPro.ai</span>
 					</h2>
 					<p className="pt-10 mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
@@ -42,8 +40,8 @@ export function CTAv2() {
 			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-4xl font-bold tracking-tight text-indigo-200 sm:text-5xl text-center">
-						Unleash the Power of AI for Effortless
-						<span className="text-white"> Sentence Rewriting</span>
+						Experience the Power of AI Rewriting with
+						<span className="text-white"> RewriterPro.ai</span>
 					</h2>
 					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
 						RewriterPro.ai integrates cutting-edge artificial
