@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	BuildingOffice2Icon,
 	EnvelopeIcon,
@@ -17,6 +17,11 @@ export default function Contact({ setToast, toast }: ContactProps) {
 	const [email, setEmail] = useState<string>();
 	const [subject, setSubject] = useState<string>();
 	const [message, setMessage] = useState<string>();
+
+	useEffect(() => {
+		document.title =
+			"Reword Generator: Rewrite Sentence with AI - RewriterPro";
+	}, []);
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();

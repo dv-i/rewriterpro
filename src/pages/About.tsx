@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 function About(): JSX.Element {
+	useEffect(() => {
+		document.title =
+			"Reword Generator: Rewrite Sentence with AI - RewriterPro";
+	}, []);
 	return (
 		<div className="mx-auto max-w-5xl p-5">
 			<h1 className="font-bold py-6 text-lg">About RewriterPro.Ai App</h1>

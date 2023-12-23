@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./privacy.css";
 function Privacy(): JSX.Element {
+	useEffect(() => {
+		document.title =
+			"Reword Generator: Rewrite Sentence with AI - RewriterPro";
+	}, []);
 	return (
 		<div className="c38 doc-content max-w-5xl mx-auto p-5">
 			<p className="c1">
