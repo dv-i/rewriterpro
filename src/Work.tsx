@@ -16,7 +16,7 @@ export default function Example() {
 						as an output.
 						<br />
 						<br />
-						RewriterPro.ai results from 2 months of resilient
+						RewriterPro.ai results from two months of resilient
 						efforts with AI. Within this time, RewriterPro.ai has
 						been perfected to perform various rewriting tasks in
 						multiple tones, languages, emotions, lengths, etc.

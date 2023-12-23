@@ -9,7 +9,7 @@ const faqs = [
 	},
 	{
 		question: "How does RewriterPro.ai Work?",
-		answer: "RewriterPro.ai features proprietary AI technology (that took 2 months to develop) to generate brilliant, and amazing content for your brand, business, or work. ",
+		answer: "RewriterPro.ai features proprietary AI technology (that took two months to develop) to generate brilliant, and amazing content for your brand, business, or work. ",
 	},
 	{
 		question: "Does RewriterPro.ai create Plagiairsm-Free content?",

@@ -16,7 +16,7 @@ const features = [
 	{
 		name: "Break The SEO Charts",
 		description:
-			"SOne of the most difficult ways to stand out from the competition is to make SEO-friendly content. With ReWriterPro.ai, you will be able to generate content that can rank on Google’s first page and hence, be able to attract a lot of attention from visitors right off the bat.",
+			"One of the most difficult ways to stand out from the competition is to make SEO-friendly content. With ReWriterPro.ai, you will be able to generate content that can rank on Google’s first page and hence, be able to attract a lot of attention from visitors right off the bat.",
 		icon: PresentationChartLineIcon,
 	},
 	{
