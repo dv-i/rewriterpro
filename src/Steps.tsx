@@ -1,8 +1,8 @@
 import React from "react";
-import Image1 from "./assets/image1.jpg";
-import Image2 from "./assets/image2.jpg";
-import Image3 from "./assets/image3.jpg";
-import Image4 from "./assets/image4.jpg";
+import ImageStart from "./assets/image_start.jpg";
+import ImageOptions from "./assets/image_options.jpg";
+import ImageRewrite from "./assets/image_rewrite.jpg";
+import ImageResult from "./assets/image_result.jpg";
 
 export default function Example() {
 	return (
@@ -35,7 +35,7 @@ export default function Example() {
 							</p> */}
 							<div className="flex justify-center py-10 pr-20">
 								<img
-									src={Image1}
+									src={ImageStart}
 									alt=""
 									className="center rounded-2xl object-cover"
 								/>
@@ -55,7 +55,7 @@ export default function Example() {
 							</p>
 							<div className="flex justify-center py-10 pr-20">
 								<img
-									src={Image2}
+									src={ImageOptions}
 									alt=""
 									className="center rounded-2xl object-cover"
 								/>
@@ -74,7 +74,7 @@ export default function Example() {
 							</p>
 							<div className="flex justify-center py-10 pr-20">
 								<img
-									src={Image3}
+									src={ImageRewrite}
 									alt=""
 									className="center rounded-2xl object-cover"
 								/>
@@ -93,7 +93,7 @@ export default function Example() {
 							</p>
 							<div className="flex justify-center py-10 pr-20">
 								<img
-									src={Image4}
+									src={ImageResult}
 									alt=""
 									className="center rounded-2xl object-cover"
 								/>

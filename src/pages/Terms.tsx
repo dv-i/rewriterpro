@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 function Terms(): JSX.Element {
 	useEffect(() => {
-		document.title =
-			"Reword Generator: Rewrite Sentence with AI - RewriterPro";
+		document.title = "Terms of Service - RewriterPro.ai";
 	}, []);
 	return (
 		<div className="mx-auto max-w-5xl p-5">

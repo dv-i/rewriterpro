@@ -19,8 +19,7 @@ export default function Contact({ setToast, toast }: ContactProps) {
 	const [message, setMessage] = useState<string>();
 
 	useEffect(() => {
-		document.title =
-			"Reword Generator: Rewrite Sentence with AI - RewriterPro";
+		document.title = "Contact - RewriterPro.ai";
 	}, []);
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
