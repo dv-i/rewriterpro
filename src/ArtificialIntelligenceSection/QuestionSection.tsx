@@ -14,6 +14,7 @@ import { PromptOptions, User } from "../store/dataInterfaces";
 import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
+import api from "../../src/api/api";
 const MAX_CHARACTERS_FREE = 3000;
 const MAX_CHARACTERS_PRO = 6000;
 
@@ -46,12 +47,13 @@ export default function QuestionSection({
 		setShowLoader(true);
 		try {
 			if (aiPrompt) {
-				const response = await getResponseToAPrompt({
-					prompt: aiPrompt,
-					promptOptions: promptOptions,
-				});
-				if (response) {
-					setAiResult(response);
+				const response = await api.openAI.getResponseToAPrompt(
+					aiPrompt,
+					promptOptions
+				);
+				console.log(response);
+				if (response.response) {
+					setAiResult(response.response);
 					setCounter((prev) => prev + 1);
 				}
 			}
