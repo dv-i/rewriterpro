@@ -15,9 +15,4 @@ export const BASE_URL =
 		? "http://localhost:3000"
 		: "https://rewriterpro.ai/";
 
-export const BASE_API_URL =
-	process.env.REACT_APP_ENV === "development"
-		? "http://localhost:5001"
-		: "http://165.232.181.198";
-
-// export const BASE_API_URL = "http://165.232.181.198";
+//Add static backend IP/domain name here
