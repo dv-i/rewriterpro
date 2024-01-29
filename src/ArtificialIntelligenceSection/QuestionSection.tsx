@@ -14,6 +14,7 @@ import { PromptOptions, User } from "../store/dataInterfaces";
 import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
+import { HumanizeButton } from "../components/HumanizeButton";
 const MAX_CHARACTERS_FREE = 3000;
 const MAX_CHARACTERS_PRO = 6000;
 
@@ -42,15 +43,16 @@ export default function QuestionSection({
 	setShowLoader,
 }: QuestionSectionProps) {
 	const [isRewriteDisabled, setIsRewriteDisabled] = useState<boolean>(false);
+	const [isHumanizeEnabled, setIsHumanizeEnabled] = useState<boolean>(false);
 	const handleParaphraseClick = async () => {
 		setShowLoader(true);
 		try {
 			if (aiPrompt) {
 				const response = await getResponseToAPrompt({
 					prompt: aiPrompt,
-					promptOptions,
+					promptOptions: promptOptions,
+					isHumanizeEnabled,
 				});
-				console.log(response);
 				if (response) {
 					setAiResult(response);
 					setCounter((prev) => prev + 1);
@@ -100,7 +102,13 @@ export default function QuestionSection({
 	}, [aiPrompt, user, counter]);
 
 	useEffect(() => {
-		if (aiPrompt && window.location.pathname.includes("wp-redirect")) {
+		const alreadyRedirected = sessionStorage.getItem("wp-redirect");
+		if (
+			!alreadyRedirected &&
+			aiPrompt &&
+			window.location.pathname.includes("wp-redirect")
+		) {
+			sessionStorage.setItem("wp-redirect", "true");
 			startRewrite();
 		}
 	}, [aiPrompt]);
@@ -327,6 +335,10 @@ export default function QuestionSection({
 							<span className="tooltip-text">Delete</span>
 						</div>
 
+						<HumanizeButton
+							setIsHumanizeEnabled={setIsHumanizeEnabled}
+							isHumanizeEnabled={isHumanizeEnabled}
+						/>
 						<button
 							type="submit"
 							className={`inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
@@ -350,13 +362,72 @@ export default function QuestionSection({
 			<div className="flex items-start space-x-4  h-full">
 				<div className="min-w-0 flex-1 h-full ">
 					<div className="flex flex-col h-full">
-						<div className="overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+						<div className="flex items-center justify-center min-h-[300px] relative overflow-hidden rounded-lg shadow-sm h-full ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+							{aiPrompt.length === 0 && (
+								<div className="z-10 flex gap-4 w-fit">
+									<div
+										onClick={() => {
+											setAiPrompt("");
+											setAiResult("");
+											setAiPrompt(sentence());
+										}}
+										className="cursor-pointer bg-gray-300 flex flex-col items-center p-6 rounded-lg min-w-[150px]"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											strokeWidth={1.5}
+											stroke="currentColor"
+											className="w-6 h-6 mb-2"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+											/>
+										</svg>
+
+										<p className="text-center text-slate-500">
+											Try A Sample
+										</p>
+									</div>
+
+									<div
+										onClick={async () => {
+											setAiPrompt(
+												await navigator.clipboard.readText()
+											);
+										}}
+										className="cursor-pointer bg-gray-300 flex flex-col items-center p-6 rounded-lg min-w-[150px]"
+									>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											strokeWidth={1.5}
+											stroke="currentColor"
+											className="w-6 h-6 mb-2"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5A3.375 3.375 0 0 0 6.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0 0 15 2.25h-1.5a2.251 2.251 0 0 0-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 0 0-9-9Z"
+											/>
+										</svg>
+										<p className="text-center text-slate-500">
+											Paste text
+										</p>
+									</div>
+								</div>
+							)}
+
 							<textarea
 								style={{ height: 300 }}
 								rows={10}
 								name="comment"
 								id="comment"
-								className="hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								className="absolute hidden sm:block w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								onChange={(e) => setAiPrompt(e.target.value)}
@@ -366,7 +437,7 @@ export default function QuestionSection({
 								rows={10}
 								name="comment"
 								id="comment"
-								className="block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
+								className="absolute block sm:hidden w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 								placeholder="Start typing or paste text here..."
 								value={aiPrompt}
 								onChange={(e) => setAiPrompt(e.target.value)}

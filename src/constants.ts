@@ -15,4 +15,9 @@ export const BASE_URL =
 		? "http://localhost:3000"
 		: "https://rewriterpro.ai/";
 
+export const HUMANIZE_PROMPT = `Please rewrite the following text with varying sentence lengths and simple vocabulary. The sentences should be concise, with a low number of syllables, and maintain a human-like tone to avoid detection by AI detectors
+`;
+
+export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
+
 //Add static backend IP/domain name here
