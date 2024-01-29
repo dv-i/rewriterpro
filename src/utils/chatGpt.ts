@@ -112,7 +112,7 @@ export const getAIDetectionScore = async (
 		if (data.length === 0) {
 			return;
 		}
-		return data[0];
+		return `${Math.ceil(data[0][0]["AI"] * 100)}`;
 	} catch (error) {
 		console.error("Error fetching data:", error);
 	}
