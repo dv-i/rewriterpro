@@ -375,7 +375,7 @@ export default function QuestionSection({
 											setAiResult("");
 											setAiPrompt(sentence());
 										}}
-										className="cursor-pointer bg-gray-300 flex flex-col items-center p-6 rounded-lg min-w-[150px]"
+										className="cursor-pointer bg-[#f1f5f9] flex flex-col items-center p-4 rounded-lg min-w-[150px]"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -403,7 +403,7 @@ export default function QuestionSection({
 												await navigator.clipboard.readText()
 											);
 										}}
-										className="cursor-pointer bg-gray-300 flex flex-col items-center p-6 rounded-lg min-w-[150px]"
+										className="cursor-pointer bg-[#f1f5f9] flex flex-col items-center p-4 rounded-lg min-w-[150px]"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
