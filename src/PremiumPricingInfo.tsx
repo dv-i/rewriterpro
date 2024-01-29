@@ -5,15 +5,12 @@ import React from "react";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getAuthenticatedUser } from "./store/browser";
+import { SideBarMode } from "./store/dataInterfaces";
 
 interface PremiumPricingInfoModalProps {
 	isGetPremiumModalOpen: boolean;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 }
 
 interface PricingTier {

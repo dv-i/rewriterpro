@@ -9,7 +9,7 @@ import {
 	getAuthenticatedUser,
 	setAuthenticatedUser,
 } from "./store/browser";
-import { User } from "./store/dataInterfaces";
+import { SideBarMode, User } from "./store/dataInterfaces";
 import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { ToastProps } from "./ToastNotification";
 import { PremiumPricingInfoModal } from "./PremiumPricingInfo";
@@ -28,12 +28,10 @@ interface NavBarProps {
 	user: User | undefined;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
-	sideBarMode: "login" | "signup" | "forgot-password" | "history" | undefined;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	aiResult: string;
+	aiPrompt: string;
+	sideBarMode: SideBarMode;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	isGetPremiumModalOpen: boolean;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -48,6 +46,8 @@ export default function NavBar({
 	sideBarMode,
 	isGetPremiumModalOpen,
 	setIsGetPremiumModalOpen,
+	aiResult,
+	aiPrompt,
 }: NavBarProps) {
 	const mongo = new MongoDbClient();
 	const stripe = new StripeUtil(
@@ -391,6 +391,8 @@ export default function NavBar({
 				setUser={setUser}
 				setAiPrompt={setAiPrompt}
 				setAiResult={setAiResult}
+				aiResult={aiResult}
+				aiPrompt={aiPrompt}
 			/>
 			<PremiumPricingInfoModal
 				setIsGetPremiumModalOpen={setIsGetPremiumModalOpen}

@@ -1,5 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { QuestionAndResponse, User } from "../store/dataInterfaces";
+import {
+	QuestionAndResponse,
+	SideBarMode,
+	User,
+} from "../store/dataInterfaces";
 import {
 	getAuthenticatedUser,
 	getQuestionsAndResponses,
@@ -30,11 +34,7 @@ function formatTimestamp(timestamp: string) {
 interface HistoryProps {
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ToastProps } from "../ToastNotification";
-import { PromptOptions, User } from "../store/dataInterfaces";
+import { PromptOptions, SideBarMode, User } from "../store/dataInterfaces";
 import { setQuestionsAndResponses } from "../store/browser";
 import MongoDbClient from "../store/MongoDbClient";
 import {
@@ -22,11 +22,7 @@ export interface AIInteractorProps {
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	aiResult: string;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 }
 export default function AIInteractor({
 	setToast,

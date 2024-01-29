@@ -24,3 +24,11 @@ export interface QuestionAndResponse {
 	response: string;
 	date: Date;
 }
+
+export type SideBarMode =
+	| "login"
+	| "signup"
+	| "forgot-password"
+	| "history"
+	| "statistics"
+	| undefined;

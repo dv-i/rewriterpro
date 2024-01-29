@@ -17,7 +17,7 @@ import {
 	setAuthenticatedUser,
 } from "./store/browser";
 import { USERS_COLLECTION } from "./store/constants";
-import { User, PromptOptions } from "./store/dataInterfaces";
+import { User, PromptOptions, SideBarMode } from "./store/dataInterfaces";
 import StripeUtil from "./utils/StripeUtil";
 
 interface MainAppProps {
@@ -31,11 +31,7 @@ interface MainAppProps {
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	aiResult: string;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 }
 
 export default function MainApp({

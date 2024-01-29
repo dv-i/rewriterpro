@@ -2,23 +2,22 @@ import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ToastProps } from "../ToastNotification";
-import { User } from "../store/dataInterfaces";
+import { SideBarMode, User } from "../store/dataInterfaces";
 import ForgotPassword from "./ForgotPassword";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import History from "./History";
+import Statistics from "./Statistics";
 
 export interface SideBarProps {
-	sideBarMode: "login" | "signup" | "forgot-password" | "history" | undefined;
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	sideBarMode: SideBarMode;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
 	setAiResult: React.Dispatch<React.SetStateAction<string>>;
+	aiResult: string;
+	aiPrompt: string;
 	setIsGetPremiumModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -29,6 +28,8 @@ export default function SideBar({
 	setUser,
 	setAiPrompt,
 	setAiResult,
+	aiResult,
+	aiPrompt,
 	setIsGetPremiumModalOpen,
 }: SideBarProps) {
 	return (
@@ -129,6 +130,16 @@ export default function SideBar({
 													}
 												/>
 											)}
+
+											{sideBarMode === "statistics" && (
+												<Statistics
+													setSideBarMode={
+														setSideBarMode
+													}
+													aiResult={aiResult}
+													aiPrompt={aiPrompt}
+												/>
+											)}
 										</div>
 									</div>
 								</Dialog.Panel>
@@ -142,11 +153,7 @@ export default function SideBar({
 }
 
 export interface LogInAndSignUpProps {
-	setSideBarMode: React.Dispatch<
-		React.SetStateAction<
-			"login" | "signup" | "forgot-password" | "history" | undefined
-		>
-	>;
+	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
 }

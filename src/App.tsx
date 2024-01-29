@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import "./assets/index.css";
 import { ToastProps } from "./ToastNotification";
-import { User } from "./store/dataInterfaces";
+import { SideBarMode, User } from "./store/dataInterfaces";
 import Footer from "./Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
@@ -17,9 +17,7 @@ export default function App(): JSX.Element {
 	const [showProfileLoader, setShowProfileLoader] = useState<boolean>(false);
 	const [aiPrompt, setAiPrompt] = useState<string>("");
 	const [aiResult, setAiResult] = useState<string>("");
-	const [sideBarMode, setSideBarMode] = useState<
-		"login" | "signup" | "forgot-password" | "history" | undefined
-	>();
+	const [sideBarMode, setSideBarMode] = useState<SideBarMode>();
 	const [isGetPremiumModalOpen, setIsGetPremiumModalOpen] = useState(false);
 	return (
 		<>
@@ -31,6 +29,8 @@ export default function App(): JSX.Element {
 					user={user}
 					setAiPrompt={setAiPrompt}
 					setAiResult={setAiResult}
+					aiResult={aiResult}
+					aiPrompt={aiPrompt}
 					setSideBarMode={setSideBarMode}
 					sideBarMode={sideBarMode}
 					isGetPremiumModalOpen={isGetPremiumModalOpen}
