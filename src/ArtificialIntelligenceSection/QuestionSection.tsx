@@ -211,6 +211,10 @@ export default function QuestionSection({
 						</button>
 					</div>
 					<div className="flex-shrink-0 gap-2 flex w-full flex-row mt-3">
+						<HumanizeButton
+							setIsHumanizeEnabled={setIsHumanizeEnabled}
+							isHumanizeEnabled={isHumanizeEnabled}
+						/>
 						<button
 							type="submit"
 							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
