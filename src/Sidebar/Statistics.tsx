@@ -1,18 +1,10 @@
 import React from "react";
-import { SideBarMode } from "../store/dataInterfaces";
-import { Loader } from "../Loader";
-
 interface StatisticsProps {
-	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	aiResult: string;
 	aiPrompt: string;
 }
 
-export default function Statistics({
-	setSideBarMode,
-	aiResult,
-	aiPrompt,
-}: StatisticsProps) {
+export default function Statistics({ aiResult, aiPrompt }: StatisticsProps) {
 	function calculateAverages(text: string): {
 		averageWords: string;
 		averageSyllables: string;

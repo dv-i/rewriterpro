@@ -7,7 +7,6 @@ import { signUp, login } from "../api";
 import {
 	removeQuestionsAndResponses,
 	setAuthenticatedUser,
-	setQuestionsAndResponses,
 } from "../store/browser";
 import logo from "../../src/assets/logo.png";
 

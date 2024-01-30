@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ToastProps } from "../ToastNotification";
@@ -133,9 +133,6 @@ export default function SideBar({
 
 											{sideBarMode === "statistics" && (
 												<Statistics
-													setSideBarMode={
-														setSideBarMode
-													}
 													aiResult={aiResult}
 													aiPrompt={aiPrompt}
 												/>

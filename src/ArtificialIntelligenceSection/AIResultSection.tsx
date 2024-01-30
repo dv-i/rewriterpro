@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
 	ArrowDownTrayIcon,
 	ChatBubbleBottomCenterTextIcon,
@@ -8,7 +8,7 @@ import { ToastProps } from "../ToastNotification";
 import { getRandomQuote } from "../utils/general";
 import loadingIcon from "../../src/assets/loading.gif";
 import "../../src/assets/tooltip.css";
-import { getAIDetectionScore } from "../utils/chatGpt";
+// import { getAIDetectionScore } from "../utils/chatGpt";
 import { SideBarMode } from "../store/dataInterfaces";
 
 interface AIResultsSectionProps {
@@ -24,7 +24,7 @@ export default function AIResultsSection({
 	showLoader,
 	setSideBarMode,
 }: AIResultsSectionProps) {
-	const [aiDetectionScore, setAiDetectionScore] = useState("");
+	// const [aiDetectionScore, setAiDetectionScore] = useState("");
 	// useEffect(() => {
 	// 	if (aiResult) {
 	// 		getAIDetectionScore(aiResult).then((res) => {
