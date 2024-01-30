@@ -9,7 +9,6 @@ import { User } from "./store/dataInterfaces";
 import { classNames } from "./utils/general";
 import StripeUtil from "./utils/StripeUtil";
 import { Loader } from "./Loader";
-const mongo = new MongoDbClient();
 interface UserProfileModalProps {
 	isUserProfileModalOpen: boolean;
 	setIsUserProfileModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -162,7 +161,7 @@ function UserProfileModal({
 		if (subscription && subscription.status === "active") {
 			stripe
 				.cancelSubscription(subscription.id)
-				.then(async (res) => {
+				.then(async () => {
 					setToast({
 						visible: true,
 						title: "Succesfully Cancelled",

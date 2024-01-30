@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavBar from "./NavBar";
 import "./assets/index.css";
 import { ToastProps } from "./ToastNotification";
@@ -42,7 +42,6 @@ export default function App(): JSX.Element {
 						index
 						element={
 							<MainApp
-								showProfileLoader={showProfileLoader}
 								user={user}
 								setUser={setUser}
 								toast={toast}
@@ -60,7 +59,6 @@ export default function App(): JSX.Element {
 						path="/reset-password/*"
 						element={
 							<MainApp
-								showProfileLoader={showProfileLoader}
 								user={user}
 								setUser={setUser}
 								toast={toast}
@@ -78,7 +76,6 @@ export default function App(): JSX.Element {
 						path="/wp-redirect/*"
 						element={
 							<MainApp
-								showProfileLoader={showProfileLoader}
 								user={user}
 								setUser={setUser}
 								toast={toast}

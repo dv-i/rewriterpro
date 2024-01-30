@@ -25,7 +25,6 @@ interface MainAppProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	user: User | undefined;
 	setUser: React.Dispatch<React.SetStateAction<User | undefined>>;
-	showProfileLoader: boolean;
 	setShowProfileLoader: React.Dispatch<React.SetStateAction<boolean>>;
 	aiPrompt: string;
 	setAiPrompt: React.Dispatch<React.SetStateAction<string>>;
@@ -35,7 +34,6 @@ interface MainAppProps {
 }
 
 export default function MainApp({
-	showProfileLoader,
 	user,
 	setToast,
 	setUser,

@@ -61,16 +61,6 @@ export default function NavBar({
 		[]
 	);
 
-	const navigation = [
-		{
-			name: "History",
-			onClick: () => {
-				setSideBarMode("history");
-			},
-			current: false,
-		},
-	];
-
 	const userNavigation = [
 		{
 			name: "Your Profile",
@@ -118,7 +108,7 @@ export default function NavBar({
 			const activeSubscriptions = subscriptions.filter(
 				(sub) => sub.status === "active"
 			);
-			const updatedUser = await mongo.updateOne(
+			await mongo.updateOne(
 				USERS_COLLECTION,
 				{
 					email: authedUser.email,
@@ -157,7 +147,7 @@ export default function NavBar({
 							},
 						}
 					)
-					.then(async (res) => {
+					.then(async () => {
 						const newUser = await mongo.findOne(USERS_COLLECTION, {
 							email: authedUser.email,
 						});
@@ -170,7 +160,7 @@ export default function NavBar({
 						setUser(undefined);
 						window.location.pathname = "/";
 					})
-					.catch((err) => {
+					.catch(() => {
 						//Error
 					});
 			}

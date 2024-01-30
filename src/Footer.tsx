@@ -13,10 +13,10 @@ export default function Footer() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [modalContent, setModalContent] = useState("");
 
-	const openModal = (content: string) => {
-		setModalContent(content);
-		setIsModalOpen(true);
-	};
+	// const openModal = (content: string) => {
+	// 	setModalContent(content);
+	// 	setIsModalOpen(true);
+	// };
 
 	const closeModal = () => {
 		setIsModalOpen(false);
