@@ -11,7 +11,6 @@ import { Loader } from "../Loader";
 import { ToastProps } from "../ToastNotification";
 import { MAX_TRIES } from "../store/constants";
 import { PromptOptions, User } from "../store/dataInterfaces";
-import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
 import { HumanizeButton } from "../components/HumanizeButton";
