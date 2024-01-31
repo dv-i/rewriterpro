@@ -20,4 +20,7 @@ export const HUMANIZE_PROMPT = `Please rewrite the following text with varying s
 
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
 
-//Add static backend IP/domain name here
+export const BASE_API_URL =
+	process.env.REACT_APP_ENV === "development"
+		? "http://localhost:5001"
+		: "https://rewriterpro-backend.azurewebsites.net";

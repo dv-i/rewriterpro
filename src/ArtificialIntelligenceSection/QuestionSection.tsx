@@ -15,6 +15,7 @@ import { getResponseToAPrompt } from "../utils/chatGpt";
 import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
 import { HumanizeButton } from "../components/HumanizeButton";
+import api from "../api/api";
 const MAX_CHARACTERS_FREE = 3000;
 const MAX_CHARACTERS_PRO = 6000;
 
@@ -48,13 +49,13 @@ export default function QuestionSection({
 		setShowLoader(true);
 		try {
 			if (aiPrompt) {
-				const response = await getResponseToAPrompt({
-					prompt: aiPrompt,
-					promptOptions: promptOptions,
-					isHumanizeEnabled,
-				});
-				if (response) {
-					setAiResult(response);
+				const response = await api.ai.getResponseToAPrompt(
+					aiPrompt,
+					promptOptions,
+					isHumanizeEnabled
+				);
+				if (response.response) {
+					setAiResult(response.response);
 					setCounter((prev) => prev + 1);
 				}
 			}
