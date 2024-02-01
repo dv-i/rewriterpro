@@ -10,6 +10,7 @@ import loadingIcon from "../../src/assets/loading.gif";
 import "../../src/assets/tooltip.css";
 import { SideBarMode } from "../store/dataInterfaces";
 import api from "../api/api";
+import { Loader } from "../Loader";
 
 interface AIResultsSectionProps {
 	aiResult: string;
@@ -138,11 +139,17 @@ export default function AIResultsSection({
 
 					<div className="flex-shrink-0 py-2 tooltip-container mr-2">
 						{aiDetectionScore && !showLoader ? (
-							<div className="font-light text-md text-gray-400">
+							<div
+								className={`${
+									parseInt(aiDetectionScore) < 50
+										? "text-green-500 "
+										: "text-red-500 "
+								}font-light text-md text-gray-400`}
+							>
 								{aiDetectionScore}%
 							</div>
 						) : (
-							"..."
+							<Loader visible={showLoader} />
 						)}
 						<span className="tooltip-text">
 							There is a {aiDetectionScore}% chance that this text

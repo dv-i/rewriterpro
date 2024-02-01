@@ -15,6 +15,7 @@ import { sentence } from "txtgen";
 import "../../src/assets/tooltip.css";
 import { HumanizeButton } from "../components/HumanizeButton";
 import api from "../api/api";
+import star from "../assets/star.png";
 const MAX_CHARACTERS_FREE = 3000;
 const MAX_CHARACTERS_PRO = 6000;
 
@@ -225,6 +226,10 @@ export default function QuestionSection({
 							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
 						>
+							<img
+								style={{ height: "21px", marginRight: "5px" }}
+								src={star}
+							/>
 							Rewrite
 							<Loader visible={showLoader} />
 						</button>
@@ -353,6 +358,10 @@ export default function QuestionSection({
 							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
 						>
+							<img
+								style={{ height: "21px", marginRight: "5px" }}
+								src={star}
+							/>
 							Rewrite
 							<Loader visible={showLoader} />
 						</button>

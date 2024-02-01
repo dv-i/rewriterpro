@@ -1,4 +1,4 @@
-#checkbox {
+/* #checkbox {
     display: none;
   }
   
@@ -25,5 +25,75 @@
   #checkbox:checked + .switch {
     background-color: rgb(174, 0, 255);
     box-shadow: 0px 0px 40px rgba(174, 0, 255, 0.438);
+  }
+   */
+
+   .switch-holder {
+    display: flex;
+    padding: 2px 3px;
+    border-radius: 20px;
+    box-shadow: -4px -4px 7px rgba(255, 255, 255, 0.7),
+      10px 10px 10px rgba(0, 0, 0, 0.2),
+      inset 8px 8px 15px rgba(255, 255, 255, 0.7),
+      inset 10px 10px 10px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .switch-label {
+    padding: 0 5px 0 3px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .switch-label i {
+    margin-right: 5px;
+  }
+  
+  .switch-toggle {
+    height: 40px;
+  }
+  
+  .switch-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -2;
+  }
+  
+  .switch-toggle input[type="checkbox"] + label {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0;
+    cursor: pointer;
+    box-shadow: inset -8px -8px 15px rgba(255, 255, 255, 0.6),
+      inset 10px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+  
+  .switch-toggle input[type="checkbox"] + label::before {
+    position: absolute;
+    content: "OFF";
+    font-size: 11px;
+    text-align: center;
+    line-height: 25px;
+    top: 8px;
+    left: 8px;
+    width: 45px;
+    height: 25px;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.5),
+      3px 3px 5px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease-in-out;
+  }
+  
+  .switch-toggle input[type="checkbox"]:checked + label::before {
+    left: 50%;
+    content: "ON";
+    color: #fff;
+    background-color: #00b33c;
+    box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.5), 3px 3px 5px #00b33c;
   }
   
