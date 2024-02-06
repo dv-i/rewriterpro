@@ -7,6 +7,7 @@ export interface User {
 	passwordResetCode?: string;
 	subscriptionPeriodEndDateEpochSeconds?: number;
 	_id?: string;
+	totalCost?: number;
 }
 
 export interface PromptOptions {

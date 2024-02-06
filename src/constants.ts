@@ -24,3 +24,5 @@ export const BASE_API_URL =
 	process.env.REACT_APP_ENV === "development"
 		? "http://localhost:5001"
 		: "https://rewriterpro-backend.azurewebsites.net";
+export const PER_TOKEN_PRICE_INPUT = 0.0000005;
+export const PER_TOKEN_PRICE_OUTPUT = 0.0000015;
