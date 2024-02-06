@@ -107,7 +107,7 @@ export default function AIResultsSection({
 						</div>
 					</div>
 				</div>
-				<div className="flex align-center">
+				<div className="flex items-center">
 					{aiResult && (
 						<div className="flex-shrink-0 py-2 tooltip-container">
 							<button

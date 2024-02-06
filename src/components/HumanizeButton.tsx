@@ -12,7 +12,7 @@ export const HumanizeButton = ({
 	};
 
 	return (
-		<div className="flex align-center">
+		<div className="flex items-center">
 			Humanize:
 			<label htmlFor="toggle" className="button">
 				<input
