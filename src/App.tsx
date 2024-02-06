@@ -39,7 +39,7 @@ export default function App(): JSX.Element {
 					})
 					.then((res) => {
 						if (res) {
-							let updatedCost = res.totalCost
+							const updatedCost = res.totalCost
 								? res.totalCost + totalCost
 								: totalCost;
 							mongo
