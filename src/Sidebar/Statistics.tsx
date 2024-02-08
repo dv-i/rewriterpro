@@ -108,70 +108,92 @@ export default function Statistics({ aiResult, aiPrompt }: StatisticsProps) {
 	return (
 		<div className="flex min-h-full flex-1 flex-col justify-start px-2 lg:px-4">
 			<div className="sm:mx-auto flex-2 sm:w-full sm:max-w-sm">
-				<h2 className="mt-0 pt-0 text-center text-2xl font-extrabold leading-9 tracking-tight text-gray-900">
+				<h2 className="mt-0 pt-0 text-center text-4xl font-extrabold leading-9 tracking-tight text-gray-900">
 					Statistics
 				</h2>
 			</div>
 			<div className="flex-1 flex h-full flex-col text-gray-600">
-				<h2 className="mt-0 pt-0  text-xl font-regular leading-9 tracking-tight text-gray-900">
+				<h2 className="mt-0 pt-0  text-3xl font-bold leading-9 tracking-tight text-gray-900">
 					Fluency
 				</h2>
-				<p>
-					Average words in a sentence - from{" "}
-					<span className="text-green-600">
-						{calculateAverages(aiPrompt).averageWords}
-					</span>{" "}
-					to{" "}
-					<span className="text-green-600">
+				<p className="text-center font-bold text-xl">
+					Average Words in a Sentence: <br />{" "}
+					<span>{calculateAverages(aiPrompt).averageWords}</span> →{" "}
+					<span
+						className={`${
+							calculateAverages(aiResult).averageWords >=
+							calculateAverages(aiPrompt).averageWords
+								? "text-green-600"
+								: "text-red-600"
+						}`}
+					>
 						{calculateAverages(aiResult).averageWords}
 					</span>
 				</p>
-				<p>
-					Average syllables per word - from{" "}
-					<span className="text-green-600">
-						{calculateAverages(aiPrompt).averageSyllables}
-					</span>{" "}
-					to{" "}
-					<span className="text-green-600">
+				<p className="text-center font-bold text-xl">
+					Average Syllables Per Word: <br />{" "}
+					<span>{calculateAverages(aiPrompt).averageSyllables}</span>{" "}
+					→{" "}
+					<span
+						className={`${
+							calculateAverages(aiResult).averageSyllables >=
+							calculateAverages(aiPrompt).averageSyllables
+								? "text-green-600"
+								: "text-red-600"
+						}`}
+					>
 						{calculateAverages(aiResult).averageSyllables}
 					</span>
 				</p>
+
 				<div className="w-50 h-1 mt-12 mb-12 bg-gray-300"></div>
-				<h2 className="mt-0 pt-0  text-xl font-regular leading-9 tracking-tight text-gray-900">
+				<h2 className="mt-0 pt-0 text-3xl font-bold leading-9 tracking-tight text-gray-900">
 					Difference
 				</h2>
-				<p>
-					Sentence count - from{" "}
-					<span className="text-green-600">
-						{analyzeText(aiPrompt).sentenceCount}
-					</span>{" "}
-					to{" "}
-					<span className="text-green-600">
+				<p className="text-center font-bold text-xl">
+					Sentence Count: <br />{" "}
+					<span>{analyzeText(aiPrompt).sentenceCount}</span> →{" "}
+					<span
+						className={`${
+							analyzeText(aiResult).sentenceCount >=
+							analyzeText(aiPrompt).sentenceCount
+								? "text-green-600"
+								: "text-red-600"
+						}`}
+					>
 						{analyzeText(aiResult).sentenceCount}
 					</span>
 				</p>
-				<p>
-					Word count - from{" "}
-					<span className="text-green-600">
-						{analyzeText(aiPrompt).wordCount}
-					</span>{" "}
-					to{" "}
-					<span className="text-green-600">
+				<p className="text-center font-bold text-xl">
+					Word Count: <br />{" "}
+					<span>{analyzeText(aiPrompt).wordCount}</span> →{" "}
+					<span
+						className={`${
+							analyzeText(aiResult).wordCount >=
+							analyzeText(aiPrompt).wordCount
+								? "text-green-600"
+								: "text-red-600"
+						}`}
+					>
 						{analyzeText(aiResult).wordCount}
 					</span>
 				</p>
-				<p>
-					Character count - from{" "}
-					<span className="text-green-600">
-						{analyzeText(aiPrompt).characterCount}
-					</span>{" "}
-					to{" "}
-					<span className="text-green-600">
+				<p className="text-center font-bold text-xl">
+					Character Count: <br />{" "}
+					<span>{analyzeText(aiPrompt).characterCount}</span> →{" "}
+					<span
+						className={`${
+							analyzeText(aiResult).characterCount >=
+							analyzeText(aiPrompt).characterCount
+								? "text-green-600"
+								: "text-red-600"
+						}`}
+					>
 						{analyzeText(aiResult).characterCount}
 					</span>
 				</p>
-				<p>
-					Percentage change -{" "}
+				<p className="text-center font-bold text-xl">
+					Percentage Change: <br />{" "}
 					<span className="text-green-600">
 						{calculateTextChangePercentage(aiPrompt, aiResult)}
 					</span>

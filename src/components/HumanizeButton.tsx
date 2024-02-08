@@ -13,7 +13,7 @@ export const HumanizeButton = ({
 
 	return (
 		<div className="flex items-center">
-			Humanize:
+			Humanizer:
 			<label htmlFor="toggle" className="button">
 				<input
 					checked={isHumanizeEnabled}

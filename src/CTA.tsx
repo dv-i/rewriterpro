@@ -5,7 +5,7 @@ export default function CTA() {
 			<div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-[2.8rem] leading-[2.8rem] font-bold tracking-tight text-white text-center">
-						Experience the power of <br /> AI Rewriting with
+						Experience the Power of <br /> AI Rewriting with
 						<span className="text-indigo-600">RewriterPro.ai</span>
 					</h2>
 					<p className="pt-10 mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
@@ -39,7 +39,7 @@ export function CTAv2() {
 			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
 				<div className="mx-auto max-w-3xl text-center">
 					<h2 className="text-[2.8rem] leading-[2.8rem] font-bold tracking-tight text-indigo-200 text-center">
-						Experience the power of <br /> AI Rewriting with
+						Experience the Power of <br /> AI Rewriting with
 						<span className="text-white"> RewriterPro.ai</span>
 					</h2>
 					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
