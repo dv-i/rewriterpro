@@ -139,13 +139,13 @@ export default function AIResultsSection({
 
 					<div className="flex-shrink-0 py-2 tooltip-container mr-2">
 						{aiDetectionScore && !showLoader ? (
-							<div className="border border-black border-solid bg-[#f1f5f9] p-1 rounded-full">
+							<div>
 								<div
 									className={`${
 										parseInt(aiDetectionScore) < 50
 											? "text-green-500 "
 											: "text-red-500 "
-									}font-light text-sm text-gray-400`}
+									}font-light text-lg mb-1 text-gray-400`}
 								>
 									{aiDetectionScore}%
 								</div>
