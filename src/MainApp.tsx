@@ -85,6 +85,11 @@ export default function MainApp({
 								pro: true,
 								subscriptionPeriodEndDateEpochSeconds:
 									activeSubscriptions[0].current_period_end,
+								subscriptionPeriodStartDateEpochSeconds:
+									activeSubscriptions[0].created,
+								interval:
+									activeSubscriptions[0].items.data[0].price
+										.recurring?.interval,
 							},
 						}
 					);

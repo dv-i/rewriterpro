@@ -8,6 +8,10 @@ export interface User {
 	subscriptionPeriodEndDateEpochSeconds?: number;
 	_id?: string;
 	totalCost?: number;
+	subscriptionPeriodStartDateEpochSeconds?: number;
+	totalQueries?: number;
+	interval?: string;
+	admin?: boolean;
 }
 
 export interface PromptOptions {

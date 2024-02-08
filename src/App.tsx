@@ -42,6 +42,9 @@ export default function App(): JSX.Element {
 							const updatedCost = res.totalCost
 								? res.totalCost + totalCost
 								: totalCost;
+							const updatedQueries = res.totalQueries
+								? res.totalQueries + 1
+								: 1;
 							mongo
 								.updateOne(
 									USERS_COLLECTION,
@@ -51,6 +54,7 @@ export default function App(): JSX.Element {
 									{
 										$set: {
 											totalCost: updatedCost,
+											totalQueries: updatedQueries,
 										},
 									}
 								)
