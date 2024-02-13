@@ -11,7 +11,7 @@ export default function CTA() {
 					<p className="pt-10 mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
 						ReWriter Pro integrates cutting-edge artificial
 						technology to create far superior, error-free, and
-						easy-to-read content in far less time.
+						human-like content in far less time.
 					</p>
 					{/* <div className="mt-10 flex items-center justify-center gap-x-6">
 						<a
@@ -45,7 +45,7 @@ export function CTAv2() {
 					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
 						RewriterPro.ai integrates cutting-edge artificial
 						intelligence technology to create far superior,
-						error-free, and easy-to-read content in far less time.
+						error-free, and human-like content in far less time.
 					</p>
 				</div>
 			</div>

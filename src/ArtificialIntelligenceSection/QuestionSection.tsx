@@ -16,6 +16,7 @@ import "../../src/assets/tooltip.css";
 import { HumanizeButton } from "../components/HumanizeButton";
 import api from "../api/api";
 import star from "../assets/star.png";
+import { getRandomSentence } from "../utils/general";
 const MAX_CHARACTERS_FREE = 3000;
 const MAX_CHARACTERS_PRO = 6000;
 
@@ -163,7 +164,7 @@ export default function QuestionSection({
 								onClick={() => {
 									setAiPrompt("");
 									setAiResult("");
-									setAiPrompt(sentence());
+									setAiPrompt(getRandomSentence());
 								}}
 							>
 								<ArrowPathIcon
@@ -288,7 +289,7 @@ export default function QuestionSection({
 									onClick={() => {
 										setAiPrompt("");
 										setAiResult("");
-										setAiPrompt(sentence());
+										setAiPrompt(getRandomSentence());
 									}}
 								>
 									<ArrowPathIcon
@@ -382,7 +383,7 @@ export default function QuestionSection({
 										onClick={() => {
 											setAiPrompt("");
 											setAiResult("");
-											setAiPrompt(sentence());
+											setAiPrompt(getRandomSentence());
 										}}
 										className="cursor-pointer bg-[#f1f5f9] flex flex-col items-center p-4 rounded-lg min-w-[150px]"
 									>
