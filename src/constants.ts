@@ -15,7 +15,7 @@ export const BASE_URL =
 		? "http://localhost:3000"
 		: "https://rewriterpro.ai/";
 
-export const HUMANIZE_PROMPT = `Please rewrite the following text with varying sentence lengths and simple vocabulary. The sentences should be concise, with a low number of syllables, and maintain a human-like tone to avoid detection by AI detectors
+export const HUMANIZE_PROMPT = `Rewrite the following text. Follow these rules: use short words and low amount of syllables, change words with simpler words, use varied sentence lengths. Use 100 most common words in the English language when possible. Keep the word count the same.
 `;
 
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
