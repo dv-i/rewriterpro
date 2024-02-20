@@ -37,15 +37,20 @@ export function CTAv2() {
 	return (
 		<div className="bg-indigo-600">
 			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
-				<div className="mx-auto max-w-3xl text-center">
+				<div className="mx-auto max-w-4xl text-center mt-5">
 					<h2 className="text-[2.8rem] leading-[2.8rem] font-bold tracking-tight text-indigo-200 text-center">
-						Experience the Power of <br /> AI Rewriting with
-						<span className="text-white"> RewriterPro.ai</span>
+						<span className="text-white">
+							Rewrite AI Text to{" "}
+							<span className="yellowtxt">
+								Sound Unmistakably Human
+							</span>{" "}
+							and Bypass AI Detection
+						</span>
 					</h2>
-					<p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
-						RewriterPro.ai integrates cutting-edge artificial
-						intelligence technology to create far superior,
-						error-free, and human-like content in far less time.
+					<p className="mx-auto mt-6 max-w-2xl text-lg leading-6 text-indigo-200 pb-5">
+						Remove AI content and bypass AI detectors. The AI text
+						humanizer improves AI-written content to match the
+						quality of human writing. Zero plagiarism!
 					</p>
 				</div>
 			</div>

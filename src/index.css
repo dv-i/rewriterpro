@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.blacktext{
+    color:#23222D!important;
+}
+
+.bg-gray-100{
+    background: #DBE9EE!important;
+}
+.maintext{
+    color:#18145F!important;
+}
+.bg-blue-50{
+background: #1D1955;
+}
+.bg-blue-50 p{
+    color:#abaabd;
+    font-size:14px;
+}
+.bg-blue-50 button{
+    color:#c7c6d4;
+}
+.bg-blue-50 svg path{
+    fill:#cb4238;
+}
+
+.yellowtxt{
+    color:#F8C425!important;
+}

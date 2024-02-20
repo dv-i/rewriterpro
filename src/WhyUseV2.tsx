@@ -7,12 +7,14 @@ import SaveHoursImage from "./assets/save-hours.png";
 import CreativityImage from "./assets/creatitivity.png";
 import PlagiarismImage from "./assets/plagiarism.png";
 import SimplifyImage from "./assets/simplify.png";
+import EditorImg1 from "./assets/editor1.png";
+import "./index.css"; // Import the CSS file
 
 const features1 = [
 	{
-		name: "Create Breathtaking Content.",
+		name: "AI Rewriter that Turns Your AI Text to Undetectable",
 		description:
-			"The use of words matters the most throughout the internet, so it's crucial that you stand out from the competition and generate unmatchable and amazing content right off the bat.\nIn a world where generic content is everywhere, ReWriter AI helps you in generating that unique content by adding a spectacular touch that drastically improves the quality of content.",
+			"You’ll find many AI detection removers out there, but most of them create even more complicated and hard-to-read text that fails to pass AI detection. You don’t have to worry about this with RewriterPro. Our AI Rewriter uses advanced AI technology and natural language processing to transform your AI text into more authentic and strong text in just one click. This helps you bypass AI detectors. ",
 	},
 	{
 		name: "Save Countless Hours.",
@@ -48,24 +50,18 @@ const features1 = [
 
 export default function Example() {
 	return (
-		<div className="overflow-hidden bg-gray-100 py-16 lg:py-24">
+		<div className="overflow-hidden bg-gray-100 lg:pb-16">
 			<div className="relative mx-auto max-w-xl px-6 lg:max-w-7xl lg:px-8">
-				<div className="relative">
-					<h2 className="mx-auto mt-100 text-center text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-						Why use RewriterPro.ai?
-					</h2>
-				</div>
-
 				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
 					<div className="relative">
 						<dl className="mt-10 space-y-10">
 							<div key={features1[0].name} className="relative">
 								<dt>
-									<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
+									<p className="text-3xl font-bold lg:ml-16 leading-8 text-gray-900 mb-6">
 										{features1[0].name}
 									</p>
 								</dt>
-								<dd className="lg:ml-16 mt-2 text-base text-gray-500">
+								<dd className="lg:ml-16 mt-2 text-base text-gray-500 blacktext">
 									{features1[0].description}
 								</dd>
 							</div>
@@ -73,193 +69,13 @@ export default function Example() {
 					</div>
 
 					<div
-						className="relative -mx-4 mt-10 lg:mt-0"
+						className="relative -mx-0 mt-10 lg:mt-0"
 						aria-hidden="true"
 					>
 						<img
 							className="relative mx-auto"
-							width={300}
-							src={CreateContentImage}
-							alt=""
-						/>
-					</div>
-				</div>
-
-				<div className="relative mt-12 sm:mt-16 lg:mt-6">
-					<div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
-						<div className="lg:col-start-2">
-							<dl className="mt-10 space-y-10">
-								<div
-									key={features1[1].name}
-									className="relative"
-								>
-									<dt>
-										<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-											{features1[1].name}
-										</p>
-									</dt>
-									<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-										{features1[1].description}
-									</dd>
-								</div>
-							</dl>
-						</div>
-
-						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
-							<img
-								className="relative mx-auto"
-								width={300}
-								src={SaveHoursImage}
-								alt=""
-							/>
-						</div>
-					</div>
-				</div>
-
-				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
-					<div className="relative">
-						<dl className="mt-10 space-y-10">
-							<div key={features1[2].name} className="relative">
-								<dt>
-									<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-										{features1[2].name}
-									</p>
-								</dt>
-								<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-									{features1[2].description}
-								</dd>
-							</div>
-						</dl>
-					</div>
-
-					<div
-						className="relative -mx-4 mt-10 lg:mt-0"
-						aria-hidden="true"
-					>
-						<img
-							className="relative mx-auto"
-							width={400}
-							src={MoneyImage}
-							alt=""
-						/>
-					</div>
-				</div>
-
-				<div className="relative mt-12 sm:mt-16 lg:mt-6">
-					<div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
-						<div className="lg:col-start-2">
-							<dl className="mt-10 space-y-10">
-								<div
-									key={features1[3].name}
-									className="relative"
-								>
-									<dt>
-										<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-											{features1[3].name}
-										</p>
-									</dt>
-									<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-										{features1[3].description}
-									</dd>
-								</div>
-							</dl>
-						</div>
-
-						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
-							<img
-								className="relative mx-auto"
-								width={400}
-								src={EnhanceProductvityImage}
-								alt=""
-							/>
-						</div>
-					</div>
-				</div>
-
-				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
-					<div className="relative">
-						<dl className="mt-10 space-y-10">
-							<div key={features1[4].name} className="relative">
-								<dt>
-									<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-										{features1[4].name}
-									</p>
-								</dt>
-								<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-									{features1[4].description}
-								</dd>
-							</div>
-						</dl>
-					</div>
-
-					<div
-						className="relative -mx-4 mt-10 lg:mt-0"
-						aria-hidden="true"
-					>
-						<img
-							className="relative mx-auto"
-							width={400}
-							src={CreativityImage}
-							alt=""
-						/>
-					</div>
-				</div>
-
-				<div className="relative mt-12 sm:mt-16 lg:mt-6">
-					<div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:items-center lg:gap-8">
-						<div className="lg:col-start-2">
-							<dl className="mt-10 space-y-10">
-								<div
-									key={features1[5].name}
-									className="relative"
-								>
-									<dt>
-										<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-											{features1[5].name}
-										</p>
-									</dt>
-									<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-										{features1[5].description}
-									</dd>
-								</div>
-							</dl>
-						</div>
-
-						<div className="relative -mx-4 mt-10 lg:col-start-1 lg:mt-0">
-							<img
-								className="relative mx-auto"
-								width={400}
-								src={PlagiarismImage}
-								alt=""
-							/>
-						</div>
-					</div>
-				</div>
-
-				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
-					<div className="relative">
-						<dl className="mt-10 space-y-10">
-							<div key={features1[6].name} className="relative">
-								<dt>
-									<p className="lg:ml-16 text-lg font-medium leading-6 text-gray-900">
-										{features1[6].name}
-									</p>
-								</dt>
-								<dd className="lg:ml-16 mt-2 text-base text-gray-500">
-									{features1[6].description}
-								</dd>
-							</div>
-						</dl>
-					</div>
-
-					<div
-						className="relative -mx-4 mt-10 lg:mt-0"
-						aria-hidden="true"
-					>
-						<img
-							className="relative mx-auto"
-							width={400}
-							src={SimplifyImage}
+							width={450}
+							src={EditorImg1}
 							alt=""
 						/>
 					</div>
