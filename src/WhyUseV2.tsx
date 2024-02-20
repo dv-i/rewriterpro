@@ -8,6 +8,9 @@ import CreativityImage from "./assets/creatitivity.png";
 import PlagiarismImage from "./assets/plagiarism.png";
 import SimplifyImage from "./assets/simplify.png";
 import EditorImg1 from "./assets/editor1.png";
+import EditorImg2 from "./assets/editorImg2.png";
+import AIicon from "./assets/aiIcon.png";
+import Checkicon from "./assets/checkIcon.png";
 import "./index.css"; // Import the CSS file
 
 const features1 = [
@@ -76,6 +79,32 @@ export default function Example() {
 							className="relative mx-auto"
 							width={450}
 							src={EditorImg1}
+							alt=""
+						/>
+					</div>
+				</div>
+				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols- lg:items-center lg:gap-8">
+					<div className="cus_IconsGrid">
+						<div className="item">
+							<img src={AIicon} alt="" width={40} />
+							<h3>Before Rewriting with RewriterPro</h3>
+							<h5>100% AI-Generated </h5>
+						</div>
+						<div className="item">
+							<img src={Checkicon} alt="" width={40} />
+							<h3>After Rewriting with RewriterPro</h3>
+							<h5>Passes as Human Written</h5>
+						</div>
+					</div>
+				</div>
+				<div className="relative mt-12 lg:mt-6 lg:grid lg:grid-cols-1 lg:items-center lg:gap-8 editorfullimg">
+					<div
+						className="relative -mx-0 mt-10 lg:mt-0"
+						aria-hidden="true"
+					>
+						<img
+							className="relative mx-auto"
+							src={EditorImg2}
 							alt=""
 						/>
 					</div>

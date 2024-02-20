@@ -28,5 +28,42 @@ background: #1D1955;
 }
 
 .yellowtxt{
+    /* color:#F8C425!important; */
     color:#61E8E1!important;
+}
+.editorfullimg{
+    max-width:950px!important;
+    margin:auto;
+}
+
+.cus_IconsGrid{
+    max-width: 750px;
+    margin:auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+  padding-top: 50px;
+  padding-bottom: 10px;
+}
+.cus_IconsGrid .item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding:30px;
+    background-color: rgb(210, 225, 229);
+    border-radius: 12px;
+    border:1px solid #d6d6e0;
+}
+.cus_IconsGrid .item:hover{
+    border-color: #2e2c5c;
+}
+.cus_IconsGrid h3{
+    text-align: center;
+    font-size: 21px;
+    font-weight: bold;
+}
+.cus_IconsGrid h5{
+    font-size: 16px;
+    color:#50505c;
 }
