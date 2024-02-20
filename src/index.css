@@ -67,3 +67,18 @@ background: #1D1955;
     font-size: 16px;
     color:#50505c;
 }
+
+.divcontainer{
+    max-width: 1200px;
+    margin:auto;
+}
+.cta_button{
+    background:#2b25ab;
+    color:white;
+    margin-top: 25px;
+    padding:13px 25px;
+    border-radius: 5px;
+}
+.cta_button:hover{
+    background:#221d82;
+}

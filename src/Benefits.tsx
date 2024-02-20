@@ -1,4 +1,5 @@
 import React from "react";
+import HumanizerImg from "./assets/humanizerEditorImg.png";
 import {
 	SparklesIcon,
 	PresentationChartLineIcon,
@@ -35,39 +36,47 @@ const features = [
 
 export default function Example() {
 	return (
-		<div className="bg-white py-24 sm:py-32">
-			<div className="mx-auto max-w-7xl px-6 lg:px-8">
-				<div className="mx-auto max-w-2xl lg:text-center">
-					<p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-						Benefits Of Unique Content
-					</p>
-				</div>
-				<div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-					<dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-						{features.map((feature) => (
-							<div key={feature.name} className="relative pl-16">
-								<dt className="text-base font-semibold leading-7 text-gray-900">
-									<div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-										<feature.icon
-											className="h-6 w-6 text-white"
-											aria-hidden="true"
-										/>
-									</div>
-									<div className="text-xl">
-										{feature.name}
-									</div>
-								</dt>
-								{feature.description.split("\n").map((text) => (
-									<dd
-										className="mt-2 text-base leading-7 text-gray-600"
-										key={`${feature.name}-${text}`}
-									>
-										{text}
-									</dd>
-								))}
-							</div>
-						))}
+		<div className="bg-white py-16">
+			<div className="relative lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 divcontainer">
+				<div className="relative">
+					<dl className="space-y-10">
+						<div className="relative">
+							<dt>
+								<p className="text-3xl font-bold lg:ml-12 leading-8 text-gray-900 mb-6">
+									No Content Spinning – It's a Real, Accurate
+									Text Humanizer
+								</p>
+							</dt>
+							<dd className="lg:ml-12 mt-2 text-base text-gray-500 blacktext">
+								Rewriting is not the only purpose. You want
+								content that makes sense and sounds written by a
+								human. This is exactly what RewriterPro does for
+								you. RewriterPro’s Text Humanizer turns your
+								AI-generated text into human-like so that it
+								passes even manual AI checks. It uses natural
+								language processing to give your AI content a
+								complete human touch without compromising the
+								accuracy of the text. What do you get? Content
+								with improved grammar, structure, flow, clarity,
+								and engagement.
+							</dd>
+							<button className="cta_button lg:ml-12">
+								Humanize AI Text for Free
+							</button>
+						</div>
 					</dl>
+				</div>
+
+				<div
+					className="relative -mx-0 mt-10 lg:mt-0"
+					aria-hidden="true"
+				>
+					<img
+						className="relative mx-auto"
+						width={500}
+						src={HumanizerImg}
+						alt=""
+					/>
 				</div>
 			</div>
 		</div>
