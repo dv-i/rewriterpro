@@ -28,7 +28,7 @@ background: #1D1955;
 }
 
 .yellowtxt{
-    /* color:#F8C425; */
+    /* color:#F8C425!important; */
     color:#61E8E1!important;
 }
 .editorfullimg{
@@ -70,6 +70,10 @@ background: #1D1955;
 
 .divcontainer{
     max-width: 1200px;
+    margin:auto;
+}
+.divcontainersmall{
+    max-width: 620px;
     margin:auto;
 }
 .cta_button{
