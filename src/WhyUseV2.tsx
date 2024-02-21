@@ -1,12 +1,12 @@
 import React from "react";
 
-import CreateContentImage from "./assets/create-content.png";
-import EnhanceProductvityImage from "./assets/enhance-productivity.png";
-import MoneyImage from "./assets/money.png";
-import SaveHoursImage from "./assets/save-hours.png";
-import CreativityImage from "./assets/creatitivity.png";
-import PlagiarismImage from "./assets/plagiarism.png";
-import SimplifyImage from "./assets/simplify.png";
+// import CreateContentImage from "./assets/create-content.png";
+// import EnhanceProductvityImage from "./assets/enhance-productivity.png";
+// import MoneyImage from "./assets/money.png";
+// import SaveHoursImage from "./assets/save-hours.png";
+// import CreativityImage from "./assets/creatitivity.png";
+// import PlagiarismImage from "./assets/plagiarism.png";
+// import SimplifyImage from "./assets/simplify.png";
 import EditorImg1 from "./assets/editor1.png";
 import EditorImg2 from "./assets/editorImg2.png";
 import AIicon from "./assets/aiIcon.png";
