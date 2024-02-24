@@ -86,3 +86,40 @@ background: #1D1955;
 .cta_button:hover{
     background:#221d82;
 }
+
+
+.logogrid{
+    max-width: 900px;
+    margin:auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 25px;
+    margin-top: 50px;
+}
+.logogrid .logoitem{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.logogrid .logoitem img{
+    
+    object-fit: cover;
+}
+.logogrid .logoitem h4{
+    font-weight: bold;
+    color:#26262e;
+}
+.buttoncontainer{
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    margin:auto;
+}
+.buttoncontainer p{
+    font-weight: 400;
+}

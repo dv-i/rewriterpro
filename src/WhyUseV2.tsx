@@ -8,7 +8,7 @@ import React from "react";
 // import PlagiarismImage from "./assets/plagiarism.png";
 // import SimplifyImage from "./assets/simplify.png";
 import EditorImg1 from "./assets/editor1.png";
-import EditorImg2 from "./assets/editorImg2.png";
+import EditorImg2 from "./assets/bgeidtorimg.png";
 import AIicon from "./assets/aiIcon.png";
 import Checkicon from "./assets/checkIcon.png";
 import "./index.css"; // Import the CSS file
