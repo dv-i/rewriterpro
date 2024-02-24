@@ -64,7 +64,9 @@ export default function AIInteractor({
 		}
 	};
 
-	const [aiDetectionScore, setAiDetectionScore] = useState("");
+	const [aiDetectionScore, setAiDetectionScore] = useState<string | null>(
+		null
+	);
 	useEffect(() => {
 		if (aiResult) {
 			api.ai.getDetectionScore(aiResult).then((res) => {

@@ -1,25 +1,9 @@
 import React from "react";
 import HumanizerImg from "./assets/humanizerEditorImg.png";
-<<<<<<< HEAD
 import GPTimg1 from "./assets/gpt3.5.png";
 import GPTimg2 from "./assets/gpt4.png";
 import Jasper from "./assets/JASPER.png";
 import Geminiaiimg from "./assets/geminiicon 1.png";
-
-import {
-	SparklesIcon,
-	PresentationChartLineIcon,
-	GlobeAsiaAustraliaIcon,
-	MagnifyingGlassCircleIcon,
-} from "@heroicons/react/24/outline";
-=======
-// import {
-// 	SparklesIcon,
-// 	PresentationChartLineIcon,
-// 	GlobeAsiaAustraliaIcon,
-// 	MagnifyingGlassCircleIcon,
-// } from "@heroicons/react/24/outline";
->>>>>>> ba71431ce79932a64a8ae5258ed2157a41d1d7e6
 
 // const features = [
 // 	{

@@ -17,7 +17,7 @@ interface AIResultsSectionProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	showLoader: boolean;
 	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
-	aiDetectionScore: string;
+	aiDetectionScore: string | null;
 }
 
 export default function AIResultsSection({
@@ -143,7 +143,9 @@ export default function AIResultsSection({
 								</div>
 							</div>
 						) : (
-							<Loader visible={!aiDetectionScore || showLoader} />
+							<Loader
+								visible={aiDetectionScore === "" || showLoader}
+							/>
 						)}
 						{aiDetectionScore && (
 							<span className="tooltip-text">
