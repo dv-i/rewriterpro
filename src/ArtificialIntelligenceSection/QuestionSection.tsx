@@ -30,6 +30,7 @@ interface QuestionSectionProps {
 	setCounter: React.Dispatch<React.SetStateAction<number>>;
 	counter: number;
 	user: User | undefined;
+	setAiDetectionScore: React.Dispatch<React.SetStateAction<string>>;
 }
 export default function QuestionSection({
 	aiPrompt,
@@ -42,6 +43,7 @@ export default function QuestionSection({
 	user,
 	showLoader,
 	setShowLoader,
+	setAiDetectionScore,
 }: QuestionSectionProps) {
 	const [isRewriteDisabled, setIsRewriteDisabled] = useState<boolean>(false);
 	const [isHumanizeEnabled, setIsHumanizeEnabled] = useState<boolean>(false);
@@ -117,6 +119,7 @@ export default function QuestionSection({
 	const startRewrite = () => {
 		setAiResult("");
 		handleParaphraseClick();
+		setAiDetectionScore("");
 	};
 
 	const Options = () => {
