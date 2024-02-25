@@ -5,13 +5,12 @@ import Communicationicon from "./assets/communication.png";
 import settingsicon from "./assets/settings.png";
 import Smileicon from "./assets/smileicon.png";
 import Multiicon from "./assets/multilangual.png";
-
 import Checkerimg from "./assets/aicheckerbuiltin.png";
 
 export default function Example() {
 	return (
 		<div className="">
-			<div className="workparentfirst">
+			<div className="workparentfirst workchangesection">
 				<div className="relative lg:mt-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 divcontainer pt-8 pb-16">
 					<div className="relative">
 						<dl className="space-y-10">
