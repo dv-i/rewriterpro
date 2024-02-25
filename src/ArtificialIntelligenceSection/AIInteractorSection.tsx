@@ -102,6 +102,7 @@ export default function AIInteractor({
 				setSideBarMode={setSideBarMode}
 				aiResult={aiResult}
 				setToast={setToast}
+				setAiResult={setAiResult}
 				showLoader={showLoader}
 				aiDetectionScore={aiDetectionScore}
 				getAiDetectionScore={getAiDetectionScore}

@@ -20,6 +20,7 @@ interface AIResultsSectionProps {
 	aiDetectionScore: string | null;
 	getAiDetectionScore: () => Promise<void>;
 	isAiDetectionScoreLoading: boolean;
+	setAiResult: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function AIResultsSection({
@@ -30,6 +31,7 @@ export default function AIResultsSection({
 	aiDetectionScore,
 	getAiDetectionScore,
 	isAiDetectionScoreLoading,
+	setAiResult,
 }: AIResultsSectionProps) {
 	const Options = () => {
 		return (
@@ -260,7 +262,9 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 									id="comment"
 									className="w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
-									disabled
+									onChange={(e) => {
+										setAiResult(e.target.value);
+									}}
 								/>
 							</div>
 							<div className="relative block sm:hidden ">
@@ -282,7 +286,9 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 									id="comment"
 									className="w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
-									disabled
+									onChange={(e) => {
+										setAiResult(e.target.value);
+									}}
 								/>
 							</div>
 						</div>
