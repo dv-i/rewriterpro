@@ -5,9 +5,6 @@ import GPTimg2 from "./assets/gpt4.png";
 import Jasper from "./assets/JASPER.png";
 import Geminiaiimg from "./assets/geminiicon 1.png";
 import PlagIcons from "./assets/plagIcons.png";
-
-<<<<<<< HEAD
-
 export default function Example() {
 	return (
 		<div className="bg-white py-16">
