@@ -5,10 +5,12 @@ function Privacy(): JSX.Element {
 		document.title = "Privacy Policy - RewriterPro.ai";
 	}, []);
 	return (
-		<div className="c38 doc-content max-w-5xl mx-auto p-5">
-			<p className="c1">
-				<span className="c14 c13 c35">PRIVACY POLICY</span>
-			</p>
+		<div className="c38 doc-content max-w-5xl mx-auto p-5 privacypolicycontent">
+			<h1 className="lg:max-w-2xl mx-auto text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
+				PRIVACY POLICY
+			</h1>
+			<div className="custom_divider"></div>
+
 			<p className="c1">
 				<span className="c25 c6 c30">Last updated August 09, 2023</span>
 			</p>
@@ -78,7 +80,7 @@ function Privacy(): JSX.Element {
 				</span>
 			</p>
 			<p className="c1">
-				<span className="c14 c6">SUMMARY OF KEY POINTS</span>
+				<span className="c14 c6 largeFont">SUMMARY OF KEY POINTS</span>
 			</p>
 			<p className="c1">
 				<span className="c6 c8">
@@ -168,7 +170,7 @@ function Privacy(): JSX.Element {
 				</span>
 			</p>
 			<p className="c1">
-				<span className="c14 c6">TABLE OF CONTENTS</span>
+				<span className="c14 c6 largeFont">TABLE OF CONTENTS</span>
 			</p>
 			<p className="c1">
 				<span className="c3">1. WHAT INFORMATION DO WE COLLECT?</span>

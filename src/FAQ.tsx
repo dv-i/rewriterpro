@@ -4,46 +4,57 @@ import { MinusSmallIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 
 const faqs = [
 	{
-		question: "What is RewriterPro.ai",
-		answer: "RewriterPro.ai is a rewriting tool that helps you rewrite your existing content through artificial intelligence ",
+		question: "Is there a free tool to rewrite AI content?",
+		answer: "RewriterPro is a free AI rewriter tool that helps you make the content written by AI tools undetectable and improve the writing quality. It makes your content free from silly errors or odd phrases while ensuring the original meaning of the text is not changed. Upgrade to increase limits to 6000 characters, unlock all premium features, and unlimited Ai text rewriting.",
 	},
 	{
-		question: "How does RewriterPro.ai Work?",
-		answer: "RewriterPro.ai features proprietary AI technology (that took two months to develop) to generate brilliant, and amazing content for your brand, business, or work. ",
+		question:
+			"How to make AI-generated text undetectable with RewriterPro? ",
+		answer: "To bypass AI detection, simply rewrite your text with RewriterPro.ai. The tool uses advanced algorithms and technology to change the style, structure, and wording of AI-generated content. It can make text generated with ChatGPT, Gemini (Bard), Jasper AI, Turnitin, and other AI tools undetectable in less than a second. ",
 	},
 	{
-		question: "Does RewriterPro.ai create Plagiairsm-Free content?",
-		answer: "Indeed. With the help of Artificial Intelligence, RewriterPro.ai produces exceptional, error-free, and plagiarism-free content. However, just to be safe, you can run the final content through any available plagiarism-checker tool to check for any possible plagiarism.",
+		question: "How do I rewrite AI-generated content with RewriterPro?",
+		answer: "Simply enter the text in the text box above, set your customization options, and hit the “Rewrite” button. You’ll get unique, undetectable content in just a click.",
 	},
 	{
-		question: "Is RewriterPro.ai available for Free?",
-		answer: "Unfortunately, RewriterPro.ai is a paid tool. But it comes with insanely low price packages. However, You can get 15 FREE rewrites for one day. This can help you get a good idea of what this tool is capable of.",
+		question:
+			"Does RewriterPro maintain the SEO optimization of the content?",
+		answer: "Yes, our tool is smart enough to understand and retain important keywords in your text. It rewrites the content in a better way while ensuring SEO remains intact.",
 	},
 	{
-		question: "What are the subscription plans?",
-		answer: "You get two options: You can pay $9.95 per month and get every feature unlocked. You can pay $59.95 annually. This comes down to only $4.99 per month. You get everything unlocked plus you save a huge $60 as compared to regular monthly billing.",
+		question: "What is the best AI Humanizer?",
+		answer: "RewriterPro is one of the best tools to humanize AI content and make it sound more human. It uses advanced technology and natural language processing to accurately rewrite content without losing the original idea. The text it generates is more clear, structured, and reader-friendly.",
+	},
+	{
+		question: "How to not get detected by GPT Zero?",
+		answer: "RewriterPro.ai is one of the best paraphrasing tools to avoid AI detection by GPTZero, Content at Scale, Originality AI, Copyleaks, Character AI filter, and more.",
+	},
+	{
+		question: "Why the Ai Humanizer is not working?",
+		answer: "To get a better human score for your AI content, try rewriting again, or copying the rewritten text again in the input box and click Rewrite with Humanizer On.",
 	},
 ];
 
 export default function Example() {
 	return (
-		<div className="bg-indigo-600 -z-10">
-			<div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+		<div className="faqssection">
+			<div className="mx-auto max-w-7xl px-6 py-12 sm:py-32 lg:px-8 lg:py-16">
 				<div className="mx-auto max-w-4xl divide-y divide-white/10">
-					<h2 className="text-2xl font-bold leading-10 tracking-tight text-white">
+					<h2 className="lg:max-w-2xl mx-auto text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
 						Frequently asked questions
 					</h2>
-					<dl className="mt-10 space-y-6 divide-y divide-white/10">
+					<div className="custom_divider"></div>
+					<dl className="mt-10 space-y-3 divide-y divide-white/10">
 						{faqs.map((faq) => (
 							<Disclosure
 								as="div"
 								key={faq.question}
-								className="pt-6"
+								className="py-6 faqitem"
 							>
 								{({ open }) => (
 									<>
 										<dt>
-											<Disclosure.Button className="flex w-full items-start justify-between text-left text-white">
+											<Disclosure.Button className="flex w-full items-start justify-between text-left">
 												<span className="text-base font-semibold leading-7">
 													{faq.question}
 												</span>
@@ -66,7 +77,7 @@ export default function Example() {
 											as="dd"
 											className="mt-2 pr-12"
 										>
-											<p className="text-base leading-7 text-gray-300">
+											<p className="text-base leading-7">
 												{faq.answer}
 											</p>
 										</Disclosure.Panel>

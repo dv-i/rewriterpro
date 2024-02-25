@@ -4,8 +4,12 @@ function Terms(): JSX.Element {
 		document.title = "Terms of Service - RewriterPro.ai";
 	}, []);
 	return (
-		<div className="mx-auto max-w-5xl p-5">
-			<h1 className="font-bold py-6 text-lg">Terms of Service</h1>
+		<div className="mx-auto max-w-5xl p-5 privacypolicycontent">
+			<h1 className="lg:max-w-2xl mx-auto text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">
+				Terms of Service
+			</h1>
+			<div className="custom_divider"></div>
+
 			<p>
 				<strong>Effective Date:</strong> [26/08/2023]
 			</p>
