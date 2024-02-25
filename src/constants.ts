@@ -15,7 +15,7 @@ export const BASE_URL =
 		? "http://localhost:3000"
 		: "https://rewriterpro.ai/";
 
-export const HUMANIZE_PROMPT = `Rewrite the following text. Follow these rules: use short words and low amount of syllables, change words with simpler words, use varied sentence lengths. Use 100 most common words in the English language when possible. Keep the word count the same.
+export const HUMANIZE_PROMPT = `Rewrite this and Add Human Creativity and Originality,Understanding Context and Nuance,Emotional Intelligence and Empathy,Critical Thinking and Reasoning, Personal Style and Voice: Humans possess unique styles and voices that come through in their writing. This makes their work more engaging and memorable for readers. human also made grammer mistake.
 `;
 
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";

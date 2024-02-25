@@ -6,6 +6,7 @@ import Jasper from "./assets/JASPER.png";
 import Geminiaiimg from "./assets/geminiicon 1.png";
 import PlagIcons from "./assets/plagIcons.png";
 
+<<<<<<< HEAD
 import {
 	SparklesIcon,
 	PresentationChartLineIcon,
@@ -39,6 +40,34 @@ const features = [
 		icon: MagnifyingGlassCircleIcon,
 	},
 ];
+=======
+// const features = [
+// 	{
+// 		name: "Bring Tons of Leads",
+// 		description:
+// 			"Quality content attracts a lot of eyes… and leads. Content produced through ReWriter AI has so much power and quality in it that your reader can’t resist reading more.\nThis type of attraction makes the reader your ‘fan’ and they are very near to becoming your potential high-value lead to your business. ",
+// 		icon: SparklesIcon,
+// 	},
+// 	{
+// 		name: "Break The SEO Charts",
+// 		description:
+// 			"One of the most difficult ways to stand out from the competition is to make SEO-friendly content. With ReWriterPro.ai, you will be able to generate content that can rank on Google’s first page and hence, be able to attract a lot of attention from visitors right off the bat.",
+// 		icon: PresentationChartLineIcon,
+// 	},
+// 	{
+// 		name: "Rule Social Media",
+// 		description:
+// 			"It’s quite hard to get in and keep up with the latest social media trends. And most of the “stay on top charts” game relies on how EPIC and thrilling your content is.\nRewriterPro.ai is able to capture the same voice and tone that matches the social media vibes in order to people’s attention.\nWith an exemplary touch, you can generate content that stays on top charts and attracts the eyes of potential audiences all the time.",
+// 		icon: GlobeAsiaAustraliaIcon,
+// 	},
+// 	{
+// 		name: "Amplify Your Brand Image",
+// 		description:
+// 			"The same goes for the brand image as well. When you’re using words, phrases, and sentences that arouse the audience’s emotions, you are more likely to be able to drive any sort of action from them. It can be: a \n“follow” to your brand, a “registration” for a pre-launch product, a “buy now” for an existing product.You name it and ReWriter AI will do it. ",
+// 		icon: MagnifyingGlassCircleIcon,
+// 	},
+// ];
+>>>>>>> 64a074a1a6fdb93d238b6de43f47d78974369162
 
 export default function Example() {
 	return (

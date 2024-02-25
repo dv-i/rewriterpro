@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
 	ArrowDownTrayIcon,
 	ChatBubbleBottomCenterTextIcon,
@@ -9,7 +9,7 @@ import { getRandomQuote } from "../utils/general";
 import loadingIcon from "../../src/assets/loading.gif";
 import "../../src/assets/tooltip.css";
 import { SideBarMode } from "../store/dataInterfaces";
-import api from "../api/api";
+
 import { Loader } from "../Loader";
 
 interface AIResultsSectionProps {
@@ -17,6 +17,7 @@ interface AIResultsSectionProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
 	showLoader: boolean;
 	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
+	aiDetectionScore: string | null;
 }
 
 export default function AIResultsSection({
@@ -24,17 +25,8 @@ export default function AIResultsSection({
 	setToast,
 	showLoader,
 	setSideBarMode,
+	aiDetectionScore,
 }: AIResultsSectionProps) {
-	const [aiDetectionScore, setAiDetectionScore] = useState("");
-	useEffect(() => {
-		if (aiResult) {
-			api.ai.getDetectionScore(aiResult).then((res) => {
-				if (res.response) {
-					setAiDetectionScore(res.response);
-				}
-			});
-		}
-	}, [aiResult]);
 	const Options = () => {
 		return (
 			<div className="inset-x-0 bottom-0 flex justify-between py-2 sm:pl-3">
@@ -138,7 +130,7 @@ export default function AIResultsSection({
 					)}
 
 					<div className="flex-shrink-0 py-2 tooltip-container mr-2">
-						{aiDetectionScore && !showLoader ? (
+						{aiDetectionScore ? (
 							<div>
 								<div
 									className={`${
@@ -151,13 +143,17 @@ export default function AIResultsSection({
 								</div>
 							</div>
 						) : (
-							<Loader visible={showLoader} />
+							<Loader
+								visible={aiDetectionScore === "" || showLoader}
+							/>
 						)}
-						<span className="tooltip-text">
-							{parseInt(aiDetectionScore) < 50
-								? "Your text is likely to be written by a human"
-								: "AI Content Detected"}
-						</span>
+						{aiDetectionScore && (
+							<span className="tooltip-text">
+								{parseInt(aiDetectionScore) < 50
+									? "Your text is likely to be written by a human"
+									: "AI Content Detected"}
+							</span>
+						)}
 					</div>
 					<div className="flex-shrink-0 py-2 tooltip-container">
 						<button

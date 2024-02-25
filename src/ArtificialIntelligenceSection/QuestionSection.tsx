@@ -30,6 +30,7 @@ interface QuestionSectionProps {
 	setCounter: React.Dispatch<React.SetStateAction<number>>;
 	counter: number;
 	user: User | undefined;
+	setAiDetectionScore: React.Dispatch<React.SetStateAction<string | null>>;
 }
 export default function QuestionSection({
 	aiPrompt,
@@ -42,6 +43,7 @@ export default function QuestionSection({
 	user,
 	showLoader,
 	setShowLoader,
+	setAiDetectionScore,
 }: QuestionSectionProps) {
 	const [isRewriteDisabled, setIsRewriteDisabled] = useState<boolean>(false);
 	const [isHumanizeEnabled, setIsHumanizeEnabled] = useState<boolean>(false);
@@ -88,16 +90,20 @@ export default function QuestionSection({
 	const inputFile = useRef<HTMLInputElement | null>(null);
 
 	useEffect(() => {
-		if (
-			!user?.pro &&
-			(MAX_TRIES <= counter || aiPrompt.length > MAX_CHARACTERS_FREE)
-		) {
+		if (!aiPrompt) {
 			setIsRewriteDisabled(true);
 		} else {
-			if (aiPrompt.length > MAX_CHARACTERS_PRO) {
+			if (
+				!user?.pro &&
+				(MAX_TRIES <= counter || aiPrompt.length > MAX_CHARACTERS_FREE)
+			) {
 				setIsRewriteDisabled(true);
 			} else {
-				setIsRewriteDisabled(false);
+				if (aiPrompt.length > MAX_CHARACTERS_PRO) {
+					setIsRewriteDisabled(true);
+				} else {
+					setIsRewriteDisabled(false);
+				}
 			}
 		}
 	}, [aiPrompt, user, counter]);
@@ -117,6 +123,7 @@ export default function QuestionSection({
 	const startRewrite = () => {
 		setAiResult("");
 		handleParaphraseClick();
+		setAiDetectionScore("");
 	};
 
 	const Options = () => {

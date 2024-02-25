@@ -9,8 +9,7 @@ import {
 } from "../store/constants";
 import QuestionSection from "./QuestionSection";
 import AIResultsSection from "./AIResultSection";
-// import loadingIcon2 from "../src/assets/loading2.gif";
-// import loadingIcon3 from "../src/assets/loading3.gif";
+import api from "../api/api";
 
 export interface AIInteractorProps {
 	setToast: React.Dispatch<React.SetStateAction<ToastProps | undefined>>;
@@ -64,6 +63,20 @@ export default function AIInteractor({
 			});
 		}
 	};
+
+	const [aiDetectionScore, setAiDetectionScore] = useState<string | null>(
+		null
+	);
+	useEffect(() => {
+		if (aiResult) {
+			api.ai.getDetectionScore(aiResult).then((res) => {
+				if (res.response) {
+					console.log("RES", res.response);
+					setAiDetectionScore(res.response);
+				}
+			});
+		}
+	}, [aiResult]);
 	useEffect(() => {
 		if (aiPrompt && aiResult) {
 			setRemoteOrLocalQuestionsAndResponses();
@@ -83,12 +96,14 @@ export default function AIInteractor({
 				user={user}
 				showLoader={showLoader}
 				setShowLoader={setShowLoader}
+				setAiDetectionScore={setAiDetectionScore}
 			/>
 			<AIResultsSection
 				setSideBarMode={setSideBarMode}
 				aiResult={aiResult}
 				setToast={setToast}
 				showLoader={showLoader}
+				aiDetectionScore={aiDetectionScore}
 			/>
 		</div>
 	);
