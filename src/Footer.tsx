@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import footerlogo from "./assets/logo.png";
 const navigation = {
 	main: [
+		{ name: "Ai Rewriter & Humanizer", href: "/" },
 		{ name: "About", href: "/about" },
 		{ name: "Privacy", href: "/privacy" },
 		{ name: "Contact Us", href: "/contact" },
@@ -26,6 +28,10 @@ export default function Footer() {
 	return (
 		<footer className="bg-white">
 			<div className="mx-auto max-w-7xl overflow-hidden px-3 py-10">
+				<a href="https://rewriterpro.ai/">
+					<img className="footerLogo" src={footerlogo} alt="" />
+				</a>
+
 				<nav
 					className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
 					aria-label="Footer"
@@ -47,7 +53,7 @@ export default function Footer() {
 						</div>
 					))}
 				</nav>
-				<p className="mt-10 text-center text-xs leading-5 text-gray-500">
+				<p className="mt-10 text-center text-xs leading-5 text-gray-500 copyrighttext">
 					&copy; 2023 RewriterPro.ai, Inc. All rights reserved.
 				</p>
 			</div>

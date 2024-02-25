@@ -35,9 +35,9 @@ export default function CTA() {
 
 export function CTAv2() {
 	return (
-		<div className="bg-indigo-600">
-			<div className="px-6 pt-0 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
-				<div className="mx-auto max-w-4xl text-center mt-5">
+		<div className="bg-indigo-600 bannerbg">
+			<div className="px-6 pt-6 pb-24 sm:px-6 sm:pt-0 sm:pb-30 lg:px-8">
+				<div className="mx-auto max-w-4xl text-center mt-8">
 					<h2 className="text-[2.8rem] leading-[2.8rem] font-bold tracking-tight text-indigo-200 text-center">
 						<span className="text-white">
 							Rewrite AI Text to{" "}
