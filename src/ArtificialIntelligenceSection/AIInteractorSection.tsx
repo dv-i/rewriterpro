@@ -67,16 +67,16 @@ export default function AIInteractor({
 	const [aiDetectionScore, setAiDetectionScore] = useState<string | null>(
 		null
 	);
-	useEffect(() => {
-		if (aiResult) {
-			api.ai.getDetectionScore(aiResult).then((res) => {
-				if (res.response) {
-					console.log("RES", res.response);
-					setAiDetectionScore(res.response);
-				}
-			});
+	const [isAiDetectionScoreLoading, setIsAiDetectionScoreLoading] =
+		useState(false);
+	const getAiDetectionScore = async () => {
+		setIsAiDetectionScoreLoading(true);
+		const score = await api.ai.getDetectionScore(aiResult);
+		if (score.response) {
+			setAiDetectionScore(score.response);
 		}
-	}, [aiResult]);
+		setIsAiDetectionScoreLoading(false);
+	};
 	useEffect(() => {
 		if (aiPrompt && aiResult) {
 			setRemoteOrLocalQuestionsAndResponses();
@@ -102,8 +102,11 @@ export default function AIInteractor({
 				setSideBarMode={setSideBarMode}
 				aiResult={aiResult}
 				setToast={setToast}
+				setAiResult={setAiResult}
 				showLoader={showLoader}
 				aiDetectionScore={aiDetectionScore}
+				getAiDetectionScore={getAiDetectionScore}
+				isAiDetectionScoreLoading={isAiDetectionScoreLoading}
 			/>
 		</div>
 	);

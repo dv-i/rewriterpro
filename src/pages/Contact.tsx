@@ -65,7 +65,6 @@ export default function Contact({ setToast, toast }: ContactProps) {
 					}
 				);
 		} else {
-			console.log("missing field");
 			setToast({
 				visible: true,
 				title: "Error",

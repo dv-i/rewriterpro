@@ -100,15 +100,12 @@ export const getAIDetectionScore = async (
 			headers: headers,
 			body: JSON.stringify(requestData),
 		});
-		console.log("detection response");
-		console.log(response);
 
 		if (!response.ok) {
 			throw new Error("API request failed");
 		}
 
 		const data = await response.json();
-		console.log(data);
 		if (data.length === 0) {
 			return;
 		}

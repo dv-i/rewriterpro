@@ -9,7 +9,7 @@ import { getRandomQuote } from "../utils/general";
 import loadingIcon from "../../src/assets/loading.gif";
 import "../../src/assets/tooltip.css";
 import { SideBarMode } from "../store/dataInterfaces";
-
+import aiGlass from "../assets/ai-glass.png";
 import { Loader } from "../Loader";
 
 interface AIResultsSectionProps {
@@ -18,6 +18,9 @@ interface AIResultsSectionProps {
 	showLoader: boolean;
 	setSideBarMode: React.Dispatch<React.SetStateAction<SideBarMode>>;
 	aiDetectionScore: string | null;
+	getAiDetectionScore: () => Promise<void>;
+	isAiDetectionScoreLoading: boolean;
+	setAiResult: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function AIResultsSection({
@@ -26,6 +29,9 @@ export default function AIResultsSection({
 	showLoader,
 	setSideBarMode,
 	aiDetectionScore,
+	getAiDetectionScore,
+	isAiDetectionScoreLoading,
+	setAiResult,
 }: AIResultsSectionProps) {
 	const Options = () => {
 		return (
@@ -130,7 +136,9 @@ export default function AIResultsSection({
 					)}
 
 					<div className="flex-shrink-0 py-2 tooltip-container mr-2">
-						{aiDetectionScore ? (
+						{isAiDetectionScoreLoading ? (
+							<Loader visible={isAiDetectionScoreLoading} />
+						) : aiDetectionScore ? (
 							<div>
 								<div
 									className={`${
@@ -143,17 +151,29 @@ export default function AIResultsSection({
 								</div>
 							</div>
 						) : (
-							<Loader
-								visible={aiDetectionScore === "" || showLoader}
+							<img
+								className={
+									aiResult
+										? "cursor-pointer"
+										: "cursor-default"
+								}
+								onClick={async () => {
+									if (aiResult) {
+										await getAiDetectionScore();
+									}
+								}}
+								src={aiGlass}
+								width={30}
 							/>
 						)}
-						{aiDetectionScore && (
-							<span className="tooltip-text">
-								{parseInt(aiDetectionScore) < 50
-									? "Your text is likely to be written by a human"
-									: "AI Content Detected"}
-							</span>
-						)}
+
+						<span className="tooltip-text">
+							{!aiDetectionScore
+								? "Rewrite text to detect AI score"
+								: parseInt(aiDetectionScore) < 50
+								? "Your text is likely to be written by a human"
+								: "AI Content Detected"}
+						</span>
 					</div>
 					<div className="flex-shrink-0 py-2 tooltip-container">
 						<button
@@ -242,7 +262,9 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 									id="comment"
 									className="w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
-									disabled
+									onChange={(e) => {
+										setAiResult(e.target.value);
+									}}
 								/>
 							</div>
 							<div className="relative block sm:hidden ">
@@ -264,7 +286,9 @@ c748 439 1689 329 2308 -271 176 -170 288 -324 393 -536 364 -741 218 -1624
 									id="comment"
 									className="w-full resize-none border-0 p-4 h-full bg-transparent text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-md sm:leading-6"
 									value={aiResult}
-									disabled
+									onChange={(e) => {
+										setAiResult(e.target.value);
+									}}
 								/>
 							</div>
 						</div>

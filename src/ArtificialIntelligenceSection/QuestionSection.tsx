@@ -227,8 +227,8 @@ export default function QuestionSection({
 							type="submit"
 							className={`w-full inline-flex justify-center items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								isRewriteDisabled
-									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+									? "cursor-default bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
+									: "cursor-pointer bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
@@ -359,8 +359,8 @@ export default function QuestionSection({
 							type="submit"
 							className={`inline-flex items-center rounded-md px-3 py-2 text-md font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
 								isRewriteDisabled
-									? "bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
-									: "bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
+									? "cursor-default bg-gray-600 hover:bg-gray-500 focus-visible:outline-gray-600"
+									: "cursor-pointer bg-indigo-600 hover:bg-indigo-500 focus-visible:outline-indigo-600"
 							}`}
 							onClick={() => startRewrite()}
 							disabled={isRewriteDisabled}
