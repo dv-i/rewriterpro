@@ -5,7 +5,7 @@ import Communicationicon from "./assets/communication.png";
 import settingsicon from "./assets/settings.png";
 import Smileicon from "./assets/smileicon.png";
 import Multiicon from "./assets/multilangual.png";
-import Checkerimg from "./assets/aicheckerbuiltin.png";
+import Checkerimg from "./assets/aicheckerbuiltin-65dde5ad3cc68.webp";
 
 export default function Example() {
 	return (

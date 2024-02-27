@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ownerImg from "../assets/img32.png";
+import ownerImg from "../assets/img32-65dde644d0770.webp";
 import developerImg from "../assets/developerImage.png";
 import DesignerImg from "../assets/designerimage.png";
 import editorImageabout from "../assets/editorAboutImage.png";

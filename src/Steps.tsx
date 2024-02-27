@@ -1,5 +1,5 @@
 import React from "react";
-import Editorimgsteps from "./assets/editorstepsuseImage.png";
+import Editorimgsteps from "./assets/editorstepsuseimage-65dde4e45265d.webp";
 import Icon1 from "./assets/listiconcheck.png";
 import Icon2 from "./assets/listiconai.png";
 import Icon3 from "./assets/listiconsearch.png";

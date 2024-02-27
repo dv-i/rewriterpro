@@ -1,10 +1,10 @@
 import React from "react";
-import HumanizerImg from "./assets/humanizerEditorImg.png";
-import GPTimg1 from "./assets/gpt3.5.png";
+import HumanizerImg from "./assets/humanizereditorimg-65dde5c4dcb26.webp";
+import GPTimg1 from "./assets/gpt35-65dde62e8d4fa.webp";
 import GPTimg2 from "./assets/gpt4.png";
-import Jasper from "./assets/JASPER.png";
-import Geminiaiimg from "./assets/geminiicon 1.png";
-import PlagIcons from "./assets/plagIcons.png";
+import Jasper from "./assets/jasper-65dde60990899.webp";
+import Geminiaiimg from "./assets/geminiicon-1-65dde61f3147d.webp";
+import PlagIcons from "./assets/plagicons-65dde5db719f7.webp";
 export default function Example() {
 	return (
 		<div className="bg-white py-16">
