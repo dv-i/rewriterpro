@@ -47,7 +47,7 @@ export function CTAv2() {
 							and Bypass AI Detection
 						</span>
 					</h2>
-					<p className="mx-auto mt-6 max-w-2xl text-lg leading-6 text-indigo-200 pb-5">
+					<p className="mx-auto mt-6 max-w-2xl text-lg leading-6 text-indigo-200 pb-5" id="editorRewriter">
 						Remove AI content and bypass AI detectors. The AI text
 						humanizer improves AI-written content to match the
 						quality of human writing. Zero plagiarism!

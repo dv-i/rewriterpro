@@ -32,9 +32,9 @@ export default function Example() {
 								with improved grammar, structure, flow, clarity,
 								and engagement.`}
 							</dd>
-							<button className="cta_button lg:ml-12">
+							<a href="#editorRewriter" className="cta_button lg:ml-12">
 								Humanize AI Text for Free
-							</button>
+							</a>
 						</div>
 					</dl>
 				</div>
@@ -97,9 +97,9 @@ export default function Example() {
 					`}
 					</dd>
 
-					<button className="cta_button">
+					<a href="#editorRewriter" className="cta_button">
 						Bypass AI Detectors Now
-					</button>
+					</a>
 				</div>
 			</div>
 			<div className="relative lg:mt-20 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 divcontainer">
@@ -116,9 +116,9 @@ export default function Example() {
 									Use our rewriter tool to remove plagiarism from your AI-generated or human-written content. It ensures that every piece is 100% unique and plagiarism-free, making it an ideal solution for bloggers, marketers, and academic professionals. 
 									`}
 							</dd>
-							<button className="cta_button lg:ml-12">
+							<a href="#editorRewriter" className="cta_button lg:ml-12">
 								Remove Plagiarism Now
-							</button>
+							</a>
 						</div>
 					</dl>
 				</div>

@@ -108,7 +108,7 @@ export default function Example() {
 					</div>
 				</div>
 				<div className="buttoncontainer text-center">
-					<a className="cta_button">Try for Free Now</a>
+					<a href="#editorRewriter" className="cta_button">Try for Free Now</a>
 				</div>
 			</div>
 		</div>
