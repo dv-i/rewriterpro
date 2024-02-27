@@ -436,9 +436,19 @@ nav button:hover{
 
 
 .disclaimertext{
-    padding-left: 14%!important;
-    padding-right: 14%!important;
+   
     font-style: italic!important;
     font-size: 14px;
     color:#ffffffa5!important;
+}
+
+
+@media(min-width:900px){
+    .disclaimertext{
+        padding-left: 26%!important;
+        padding-right: 26%!important;
+        font-style: italic!important;
+        font-size: 14px;
+        color:#ffffffa5!important;
+    }
 }
