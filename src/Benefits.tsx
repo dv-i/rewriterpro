@@ -32,6 +32,7 @@ export default function Example() {
 								with improved grammar, structure, flow, clarity,
 								and engagement.`}
 							</dd>
+							<br /><br />
 							<a href="#editorRewriter" className="cta_button lg:ml-12">
 								Humanize AI Text for Free
 							</a>
@@ -96,7 +97,7 @@ export default function Example() {
 					It makes your AI text undetectable by leading AI content detectors, including: 
 					`}
 					</dd>
-
+					
 					<a href="#editorRewriter" className="cta_button">
 						Bypass AI Detectors Now
 					</a>
@@ -115,7 +116,7 @@ export default function Example() {
 								{`
 									Use our rewriter tool to remove plagiarism from your AI-generated or human-written content. It ensures that every piece is 100% unique and plagiarism-free, making it an ideal solution for bloggers, marketers, and academic professionals. 
 									`}
-							</dd>
+							</dd><br /><br />
 							<a href="#editorRewriter" className="cta_button lg:ml-12">
 								Remove Plagiarism Now
 							</a>
