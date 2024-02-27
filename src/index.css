@@ -77,15 +77,16 @@ background: #0d0b32;
     max-width: 620px;
     margin:auto;
 }
+
 .cta_button{
-    background:#2b25ab;
+    background:#2b25ab!important;
     color:white;
     margin-top: 25px;
     padding:13px 25px;
     border-radius: 5px;
 }
 .cta_button:hover{
-    background:#221d82;
+    background:#221d82!important;
 }
 
 
@@ -431,4 +432,13 @@ nav button:hover{
      .cus_IconsGrid{
         grid-template-columns: 1fr;
      }
+}
+
+
+.disclaimertext{
+    padding-left: 14%!important;
+    padding-right: 14%!important;
+    font-style: italic!important;
+    font-size: 14px;
+    color:#ffffffa5!important;
 }

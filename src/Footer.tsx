@@ -31,7 +31,7 @@ export default function Footer() {
 				<a href="https://rewriterpro.ai/">
 					<img className="footerLogo" src={footerlogo} alt="" />
 				</a>
-
+				
 				<nav
 					className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
 					aria-label="Footer"
@@ -53,6 +53,11 @@ export default function Footer() {
 						</div>
 					))}
 				</nav>
+				<p className="mt-10 text-center text-xs leading-5 text-gray-500 copyrighttext disclaimertext">
+					{
+						"Disclaimer: By using RewriterPro, you agree to utilize this tool responsibly and refrain from engaging in any academic misconduct."
+					}
+				</p>
 				<p className="mt-10 text-center text-xs leading-5 text-gray-500 copyrighttext">
 					&copy; 2023 RewriterPro.ai, Inc. All rights reserved.
 				</p>
